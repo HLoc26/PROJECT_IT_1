@@ -1,16 +1,18 @@
 // Các hàm trả về dữ liệu cho routes/web.js
 const getHomepage = (req, res) => {
-	// process data
-	// call model
-	res.render("homepage.ejs");
+	res.render("container", { view: "homepage" });
 };
 
-const getNewPage = (req, res) => {
-	res.send("Hello, this is a new page");
+const getArtistsPage = (req, res) => {
+	res.render("container", { view: "artists" });
 };
 
-const renderSample = (req, res) => {
-	res.render("sample.ejs");
+const getTracksPage = (req, res) => {
+	res.render("container", { view: "tracks" });
 };
 
-module.exports = { getHomepage, getNewPage, renderSample };
+const getProfilePage = (req, res) => {
+	res.render("container", { view: "profile" });
+};
+
+module.exports = { getHomepage, getArtistsPage, getTracksPage, getProfilePage };
