@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/container.css">
+</head>
+<body>
+    <div id="container">
+        <!-- Thanh điều hướng (navbar) -->
+        <nav>
+            <%- include('navbar') %>
+        </nav>
+        <!-- Nội dung gồm sidebar và content để load -->
+        <div id="main-page">
+            <%- include('sidebar') %>
+            <div id="content">
+                <%- include(view) %> <!-- Nội dung thay đổi trong đây -->
+            </div>
+        </div>
+        <!-- Phần thanh progres nhạc -->
+        <div id="music-player">
+            <%- include('player') %>
+        </div>
+        
+    </div>
+</body>
+</html>
