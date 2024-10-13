@@ -9,4 +9,4 @@ services:
       - "3307:3306"
     volumes:
       - ./mysql_data:/var/lib/mysql
-# dockercompose -f mysql.yml --env-file .env -p project_it up -d
+# docker-compose -f mysql.yml --env-file .env -p project_it up -d
