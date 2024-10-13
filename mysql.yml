@@ -1,0 +1,12 @@
+services:
+  db-mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_PWD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+# docker-compose -f mysql.yml --env-file .env -p project_it up -d

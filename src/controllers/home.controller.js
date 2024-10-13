@@ -2,7 +2,7 @@
 const getHomepage = (req, res) => {
 	// process data
 	// call model
-	res.send("Hello Sáng from express server!");
+	res.render("homepage.ejs");
 };
 
 const getNewPage = (req, res) => {
