@@ -11,8 +11,9 @@
 <body>
 
     <div class="container" id="container">
+        <!-- Sign Up Form -->
         <div class="form-container sign-up">
-            <form>
+            <form method="POST">
                 <h1>Create Account</h1>
                 <div class="social-icons">
                     <a href="#" class="icons"><i class='bx bxl-google'></i></a>
@@ -21,16 +22,17 @@
                     <a href="#" class="icons"><i class='bx bxl-linkedin'></i></a>
                 </div>
                 <span>Register with E-mail</span>
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Enter E-mail">
-                <input type="password" placeholder="Enter Password">
-                <button>Sign Up</button>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Enter E-mail" required>
+                <input type="password" placeholder="Enter Password" required>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
 
 
+        <!-- Sign In Form -->
         <div class="form-container sign-in">
-            <form>
+            <form method="POST">
                 <h1>Sign In</h1>
                 <div class="social-icons">
                     <a href="#" class="icons"><i class='bx bxl-google'></i></a>
@@ -39,10 +41,10 @@
                     <a href="#" class="icons"><i class='bx bxl-linkedin'></i></a>
                 </div>
                 <span>Login With Email & Password</span>
-                <input type="email" placeholder="Enter E-mail">
-                <input type="password" placeholder="Enter Password">
+                <input type="email" placeholder="Enter E-mail" required>
+                <input type="password" placeholder="Enter Password" required>
                 <a href="#">Forget Password?</a>
-                <button>Sign In</button>
+                <button type="submit">Sign In</button>
             </form>
         </div>
 
@@ -51,7 +53,7 @@
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
                     <h1>Welcome To <br>Musica!</h1>
-                    <p>Already has account?<br>Sign in With ID & Passowrd</p>
+                    <p>Already has account?<br>Sign in With ID & Password</p>
                     <button class="hidden" id="login">Sign In</button>
                 </div>
                 <div class="toggle-panel toggle-right">
