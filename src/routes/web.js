@@ -1,12 +1,14 @@
 // Điều hướng trang
 const express = require("express");
-const { getHomepage, getNewPage, renderSample } = require("../controllers/home.controller");
 const router = express.Router();
+const { getHomepage, getArtistsPage, getTracksPage, getProfilePage } = require("../controllers/home.controller");
 
 router.get("/", getHomepage);
 
-router.get("/newpage", getNewPage);
+router.get("/artists", getArtistsPage);
 
-router.get("/ejs", renderSample);
+router.get("/tracks", getTracksPage);
+
+router.get("/profile", getProfilePage);
 
 module.exports = router;
