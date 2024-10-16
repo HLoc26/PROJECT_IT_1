@@ -1,10 +1,10 @@
 require("dotenv").config();
 const sql = require("mssql");
 
-// Load environment variables
-if (process.env.NODE_ENV === "development") {
-	require("dotenv").config({ path: `.env.${process.env.NODE_ENV}`, debug: true });
-}
+// // Load environment variables
+// if (process.env.NODE_ENV === "development") {
+// 	require("dotenv").config({ path: `.env.${process.env.NODE_ENV}`, debug: true });
+// }
 
 // Connection configuration
 const config = {
