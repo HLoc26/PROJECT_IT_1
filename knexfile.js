@@ -26,4 +26,4 @@ module.exports = {
 			directory: "./src/seeds",
 		},
 	},
-};
+}["development"];
