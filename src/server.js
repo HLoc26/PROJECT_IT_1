@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const configViewEngine = require("./config/viewEngine");
 const webRoutes = require("./routes/web");
+const { connectWithRetry } = require("./config/database");
 const knex = require("./config/knex");
 const app = express();
 const port = process.env.PORT || 8080;
@@ -14,11 +15,19 @@ configViewEngine(app);
 app.use("/", webRoutes);
 
 // Kiểm tra kết nối
-knex.raw("SELECT 1+1 AS result")
-	.then(() => console.log("Database connection is working!"))
-	.catch((err) => console.error("Database connection failed!", err));
+const startServer = async () => {
+	try {
+		// Đảm bảo kết nối với database
+		await connectWithRetry();
 
-// Start the server
-app.listen(port, hostname, () => {
-	console.log(`App listening on ${hostname}:${port}`);
-});
+		// Khởi động server
+		app.listen(port, hostname, () => {
+			console.log(`App listening on ${hostname}:${port}`);
+		});
+	} catch (err) {
+		console.error("Could not start the server:", err.message);
+		process.exit(1); // Kết thúc chương trình nếu không thể kết nối với database
+	}
+};
+
+startServer();
