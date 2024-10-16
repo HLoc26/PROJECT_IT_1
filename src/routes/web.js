@@ -23,7 +23,7 @@ router.get("/tracks", getTracksPage);
 
 router.get("/profile", getProfilePage);
 
-router.post("/register", postRegister);
+router.post("/register", [express.urlencoded({ extended: true }), express.json()], postRegister);
 
 router.post("/login", postLogin);
 
