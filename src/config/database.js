@@ -1,12 +1,6 @@
 require("dotenv").config();
 const sql = require("mssql");
 
-// // Load environment variables
-// if (process.env.NODE_ENV === "development") {
-// 	require("dotenv").config({ path: `.env.${process.env.NODE_ENV}`, debug: true });
-// }
-
-// Connection configuration
 const config = {
 	server: process.env.AZURE_SQL_SERVER,
 	database: process.env.AZURE_SQL_DATABASE,
@@ -18,16 +12,29 @@ const config = {
 	},
 };
 
-// Create a connection pool
-const pool = new sql.ConnectionPool(config);
-const poolConnect = pool.connect();
+const connectWithRetry = async (retryCount = 5, delay = 3000) => {
+	let attempt = 0;
+	while (attempt < retryCount) {
+		try {
+			const pool = new sql.ConnectionPool(config);
+			const poolConnect = pool.connect();
+			await poolConnect;
+			console.log("Database connected successfully.");
+			return pool;
+		} catch (err) {
+			attempt++;
+			console.error(`Database connection failed (attempt ${attempt}/${retryCount}):`, err.message);
+			if (attempt < retryCount) {
+				console.log(`Retrying connection in ${delay / 1000} seconds...`);
+				await new Promise((res) => setTimeout(res, delay));
+			} else {
+				throw new Error("Max retry attempts reached. Could not connect to the database.");
+			}
+		}
+	}
+};
 
-// Export the pool and a function to ensure connection
+// Export the pool and the retry connection function
 module.exports = {
-	pool,
-	poolConnect,
-	ensureConnection: async () => {
-		await poolConnect;
-		return pool;
-	},
+	connectWithRetry,
 };
