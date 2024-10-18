@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/public/css/loginstyle.css">
+    <link rel="stylesheet" href="/css/loginstyle.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>        
     <title>Login & Register</title>
 </head>
@@ -13,7 +13,7 @@
     <div class="container" id="container">
         <!-- Sign Up Form -->
         <div class="form-container sign-up">
-            <form method="POST">
+            <form action="/register" method="POST">
                 <h1>Create Account</h1>
                 <div class="social-icons">
                     <a href="#" class="icons"><i class='bx bxl-google'></i></a>
@@ -32,7 +32,7 @@
 
         <!-- Sign In Form -->
         <div class="form-container sign-in">
-            <form method="POST">
+            <form action="/login" method="POST">
                 <h1>Sign In</h1>
                 <div class="social-icons">
                     <a href="#" class="icons"><i class='bx bxl-google'></i></a>
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <script src="/src/public/js/loginscript.js"></script>
+    <script src="/js/loginscript.js"></script>
 </body>
 
 </html>
