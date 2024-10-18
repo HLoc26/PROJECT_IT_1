@@ -1,0 +1,24 @@
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+exports.up = function (knex) {
+	return knex.schema.createTable("tracks", function (table) {
+		table.increments("track_id").primary();
+		table.string("track_title").notNullable();
+		table.float("track_duration").notNullable().checkPositive();
+		table.string("track_mp3_path").notNullable();
+		table.string("track_lyrics_path");
+		table.enu("visibility", ["public", "private", "unlisted"]).notNullable();
+		table.integer("artist_id").unsigned().references("artist_id").inTable("artists");
+		table.timestamps(true, true);
+	});
+};
+
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+exports.down = function (knex) {
+	return knex.schema.dropTableIfExists("tracks");
+};
