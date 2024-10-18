@@ -1,5 +1,5 @@
-require("dotenv").config();
-const knex = require("knex");
+import "dotenv/config";
+import knex from "knex";
 
 const knexInstance = knex({
 	client: "mssql",
@@ -16,4 +16,4 @@ const knexInstance = knex({
 	},
 });
 
-module.exports = knexInstance;
+export default knexInstance;
