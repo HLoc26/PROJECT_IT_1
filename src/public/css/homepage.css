@@ -132,10 +132,10 @@ html {
 	margin-left: 5px;
 }
 .dropdown-menu .profile-info img {
-	width: 30px; /* Set a smaller width */
-	height: 30px; /* Set a smaller height */
-	border-radius: 50%; /* Keep the image circular */
-	object-fit: cover; /* Ensures the image doesn't get distorted */
+	width: 30px; 
+	height: 30px; 
+	border-radius: 50%; 
+	object-fit: cover; 
 }
 /* Dropdown Menu Styles */
 .dropdown-menu {
@@ -303,7 +303,7 @@ html {
 	background-color: #f4f4f4;
 }
 
-/* Toggle dropdown visibility */
+Toggle dropdown visibility 
 .user-profile:hover .dropdown-menu {
 	display: block;
 }
