@@ -1,5 +1,5 @@
-const bcrypt = require("bcrypt");
-const knex = require("../config/knex");
+import { hash } from "bcrypt";
+import knex from "../config/knex.js";
 
 // Các hàm trả về dữ liệu cho routes/web.js
 const getLogin = (req, res) => {
@@ -38,7 +38,7 @@ const postRegister = async (req, res) => {
 			console.log("Email in use");
 			return res.status(400).json({ error: "Email already in use" });
 		}
-		const hashedPwd = await bcrypt.hash(user_password, 10);
+		const hashedPwd = await hash(user_password, 10);
 
 		console.log("HashedPWD:", hashedPwd);
 
@@ -61,7 +61,7 @@ const postLogin = (req, res) => {
 	res.send("Logged in!");
 };
 
-module.exports = {
+export default {
 	getHomepage,
 	getArtistsPage,
 	getTracksPage,

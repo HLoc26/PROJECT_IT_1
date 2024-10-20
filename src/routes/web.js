@@ -1,30 +1,21 @@
 // Điều hướng trang
-const express = require("express");
-const router = express.Router();
+import { Router, urlencoded, json } from "express";
+const router = Router();
 
-// prettier-ignore
-const {
-    getHomepage,
-    getArtistsPage,
-    getTracksPage,
-    getProfilePage,
-    getLogin,
-    postRegister,
-    postLogin
-} = require("../controllers/home.controller");
+import controllers from "../controllers/home.controller.js";
 
-router.get("/", getHomepage);
+router.get("/", controllers.getHomepage);
 
-router.get("/login", getLogin);
+router.get("/login", controllers.getLogin);
 
-router.get("/artists", getArtistsPage);
+router.get("/artists", controllers.getArtistsPage);
 
-router.get("/tracks", getTracksPage);
+router.get("/tracks", controllers.getTracksPage);
 
-router.get("/profile", getProfilePage);
+router.get("/profile", controllers.getProfilePage);
 
-router.post("/register", [express.urlencoded({ extended: true }), express.json()], postRegister);
+router.post("/register", [urlencoded({ extended: true }), json()], controllers.postRegister);
 
-router.post("/login", postLogin);
+router.post("/login", controllers.postLogin);
 
-module.exports = router;
+export default router;

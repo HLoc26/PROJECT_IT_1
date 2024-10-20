@@ -1,9 +1,9 @@
-require("dotenv").config();
-const express = require("express");
-const configViewEngine = require("./config/viewEngine");
-const webRoutes = require("./routes/web");
-const { connectWithRetry } = require("./config/database");
-const knex = require("./config/knex");
+import "dotenv/config";
+import express from "express";
+import configViewEngine from "./config/viewEngine.js";
+import webRoutes from "./routes/web.js";
+import { connectWithRetry } from "./config/database.js";
+
 const app = express();
 const port = process.env.PORT || 8080;
 const hostname = process.env.HOST_NAME;

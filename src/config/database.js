@@ -1,5 +1,6 @@
-require("dotenv").config();
-const sql = require("mssql");
+// "mssql" is a commonJS file
+import "dotenv/config";
+import sql from "mssql";
 
 const config = {
 	server: process.env.AZURE_SQL_SERVER,
@@ -12,7 +13,8 @@ const config = {
 	},
 };
 
-const connectWithRetry = async (retryCount = 5, delay = 3000) => {
+// Export the pool and the retry connection function
+export const connectWithRetry = async (retryCount = 5, delay = 3000) => {
 	let attempt = 0;
 	while (attempt < retryCount) {
 		try {
@@ -32,9 +34,4 @@ const connectWithRetry = async (retryCount = 5, delay = 3000) => {
 			}
 		}
 	}
-};
-
-// Export the pool and the retry connection function
-module.exports = {
-	connectWithRetry,
 };
