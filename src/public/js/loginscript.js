@@ -10,14 +10,12 @@ loginBtn.addEventListener("click", () => {
 	container.classList.remove("active");
 });
 
+// Register validation
 document.querySelector(".sign-up form").addEventListener("submit", async function (e) {
-	console.log("Prevented");
 	e.preventDefault(); // Ngăn chặn hành động mặc định của form
 
 	const formData = new FormData(this);
 	const data = Object.fromEntries(formData.entries()); // Chuyển đổi FormData thành đối tượng
-
-	console.log("Data:", data); // Kiểm tra giá trị của các trường
 
 	const response = await fetch("/register", {
 		method: "POST",
@@ -27,13 +25,37 @@ document.querySelector(".sign-up form").addEventListener("submit", async functio
 		body: JSON.stringify(data), // Chuyển đổi đối tượng thành JSON
 	});
 
-	console.log("loginscript got the response: ", response);
-
 	if (response.ok) {
 		window.location.href = "/login"; // Chuyển hướng sau khi đăng ký thành công
 	} else {
 		const result = await response.json();
-		const errorElement = document.getElementById("register-email-error");
-		errorElement.textContent = result.error; // Hiển thị thông báo lỗi
+		const registerError = document.getElementById("register-email-error");
+		registerError.textContent = result.error; // Hiển thị thông báo lỗi
+	}
+});
+
+// Log/sign in
+document.querySelector(".sign-in form").addEventListener("submit", async function (e) {
+	e.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+	const formData = new FormData(this);
+	const data = Object.fromEntries(formData.entries()); // Chuyển đổi FormData thành đối tượng
+
+	console.log("Data: ", data);
+
+	const response = await fetch("/login", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json", // Đặt Content-Type để sử dụng JSON
+		},
+		body: JSON.stringify(data), // Chuyển đổi đối tượng thành JSON
+	});
+
+	if (response.ok) {
+		window.location.href = "/"; // Chuyển hướng sau khi đăng ký thành công
+	} else {
+		const result = await response.json();
+		const registerError = document.getElementById("login-error");
+		registerError.textContent = result.error; // Hiển thị thông báo lỗi
 	}
 });
