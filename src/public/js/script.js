@@ -102,3 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     generateArtistCards(); // Generate artist cards
     enableHorizontalScroll(); // Enable horizontal scroll for both sections
 });
+function toggleDropdown() {
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+}
