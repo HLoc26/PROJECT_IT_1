@@ -16,6 +16,6 @@ router.get("/profile", controllers.getProfilePage);
 
 router.post("/register", [urlencoded({ extended: true }), json()], controllers.postRegister);
 
-router.post("/login", controllers.postLogin);
+router.post("/login", [urlencoded({ extended: true }), json()], controllers.postLogin);
 
 export default router;
