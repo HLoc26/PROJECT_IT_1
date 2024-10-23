@@ -1,9 +1,102 @@
 <link rel="stylesheet" href="/css/navbar.css">
+<style>
+    #navbar {
+        /* overflow: hidden; */
+        /* background-color: #333; */
+        /* font-family: Arial, Helvetica, sans-serif; */
+    }
+
+    #navbar > li > a {
+        float: left;
+        font-size: 16px;
+        text-align: center;
+        /* color: white; */
+        /* padding: 14px 16px; */
+        /* text-decoration: none; */
+    }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+        cursor: pointer;
+        /* font-size: 16px; */
+        /* border: none; */
+        /* outline: none; */
+        /* color: white; */
+        /* padding: 14px 16px; */
+        /* background-color: inherit; */
+        /* font-family: inherit; */
+        /* margin: 0; */
+    }
+
+    #navbar a:hover,
+    .dropdown:hover .dropbtn,
+    .dropbtn:focus {
+        /* background-color: red; */
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 3;
+        /* background-color: #f9f9f9; */
+        /* min-width: 160px; */
+        /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+    }
+
+    .dropdown-content a {
+        float: none;
+        display: block;
+        /* color: black; */
+        /* padding: 12px 16px; */
+        /* text-decoration: none; */
+        /* text-align: left; */
+    }
+
+    .dropdown-content a:hover {
+        /* background-color: #ddd; */
+    }
+
+    .show {
+        display: block;
+    }
+</style>
 <h1>Hello this is navbar.</h1>
 <ul id="navbar">
     <li><a href="/">Home</a></li>
     <li><a href="/artists">Artists</a></li>
     <li><a href="/tracks">Tracks</a></li>
-    <li><a href="/profile">Profile</a></li>
+    <li>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="dropdown()">Dropdown
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="dropdown-profile">
+                <a href="#">Account</a>
+                <a href="#">Profile</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </li>
 </ul>
 
+<script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function dropdown() {
+        document.getElementById("dropdown-profile").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (e) {
+        if (!e.target.matches('.dropbtn')) {
+            var profileDrop = document.getElementById("dropdown-profile");
+            if (profileDrop.classList.contains('show')) {
+                profileDrop.classList.remove('show');
+            }
+        }
+    }
+</script>

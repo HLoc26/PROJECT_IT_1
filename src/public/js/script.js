@@ -102,3 +102,19 @@ document.addEventListener('DOMContentLoaded', function() {
     generateArtistCards(); // Generate artist cards
     enableHorizontalScroll(); // Enable horizontal scroll for both sections
 });
+function toggleDropdown() {
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.user-profile') && !event.target.closest('.user-profile')) {
+        const dropdowns = document.getElementsByClassName("dropdown-menu");
+        for (let i = 0; i < dropdowns.length; i++) {
+            let openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
+        }
+    }
+}
