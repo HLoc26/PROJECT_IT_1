@@ -96,11 +96,16 @@ function enableHorizontalScroll() {
     });
 }
 
-// Call the function to generate cards and enable horizontal scrolling on page load
-document.addEventListener('DOMContentLoaded', function() {
+function initHomepage() {
+	console.log("INIT HOMEPAGE");
     generatePlaylistCards(); // Generate playlist cards
     generateArtistCards(); // Generate artist cards
     enableHorizontalScroll(); // Enable horizontal scroll for both sections
+}
+
+// Call the function to generate cards and enable horizontal scrolling on page load
+document.addEventListener("DOMContentLoaded", function () {
+	initHomepage();
 });
 function toggleDropdown() {
     const dropdownMenu = document.querySelector('.dropdown-menu');
