@@ -18,10 +18,24 @@ html {
 	height: 100%;
 }
 
-nav {
+#container {
+	display: flex;
+	flex-direction: row;
+}
+
+#left-container {
+	width: 12%;
+}
+
+#right-container {
+	display: flex;
+	width: 88%;
+	flex-direction: column;
+}
+
+#right-container nav {
 	width: 100%;
 	height: 70px;
-	border: 1px dashed black;
 }
 
 #main-page {
@@ -32,11 +46,10 @@ nav {
 
 #main-page > * {
 	display: inline-block;
-	border: 1px dashed red;
 }
 
 #main-page > aside {
-	width: 10%;
+	width: 181.5px;
 }
 
 #main-page > aside > ul > li {
@@ -44,5 +57,5 @@ nav {
 }
 
 #content {
-	width: 90%;
+	width: 100%;
 }
