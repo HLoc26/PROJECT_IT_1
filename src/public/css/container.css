@@ -1,3 +1,7 @@
+:root {
+	--main-bg-color: #30267b;
+	--main-text-color: #fff;
+}
 * {
 	overflow-x: hidden;
 }
