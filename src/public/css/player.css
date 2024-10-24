@@ -1,0 +1,19 @@
+.footer-player {
+	background-color: #222;
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	padding: 15px;
+	position: fixed;
+	bottom: 0;
+	width: 100%; /* Footer accounts for the sidebar width */
+	left: 0; /* Footer aligns with the sidebar */
+}
+
+.player-controls button {
+	background-color: #333;
+	border: none;
+	padding: 10px 20px;
+	color: white;
+	margin-left: 5px;
+}
