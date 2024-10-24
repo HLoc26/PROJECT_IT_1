@@ -31,6 +31,10 @@
 	border-radius: 15px;
 }
 
+#sidebar a:hover {
+	background-color: #4e27db86;
+}
+
 #sidebar a i {
 	margin-right: 10px;
 }
