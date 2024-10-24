@@ -8,71 +8,10 @@ html {
 	height: 100%;
 }
 
-.container {
+.homepage-container {
 	display: flex;
 	height: 100vh;
 	overflow: hidden; /* Prevent container overflow */
-}
-
-.sidebar {
-	background-color: #222;
-	width: 250px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 10px;
-	color: #fff;
-	position: fixed; /* Fixes the sidebar */
-	height: 100vh; /* Full height for the sidebar */
-	top: 0;
-	left: 0;
-}
-
-.sidebar .logo {
-	margin-bottom: 20px;
-}
-
-.sidebar .logo img {
-	width: 100px; /* Set desired display width */
-	height: 100px; /* Set desired display height */
-	object-fit: cover; /* Ensure the image covers the area */
-	border-radius: 50%; /* Optional: Circular image */
-	display: block;
-	margin: 0 auto; /* Center the image */
-}
-
-.menu,
-.sub-menu {
-	list-style-type: none;
-	padding: 0;
-}
-
-.menu li,
-.sub-menu li {
-	margin: 10px 0;
-}
-
-.menu li a,
-.sub-menu li a {
-	color: #fff;
-	text-decoration: none;
-	padding: 10px;
-	display: block;
-	border-radius: 4px;
-}
-
-.menu li a:hover,
-.sub-menu li a:hover {
-	background-color: #444;
-}
-
-.install-app {
-	margin-top: 20px;
-	text-align: center;
-	cursor: pointer;
-	background-color: #333;
-	padding: 10px;
-	border-radius: 4px;
 }
 
 /* Main Content Styles */
@@ -81,8 +20,7 @@ html {
 	display: flex;
 	flex-direction: column; /* Stack sections vertically */
 	padding: 20px;
-	background-color: #f4f4f4;
-	/* margin-left: 250px;*/ /* Ensure main content does not overlap the sidebar */
+	background-color: var(--main-bg-color);
 	height: calc(100vh - 40px); /* Set height for scrolling, adjust if you have a fixed header */
 	overflow-y: auto; /* Allow vertical scrolling */
 }
@@ -132,10 +70,10 @@ html {
 	margin-left: 5px;
 }
 .dropdown-menu .profile-info img {
-	width: 30px; 
-	height: 30px; 
-	border-radius: 50%; 
-	object-fit: cover; 
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 /* Dropdown Menu Styles */
 .dropdown-menu {
@@ -221,20 +159,6 @@ html {
 	padding: 30px;
 }
 
-.nav-button {
-	padding: 10px 20px;
-	background-color: #333;
-	color: white;
-	border: none;
-	margin-right: 10px;
-	cursor: pointer;
-	border-radius: 4px;
-}
-
-.nav-button:hover {
-	background-color: #555;
-}
-
 /* Welcome message styling */
 .header-left h1 {
 	font-size: 24px;
@@ -263,50 +187,6 @@ html {
 	object-fit: cover;
 }
 
-/* Dropdown Menu Styling */
-.dropdown-menu {
-	display: none; /* Hidden by default */
-	position: absolute;
-	top: 60px; /* Position dropdown below the avatar */
-	right: 0;
-	background-color: #fff;
-	min-width: 150px;
-	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-	border-radius: 4px;
-	padding: 10px;
-	z-index: 1;
-}
-
-.dropdown-menu .profile-info {
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
-}
-
-.dropdown-menu .profile-info img {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	object-fit: cover;
-	margin-right: 10px;
-}
-
-.dropdown-menu a {
-	text-decoration: none;
-	color: #333;
-	display: block;
-	padding: 8px 10px;
-	border-radius: 4px;
-}
-
-.dropdown-menu a:hover {
-	background-color: #f4f4f4;
-}
-
-Toggle dropdown visibility 
-.user-profile:hover .dropdown-menu {
-	display: block;
-}
 .middle-header {
 	padding: 20px;
 	background-color: #f4f4f4;
@@ -343,21 +223,21 @@ Toggle dropdown visibility
 }
 .middle-header {
 	padding: 20px; /* Space around the section */
-	background-color: #f4f4f4; /* Light background color for contrast */
+	background-color: var(--main-bg-color);
 }
 
 .middle-header h1 {
 	font-size: 24px; /* Size of the heading */
 	margin: 0; /* Remove default margin */
-	color: #333; /* Text color */
+	color: var(--main-text-color);
 }
 .playlist-display,
 .artist-display {
-	display: flex; /* Use flexbox for horizontal layout */
-	overflow-x: auto; /* Enable horizontal scrolling */
-	padding: 10px 0; /* Space above and below the sections */
-	scrollbar-width: none; /* Hide scrollbar for Firefox */
-	margin-bottom: 20px; /* Space below the display sections */
+	display: flex;
+	overflow-x: auto;
+	padding: 10px 0;
+	scrollbar-width: none;
+	margin-bottom: 20px;
 }
 
 .playlist-display::-webkit-scrollbar,
@@ -367,25 +247,25 @@ Toggle dropdown visibility
 
 .playlist-card,
 .artist-card {
-	min-width: 200px; /* Minimum width for each card, increased for larger display */
-	margin-right: 15px; /* Space between cards */
-	text-align: center; /* Center text under image */
-	background-color: #fff; /* Background color for the card */
-	border-radius: 8px; /* Rounded corners for the card */
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-	transition: transform 0.2s; /* Smooth scaling effect */
+	min-width: 200px;
+	margin-right: 15px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s;
 }
 
 .playlist-card:hover,
 .artist-card:hover {
-	transform: scale(1.05); /* Scale up card on hover for a nice effect */
+	transform: scale(1.05);
 }
 
 .artist-card img {
-	width: 150px; /* Set width to fill the card */
-	height: 150px; /* Fixed height for images */
-	object-fit: cover; /* Ensure images cover the area */
-	border-top-left-radius: 8px; /* Match card corner radius */
-	border-top-right-radius: 8px; /* Match card corner radius */
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
 	border-radius: 100%;
 }
