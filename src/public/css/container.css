@@ -1,12 +1,16 @@
 :root {
-	--main-bg-color: #30267b;
-	--main-text-color: #fff;
-	--secondary-text-color: #b3b3b3;
-	--card-color-dark: #181818;
-	--card-color-light: #303030;
-	--sidebar-bg: #331f7c;
-	--player-bg: #302a61;
+	--main-bg-color: #0a0e14; /* Extremely dark blue (almost black) */
+	--main-text-color: #a7c6ed; /* Light icy blue */
+	--secondary-text-color: #b0c4de; /* Soft light steel blue */
+	--card-color-dark: #1c1f26; /* Very dark grayish blue */
+	--card-color-light: #252c3a; /* Dark navy gray */
+	--sidebar-bg: #1c1f26; /* Very dark grayish blue for sidebar */
+	--player-bg: #2c2f38; /* Darker navy gray */
+	--logo-bg: #334854; /* Original logo color */
+	--sidebar-tab-hover: #24364b; /* Muted slate blue for hover */
+	--sidebar-tab-active: #445367; /* Soft light steel blue for active */
 }
+
 * {
 	overflow-x: hidden;
 }
