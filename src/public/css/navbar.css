@@ -1,6 +1,6 @@
 #navbar {
 	overflow: hidden;
-	background-color: #30267b;
+	background-color: var(--main-bg-color);
 	font-family: Arial, Helvetica, sans-serif;
 	display: flex;
 	flex-direction: row;

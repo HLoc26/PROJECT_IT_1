@@ -10,7 +10,7 @@
 }
 
 #sidebar .logo {
-	background-color: #334854;
+	background-color: var(--logo-bg);
 }
 
 #sidebar ul {
@@ -32,7 +32,7 @@
 }
 
 #sidebar a:hover {
-	background-color: #4e27db86;
+	background-color: var(--sidebar-tab-hover);
 }
 
 #sidebar a i {
@@ -40,5 +40,5 @@
 }
 
 #sidebar a[active] {
-	background-color: #4d27db;
+	background-color: var(--sidebar-tab-active);
 }
