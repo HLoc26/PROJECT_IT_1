@@ -58,6 +58,7 @@ html {
 	justify-content: space-between;
 	align-items: center;
 	padding: 10px 20px;
+	margin-bottom: 20px;
 	width: calc(100% - 20px); /* Full width minus some padding */
 	margin-left: 0; /* Ensure it starts from the left without touching sidebar */
 	top: 0;
@@ -94,7 +95,7 @@ html {
 .playlist-display {
 	display: flex; /* Use flexbox for horizontal layout */
 	overflow-x: auto; /* Enable horizontal scrolling */
-	/* padding: 10px 0; Space above and below the playlist */
+	padding: 0;
 	scrollbar-width: none; /* For Firefox */
 	margin: 0;
 }
