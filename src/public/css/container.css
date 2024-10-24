@@ -1,6 +1,9 @@
 :root {
 	--main-bg-color: #30267b;
 	--main-text-color: #fff;
+	--secondary-text-color: #b3b3b3;
+	--card-color-dark: #181818;
+	--card-color-light: #303030;
 }
 * {
 	overflow-x: hidden;
