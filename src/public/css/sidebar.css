@@ -18,16 +18,23 @@
 }
 #sidebar li {
 	list-style-type: none;
-	padding-bottom: 20px;
 }
 #sidebar a {
+	display: inline-block;
 	text-decoration: none;
 	color: var(--main-text-color);
 	font-size: 20px;
 	font-weight: lighter;
+	padding: 15px;
 	padding-left: 20px;
+	width: 85%;
+	border-radius: 15px;
 }
 
 #sidebar a i {
 	margin-right: 10px;
+}
+
+#sidebar a[active] {
+	background-color: #4d27db;
 }
