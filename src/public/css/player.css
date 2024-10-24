@@ -1,6 +1,6 @@
 .footer-player {
-	background-color: #222;
-	color: white;
+	background-color: var(--player-bg);
+	color: #ffffff;
 	display: flex;
 	justify-content: space-between;
 	padding: 15px;
