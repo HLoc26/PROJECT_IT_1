@@ -50,43 +50,6 @@ html {
 	margin-top: 20px;
 }
 
-.footer-player {
-	background-color: #222;
-	color: white;
-	display: flex;
-	justify-content: space-between;
-	padding: 15px;
-	position: fixed;
-	bottom: 0;
-	width: 100%; /* Footer accounts for the sidebar width */
-	left: 0; /* Footer aligns with the sidebar */
-}
-
-.player-controls button {
-	background-color: #333;
-	border: none;
-	padding: 10px 20px;
-	color: white;
-	margin-left: 5px;
-}
-.dropdown-menu .profile-info img {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	object-fit: cover;
-}
-
-/* Keep the Avatar in Place */
-.user-profile {
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-	position: relative; /* So dropdown can be positioned relative to this */
-}
-
-.user-profile:hover .dropdown-menu {
-	display: block; /* Show dropdown when hovering or clicking */
-}
 /* Top Header that spans full width but not affecting the sidebar */
 .top-header {
 	position: relative;
@@ -114,54 +77,26 @@ html {
 	flex-basis: 100%; /* Make h1 take the full width to ensure it breaks to the next line */
 	font-size: 24px;
 	margin: 0;
-	color: #333;
+	color: var(--main-text-color);
 	padding: 30px;
-}
-
-/* Welcome message styling */
-.header-left h1 {
-	font-size: 24px;
-	color: #333;
-}
-
-/* Right-aligned section for avatar and dropdown */
-.header-right {
-	display: flex;
-	align-items: center;
-}
-
-.user-profile {
-	display: flex;
-	align-items: center;
-	position: relative; /* Needed for the dropdown */
-	cursor: pointer;
-	padding: 30px;
-}
-
-/* Avatar Image */
-.user-profile .avatar img {
-	border-radius: 50%;
-	width: 40px;
-	height: 40px;
-	object-fit: cover;
 }
 
 .middle-header {
 	padding: 20px;
-	background-color: #f4f4f4;
 }
 
 .middle-header h1 {
 	font-size: 24px;
 	margin: 0;
-	color: #333;
+	color: var(--main-text-color);
 }
 
 .playlist-display {
 	display: flex; /* Use flexbox for horizontal layout */
 	overflow-x: auto; /* Enable horizontal scrolling */
-	padding: 10px 0; /* Space above and below the playlist */
+	/* padding: 10px 0; Space above and below the playlist */
 	scrollbar-width: none; /* For Firefox */
+	margin: 0;
 }
 
 .playlist-display::-webkit-scrollbar {
@@ -181,7 +116,7 @@ html {
 	border-radius: 4px; /* Optional: Rounded corners */
 }
 .middle-header {
-	padding: 20px; /* Space around the section */
+	padding: 0;
 	background-color: var(--main-bg-color);
 }
 
