@@ -27,6 +27,7 @@ html {
 
 #left-container {
 	width: 12%;
+	z-index: 2;
 }
 
 #right-container {
@@ -50,14 +51,10 @@ html {
 	display: inline-block;
 }
 
-#main-page > aside {
-	width: 181.5px;
-}
-
-#main-page > aside > ul > li {
-	list-style-type: none;
-}
-
 #content {
 	width: 100%;
+}
+
+#music-player {
+	z-index: 1000;
 }
