@@ -94,7 +94,9 @@
 .navbar-left > div {
 	display: inline-block;
 }
-
+.navbar-buttons {
+	margin-left: 25px;
+}
 .nav-button {
 	padding: 10px 15px;
 	background-color: #131313;
