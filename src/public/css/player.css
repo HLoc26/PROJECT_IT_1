@@ -5,6 +5,7 @@
 	justify-content: space-between;
 	padding: 15px;
 	position: fixed;
+	height: 5%;
 	bottom: 0;
 	width: 100%; /* Footer accounts for the sidebar width */
 	left: 0; /* Footer aligns with the sidebar */
