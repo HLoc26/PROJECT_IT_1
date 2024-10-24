@@ -4,6 +4,8 @@
 	--secondary-text-color: #b3b3b3;
 	--card-color-dark: #181818;
 	--card-color-light: #303030;
+	--sidebar-bg: #331f7c;
+	--player-bg: #302a61;
 }
 * {
 	overflow-x: hidden;
