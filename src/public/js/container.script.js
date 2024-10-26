@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		link.addEventListener("click", (e) => {
 			e.preventDefault();
 			const url = e.target.href;
-
+			history.pushState(null, "", url);
 			// Fetch nội dung của trang mới mà không làm mới trang
 			fetch(url)
 				.then((response) => response.text())
