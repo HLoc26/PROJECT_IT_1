@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-	const links = document.querySelectorAll("a.nav-link");
+	const links = document.querySelectorAll("a.side-link");
 	const content = document.getElementById("content");
 
 	links.forEach((link) => {

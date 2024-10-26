@@ -1,10 +1,44 @@
-ul#sidebar {
+#sidebar {
 	display: flex;
 	flex-direction: column;
+	background-color: var(--sidebar-bg);
+	height: 100%;
+	box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.1);
+	position: absolute;
+	z-index: 2;
+	width: inherit;
+}
+
+#sidebar .logo {
+	background-color: var(--logo-bg);
+}
+
+#sidebar ul {
 	padding: 0;
 }
-ul#sidebar > li {
+#sidebar li {
 	list-style-type: none;
-	padding-bottom: 20px;
-	border: 1px dotted green;
+}
+#sidebar a {
+	display: inline-block;
+	text-decoration: none;
+	color: var(--main-text-color);
+	font-size: 20px;
+	font-weight: lighter;
+	padding: 15px;
+	padding-left: 20px;
+	width: 85%;
+	border-radius: 15px;
+}
+
+#sidebar a:hover {
+	background-color: var(--sidebar-tab-hover);
+}
+
+#sidebar a i {
+	margin-right: 10px;
+}
+
+#sidebar a[active] {
+	background-color: var(--sidebar-tab-active);
 }
