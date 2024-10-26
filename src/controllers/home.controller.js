@@ -1,5 +1,6 @@
 import { compare, hash } from "bcrypt";
 import knex from "../config/knex.js";
+import { getTracksPage } from "./tracks.controller.js";
 
 // Các hàm trả về dữ liệu cho routes/web.js
 const getLogin = (req, res) => {
@@ -12,10 +13,6 @@ const getHomepage = (req, res) => {
 
 const getArtistsPage = (req, res) => {
 	res.render("container", { view: "artists" });
-};
-
-const getTracksPage = (req, res) => {
-	res.render("container", { view: "tracks" });
 };
 
 const getProfilePage = (req, res) => {
