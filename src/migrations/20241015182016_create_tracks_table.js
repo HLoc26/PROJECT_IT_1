@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function (knex) {
+export function up(knex) {
 	return knex.schema.createTable("tracks", function (table) {
 		table.increments("track_id").primary();
 		table.string("track_title").notNullable();
@@ -13,12 +13,12 @@ exports.up = function (knex) {
 		table.integer("artist_id").unsigned().references("artist_id").inTable("artists");
 		table.timestamps(true, true);
 	});
-};
+}
 
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function (knex) {
+export function down(knex) {
 	return knex.schema.dropTableIfExists("tracks");
-};
+}

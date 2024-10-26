@@ -3,9 +3,9 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-require("dotenv").config();
+import "dotenv/config";
 
-module.exports = {
+export default {
 	development: {
 		client: "mssql", // Or 'mysql2'
 		connection: {

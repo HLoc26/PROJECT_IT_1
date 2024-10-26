@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function (knex) {
+export function up(knex) {
 	return knex.schema.createTable("users", (table) => {
 		table.increments("user_id").primary();
 		table.string("user_name").notNullable();
@@ -13,12 +13,12 @@ exports.up = function (knex) {
 		// Tạo cột created_at và updated_at
 		table.timestamps(true, true);
 	});
-};
+}
 
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function (knex) {
+export function down(knex) {
 	return knex.schema.dropTableIfExists("users");
-};
+}
