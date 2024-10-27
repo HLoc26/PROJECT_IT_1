@@ -1,13 +1,13 @@
-import { join } from "path";
-import express from "express";
+const path = require("path");
+const express = require("express");
 
 // Set view to render html from ./views/sample.ejs
 const configViewEngine = (app) => {
-	app.set("views", join("./src", "views"));
+	app.set("views", path.join("./src", "views"));
 	app.set("view engine", "ejs");
 
 	// Config static files
-	app.use(express.static(join("./src", "public")));
+	app.use(express.static(path.join("./src", "public")));
 };
 
-export default configViewEngine;
+module.exports = configViewEngine;

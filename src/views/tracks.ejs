@@ -1,9 +1,0 @@
-<!-- views/tracks.ejs -->
-<h2>Recommended Tracks</h2>
-<ul>
-    <% tracks.forEach(track => { %>
-        <li><a href="#" onclick="playTrack('<%= track.track_mp3_path %>')">
-                <%= track.track_title %> - <%= track.artist_name %>
-            </a></li>
-        <% }) %>
-</ul>

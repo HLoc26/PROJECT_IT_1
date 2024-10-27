@@ -96,30 +96,9 @@ function enableHorizontalScroll() {
     });
 }
 
-function initHomepage() {
-	console.log("INIT HOMEPAGE");
+// Call the function to generate cards and enable horizontal scrolling on page load
+document.addEventListener('DOMContentLoaded', function() {
     generatePlaylistCards(); // Generate playlist cards
     generateArtistCards(); // Generate artist cards
     enableHorizontalScroll(); // Enable horizontal scroll for both sections
-}
-
-// Call the function to generate cards and enable horizontal scrolling on page load
-document.addEventListener("DOMContentLoaded", function () {
-	initHomepage();
 });
-function toggleDropdown() {
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-}
-
-window.onclick = function(event) {
-    if (!event.target.matches('.user-profile') && !event.target.closest('.user-profile')) {
-        const dropdowns = document.getElementsByClassName("dropdown-menu");
-        for (let i = 0; i < dropdowns.length; i++) {
-            let openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-                openDropdown.style.display = 'none';
-            }
-        }
-    }
-}
