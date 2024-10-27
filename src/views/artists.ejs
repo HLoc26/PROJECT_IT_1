@@ -4,7 +4,7 @@
         background: linear-gradient(to bottom, #44107A, #000000);
         font-family: Arial, sans-serif;
         padding: 2rem;
-        overflow: hidden; /* Prevent any scrolling */
+        overflow: hidden;
     }
 
     .search-section {
@@ -86,33 +86,33 @@
         height: 120px;
         margin-bottom: 0.75rem;
         cursor: pointer;
-        flex-shrink: 0; /* Prevent image container from shrinking */
+        overflow: hidden; /* Hide overflow from scale effect */
+        border-radius: 50%; /* Ensure container is also circular */
     }
 
     .artist-image {
         width: 100%;
         height: 100%;
-        border-radius: 50%;
         object-fit: cover;
         transition: transform 0.3s;
-        display: block; /* Remove any extra space below image */
+        display: block;
     }
 
     .artist-image-container:hover .artist-image {
         transform: scale(1.05);
     }
 
-    .artist-image-container::after {
-        content: '';
+    .artist-overlay {
         position: absolute;
         inset: 0;
-        border-radius: 50%;
         background: rgba(168, 85, 247, 0.2);
         opacity: 0;
         transition: opacity 0.3s;
+        pointer-events: none; /* Ensure overlay doesn't interfere with hover */
+        border-radius: 50%;
     }
 
-    .artist-image-container:hover::after {
+    .artist-image-container:hover .artist-overlay {
         opacity: 1;
     }
 
@@ -120,7 +120,8 @@
         color: white;
         font-size: 0.875rem;
         font-weight: 500;
-        margin: 0; /* Remove default paragraph margin */
+        margin: 0;
+        padding: 0;
     }
 
     @media (max-width: 1200px) {
@@ -160,60 +161,71 @@
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Taylor Swift" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Taylor Swift</p>
             </li>
+            <!-- Repeat for other artists -->
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Ed Sheeran" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Ed Sheeran</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="The Weeknd" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">The Weeknd</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Billie Eilish" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Billie Eilish</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Drake" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Drake</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Ariana Grande" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Ariana Grande</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Justin Bieber" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Justin Bieber</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Lady Gaga" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Lady Gaga</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Post Malone" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Post Malone</p>
             </li>
             <li class="artist-item">
                 <div class="artist-image-container">
                     <img src="/images/profile-pic.jpg" alt="Dua Lipa" class="artist-image">
+                    <div class="artist-overlay"></div>
                 </div>
                 <p class="artist-name">Dua Lipa</p>
             </li>
