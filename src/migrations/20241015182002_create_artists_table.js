@@ -6,6 +6,7 @@ export function up(knex) {
 	return knex.schema.createTable("artists", function (table) {
 		table.increments("artist_id").primary();
 		table.string("artist_name").unique().notNullable();
+		table.string("artist_pic_path").unique().nullable();
 		table.timestamps(true, true);
 	});
 }
