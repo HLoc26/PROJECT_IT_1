@@ -1,12 +1,9 @@
-import knex from "../config/knex.js";
-
+import Track from "../models/Tracks.js";
+import Album from "../models/Album.js";
 // Controller or Service function to get tracks with artists
 export async function getTracksPage(req, res) {
 	try {
-		const tracks = await knex("tracks")
-			.join("artist_perform", "tracks.track_id", "=", "artist_perform.track_id")
-			.join("artists", "artist_perform.artist_id", "=", "artists.artist_id")
-			.select("tracks.*", "artists.*");
+		const tracks = await Track.getTracksArtists();
 
 		tracks.forEach((track) => {
 			console.log(track.track_title, track.artist_name);
