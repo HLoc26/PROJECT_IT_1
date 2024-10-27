@@ -55,12 +55,12 @@
         opacity: 0.5;
     }
 
-    .recommended-artists {
+    .recent-artists {
         margin-top: 3rem;
         padding: 0 2rem;
     }
 
-    .recommended-artists h2 {
+    .recent-artists h2 {
         color: white;
         font-size: 1.25rem;
         margin-bottom: 1.5rem;
@@ -147,38 +147,40 @@
 
 <div class="container">
     <div class="search-section">
-        <h1>Who do you want to listen to today?</h1>
+        <h1>Who do you want to listen today?</h1>
         <div class="search-bar">
-            <form action="/" method="GET">
-                <input 
-                    type="text" 
-                    class="search-input" 
-                    name="search"
-                    placeholder="Search for artists..." 
-                    value="<%= searchQuery %>"
-                >
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </form>
+            <input type="text" class="search-input" placeholder="Search for artists...">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
         </div>
     </div>
 
-    <div class="recommended-artists">
-        <h2>Recommended for you</h2>
+    <div class="recent-artists">
+        <h2>Your recent artists</h2>
         <ul class="artists-grid">
-            <% artists.forEach(artist => { %>
-                <li class="artist-item">
-                    <div class="artist-image-container">
-                        <img src="<%= artist.imageUrl %>" alt="<%= artist.name %>" class="artist-image">
-                        <div class="artist-overlay"></div>
-                    </div>
-                    <p class="artist-name"><%= artist.name %></p>
-                </li>
-            <% }); %>
+            {{#each artists}}
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="{{imageUrl}}" alt="{{name}}" class="artist-image">
+                    <div class="artist-overlay"></div>
+                </div>
+                <p class="artist-name">{{name}}</p>
+            </li>
+            {{/each}}
         </ul>
     </div>
     
+    <!-- Expected data structure:
+    {
+        "artists": [
+            {
+                "name": "Artist Name",
+                "imageUrl": "/images/artist-image.jpg"
+            }
+        ]
+    }
+    -->
+    </div>
 </div>
-
