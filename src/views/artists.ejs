@@ -1,20 +1,10 @@
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
+    .container {
         min-height: 100vh;
         background: linear-gradient(to bottom, #44107A, #000000);
         font-family: Arial, sans-serif;
         padding: 2rem;
-    }
-
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
+        overflow: hidden; /* Prevent any scrolling */
     }
 
     .search-section {
@@ -65,6 +55,7 @@
 
     .recent-artists {
         margin-top: 3rem;
+        padding: 0 2rem;
     }
 
     .recent-artists h2 {
@@ -75,21 +66,27 @@
 
     .artists-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 2rem;
         list-style: none;
+        padding: 0;
+        margin: 0;
     }
 
     .artist-item {
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .artist-image-container {
         position: relative;
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 0.75rem;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 0.75rem;
         cursor: pointer;
+        flex-shrink: 0; /* Prevent image container from shrinking */
     }
 
     .artist-image {
@@ -98,6 +95,7 @@
         border-radius: 50%;
         object-fit: cover;
         transition: transform 0.3s;
+        display: block; /* Remove any extra space below image */
     }
 
     .artist-image-container:hover .artist-image {
@@ -108,7 +106,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        border-radius: 100%;
+        border-radius: 50%;
         background: rgba(168, 85, 247, 0.2);
         opacity: 0;
         transition: opacity 0.3s;
@@ -122,6 +120,19 @@
         color: white;
         font-size: 0.875rem;
         font-weight: 500;
+        margin: 0; /* Remove default paragraph margin */
+    }
+
+    @media (max-width: 1200px) {
+        .artists-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .artists-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
 
     @media (max-width: 768px) {
@@ -130,45 +141,82 @@
         }
     }
 </style>
-    <div class="container">
-        <div class="search-section">
-            <h1>Who do you want to listen today?</h1>
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="Search for artists...">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </div>
-        </div>
 
-        <div class="recent-artists">
-            <h2>Your recent artists</h2>
-            <ul class="artists-grid">
-                <li class="artist-item">
-                    <div class="artist-image-container">
-                        <img src="/images/profile-pic.jpg" alt="Taylor Swift" class="artist-image">
-                    </div>
-                    <p class="artist-name">Taylor Swift</p>
-                </li>
-                <li class="artist-item">
-                    <div class="artist-image-container">
-                        <img src="/images/profile-pic.jpg" alt="Ed Sheeran" class="artist-image">
-                    </div>
-                    <p class="artist-name">Ed Sheeran</p>
-                </li>
-                <li class="artist-item">
-                    <div class="artist-image-container">
-                        <img src="/images/profile-pic.jpg" alt="The Weeknd" class="artist-image">
-                    </div>
-                    <p class="artist-name">The Weeknd</p>
-                </li>
-                <li class="artist-item">
-                    <div class="artist-image-container">
-                        <img src="/images/profile-pic.jpg" alt="Billie Eilish" class="artist-image">
-                    </div>
-                    <p class="artist-name">Billie Eilish</p>
-                </li>
-            </ul>
+<div class="container">
+    <div class="search-section">
+        <h1>Who do you want to listen today?</h1>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for artists...">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
         </div>
     </div>
+
+    <div class="recent-artists">
+        <h2>Your recent artists</h2>
+        <ul class="artists-grid">
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Taylor Swift" class="artist-image">
+                </div>
+                <p class="artist-name">Taylor Swift</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Ed Sheeran" class="artist-image">
+                </div>
+                <p class="artist-name">Ed Sheeran</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="The Weeknd" class="artist-image">
+                </div>
+                <p class="artist-name">The Weeknd</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Billie Eilish" class="artist-image">
+                </div>
+                <p class="artist-name">Billie Eilish</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Drake" class="artist-image">
+                </div>
+                <p class="artist-name">Drake</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Ariana Grande" class="artist-image">
+                </div>
+                <p class="artist-name">Ariana Grande</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Justin Bieber" class="artist-image">
+                </div>
+                <p class="artist-name">Justin Bieber</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Lady Gaga" class="artist-image">
+                </div>
+                <p class="artist-name">Lady Gaga</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Post Malone" class="artist-image">
+                </div>
+                <p class="artist-name">Post Malone</p>
+            </li>
+            <li class="artist-item">
+                <div class="artist-image-container">
+                    <img src="/images/profile-pic.jpg" alt="Dua Lipa" class="artist-image">
+                </div>
+                <p class="artist-name">Dua Lipa</p>
+            </li>
+        </ul>
+    </div>
+</div>
