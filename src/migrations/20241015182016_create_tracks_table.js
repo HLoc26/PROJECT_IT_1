@@ -10,7 +10,6 @@ export function up(knex) {
 		table.string("track_mp3_path").notNullable();
 		table.string("track_lyrics_path");
 		table.enu("visibility", ["public", "private", "unlisted"]).notNullable();
-		table.integer("artist_id").unsigned().references("artist_id").inTable("artists");
 		table.timestamps(true, true);
 	});
 }
