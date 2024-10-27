@@ -1,12 +1,21 @@
 // Điều hướng trang
-const express = require("express");
-const { getHomepage, getNewPage, renderSample } = require("../controllers/home.controller");
-const router = express.Router();
+import { Router, urlencoded, json } from "express";
+const router = Router();
 
-router.get("/", getHomepage);
+import controllers from "../controllers/home.controller.js";
 
-router.get("/newpage", getNewPage);
+router.get("/", controllers.getHomepage);
 
-router.get("/ejs", renderSample);
+router.get("/login", controllers.getLogin);
 
-module.exports = router;
+router.get("/artists", controllers.getArtistsPage);
+
+router.get("/tracks", controllers.getTracksPage);
+
+router.get("/profile", controllers.getProfilePage);
+
+router.post("/register", [urlencoded({ extended: true }), json()], controllers.postRegister);
+
+router.post("/login", [urlencoded({ extended: true }), json()], controllers.postLogin);
+
+export default router;

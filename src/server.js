@@ -1,11 +1,11 @@
-require("dotenv").config();
-const express = require("express");
-const configViewEngine = require("./config/viewEngine");
-const webRoutes = require("./routes/web");
-const connection = require("./config/database");
+import "dotenv/config";
+import express from "express";
+import configViewEngine from "./config/viewEngine.js";
+import webRoutes from "./routes/web.js";
+import { connectWithRetry } from "./config/database.js";
 
-const app = express(); // Express app
-const port = process.env.PORT || 8080; // Port
+const app = express();
+const port = process.env.PORT || 8080;
 const hostname = process.env.HOST_NAME;
 
 // config template engine
@@ -14,11 +14,20 @@ configViewEngine(app);
 // Route definition for 127.0.0.1/
 app.use("/", webRoutes);
 
-connection.query("SELECT * FROM test", (err, results, fields) => {
-	console.log(results);
-	console.log(fields);
-});
+// Kiểm tra kết nối
+const startServer = async () => {
+	try {
+		// Đảm bảo kết nối với database
+		await connectWithRetry();
 
-app.listen(port, hostname, () => {
-	console.log(`App listening on ${hostname}:${port}`);
-});
+		// Khởi động server
+		app.listen(port, hostname, () => {
+			console.log(`App listening on ${hostname}:${port}`);
+		});
+	} catch (err) {
+		console.error("Could not start the server:", err.message);
+		process.exit(1); // Kết thúc chương trình nếu không thể kết nối với database
+	}
+};
+
+startServer();
