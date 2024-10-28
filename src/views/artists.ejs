@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <style>
     .container {
         min-height: 100vh;
@@ -18,22 +19,23 @@
         margin-bottom: 2rem;
     }
 
-    .search-bar {
+    .search-bar-artist {
         position: relative;
         max-width: 600px;
         margin: 0 auto;
-        border-radius: 1%;
     }
 
     .search-input {
         width: 100%;
-        padding: 1rem 3rem 1rem 1.5rem;
+        padding: 1rem 1.5rem;  /* Removed right padding */
+        padding-right: 48px;   /* Add specific right padding for icon */
         border-radius: 9999px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         background: rgba(255, 255, 255, 0.1);
         color: white;
         font-size: 1.125rem;
         outline: none;
+        box-sizing: border-box;  /* Ensure padding is included in width */
     }
 
     .search-input::placeholder {
@@ -41,18 +43,17 @@
     }
 
     .search-input:focus {
-        box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
+        box-shadow: 0 0 0 0px rgba(168, 85, 247, 0.5);
     }
 
     .search-icon {
         position: absolute;
-        right: 1.5rem;
+        right: 16px;
         top: 50%;
-        border-radius: 100%;
         transform: translateY(-50%);
-        width: 24px;
-        height: 24px;
-        opacity: 0.5;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 20px;
+        pointer-events: none;  /* Make icon not interfere with input */
     }
 
     .recent-artists {
@@ -88,8 +89,8 @@
         height: 120px;
         margin-bottom: 0.75rem;
         cursor: pointer;
-        overflow: hidden; /* Hide overflow from scale effect */
-        border-radius: 50%; /* Ensure container is also circular */
+        overflow: hidden;
+        border-radius: 50%;
     }
 
     .artist-image {
@@ -110,7 +111,7 @@
         background: rgba(168, 85, 247, 0.2);
         opacity: 0;
         transition: opacity 0.3s;
-        pointer-events: none; /* Ensure overlay doesn't interfere with hover */
+        pointer-events: none;
         border-radius: 50%;
     }
 
@@ -148,12 +149,9 @@
 <div class="container">
     <div class="search-section">
         <h1>Who do you want to listen today?</h1>
-        <div class="search-bar">
+        <div class="search-bar-artist">
             <input type="text" class="search-input" placeholder="Search for artists...">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
+            <i class="bi bi-search search-icon"></i>
         </div>
     </div>
 
@@ -170,17 +168,5 @@
             </li>
             {{/each}}
         </ul>
-    </div>
-    
-    <!-- Expected data structure:
-    {
-        "artists": [
-            {
-                "name": "Artist Name",
-                "imageUrl": "/images/artist-image.jpg"
-            }
-        ]
-    }
-    -->
     </div>
 </div>
