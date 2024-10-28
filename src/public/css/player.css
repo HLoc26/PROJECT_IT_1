@@ -7,9 +7,28 @@
 	position: fixed;
 	height: 10%;
 	bottom: 0;
-	width: 100%; /* Footer accounts for the sidebar width */
-	left: 0; /* Footer aligns with the sidebar */
+	width: 100%;
+	left: 0;
 	gap: 15%;
+}
+
+.control-btn {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #333;
+	border: none;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s ease;
+	font-size: 18px; /* Ensure icon size is appropriate */
+}
+
+.control-btn:hover {
+	background-color: rgb(40, 69, 85);
 }
 
 .player-song-info {
@@ -26,6 +45,7 @@
 	flex-direction: column;
 	gap: 10px;
 }
+
 .player-album-img {
 	border-radius: 50%;
 }
@@ -37,24 +57,19 @@
 }
 
 .player-control-btn {
+	display: flex;
+	gap: 15px; /* Space between buttons */
 	margin: auto;
-}
-.player-controls button {
-	background-color: #333;
-	border: none;
-	padding: 10px 20px;
-	color: white;
-	cursor: pointer;
 }
 
 .player-volume {
 	width: 25%;
 	margin: auto;
 }
-.player-volume input {
+
+.player-volume input{
 	cursor: pointer;
 }
-
 .progress-bar input {
 	width: 100%;
 	cursor: pointer;
