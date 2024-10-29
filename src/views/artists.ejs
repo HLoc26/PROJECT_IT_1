@@ -86,6 +86,10 @@
         margin: 20px;
     }
 
+    .artist-item a{
+        text-decoration: none;
+    }
+
     .artist-image-container {
         position: relative;
         width: 120px;
@@ -162,8 +166,8 @@
         <h2>Your recent artists</h2>
         <ul class="artists-grid">
             <% artists.forEach(artist => { %>
-                <a href="/api/artist/<%= artist.artist_id %>">
-                    <li class="artist-item">
+                <li class="artist-item">
+                    <a href="/api/artist/<%= artist.artist_id %>">
                         <div class="artist-image-container">
                             <img
                                 src="<%= artist.artist_pic_path %>"
