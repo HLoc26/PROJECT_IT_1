@@ -11,6 +11,10 @@
 	--sidebar-tab-active: #445367; /* Soft light steel blue for active */
 }
 
+#blank{
+	height: 100px;
+}
+
 * {
 	overflow-x: hidden;
 }
