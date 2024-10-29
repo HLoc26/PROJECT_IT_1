@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import configViewEngine from "./config/viewEngine.js";
 import webRoutes from "./routes/web.js";
+import apiRoutes from "./routes/api.js";
 import { connectWithRetry } from "./config/database.js";
 
 const app = express();
@@ -13,7 +14,7 @@ configViewEngine(app);
 
 // Route definition for 127.0.0.1/
 app.use("/", webRoutes);
-
+app.use("/api", apiRoutes);
 // Kiểm tra kết nối
 const startServer = async () => {
 	try {
