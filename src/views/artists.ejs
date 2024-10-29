@@ -158,15 +158,22 @@
     <div class="recent-artists">
         <h2>Your recent artists</h2>
         <ul class="artists-grid">
-            {{#each artists}}
-            <li class="artist-item">
-                <div class="artist-image-container">
-                    <img src="{{imageUrl}}" alt="{{name}}" class="artist-image">
-                    <div class="artist-overlay"></div>
-                </div>
-                <p class="artist-name">{{name}}</p>
-            </li>
-            {{/each}}
+            <% artists.forEach(artist => { %>
+                <a href="/api/artist/<%= artist.artist_id %>">
+                    <li class="artist-item">
+                        <div class="artist-image-container">
+                            <img
+                                src="<%= artist.artist_pic_path %>"
+                                alt="<%= artist.artist_name %>"
+                                class="artist-image">
+                            <div class="artist-overlay"></div>
+                        </div>
+                        <p class="artist-name">
+                            <%= artist.artist_name %>
+                        </p>
+                    </a>
+                </li>
+            <% }); %>
         </ul>
     </div>
 </div>
