@@ -68,9 +68,11 @@
     }
 
     .artists-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 2rem;
+        display: flex;
+        /* grid-template-columns: repeat(5, 1fr); */
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0rem;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -81,6 +83,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 20px;
     }
 
     .artist-image-container {
