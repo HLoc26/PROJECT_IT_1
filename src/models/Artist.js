@@ -5,6 +5,10 @@ class Artist {
 		return await knex("artists").select("*");
 	}
 
+	static async get10Artists() {
+		return await knex.raw("SELECT TOP 10 * FROM artists");
+	}
+
 	static async getArtistSongs(artist_id) {
 		const songs = await knex("tracks as t")
 			.join("artist_perform as ap", "t.track_id", "ap.track_id") // Join artist_perform
