@@ -1,4 +1,4 @@
-import Track from "../models/Tracks.js";
+import Track from "../models/Track.js";
 import Album from "../models/Album.js";
 // Controller or Service function to get tracks with artists
 export async function getTracksPage(req, res) {
