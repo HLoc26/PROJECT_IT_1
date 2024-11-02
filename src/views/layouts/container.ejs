@@ -10,17 +10,17 @@
 <body>
     <div id="container">
         <div id="left-container">
-            <%- include('sidebar') %>
+            <%- include('../partials/sidebar') %>
         </div>
         <!-- Nội dung gồm sidebar và content để load -->
         <div id="right-container">
             <!-- Thanh điều hướng (navbar) -->
             <nav>
-                <%- include('navbar') %>
+                <%- include('../partials/navbar') %>
             </nav>
             <div id="main-page">
                 <div id="content">
-                    <%- include(view) %> <!-- Nội dung thay đổi trong đây -->
+                    <%- body %> <!-- Nội dung thay đổi trong đây -->
                 </div>
             </div>
             <div id="blank"></div>
@@ -28,7 +28,7 @@
         
         <!-- Phần thanh progres nhạc -->
         <div id="music-player">
-            <%- include('player') %>
+            <%- include('../partials/player') %>
         </div>
         
     </div>

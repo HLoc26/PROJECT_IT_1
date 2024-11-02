@@ -9,7 +9,7 @@ export async function getTracksPage(req, res) {
 			console.log(track.track_title, track.artist_name);
 		});
 
-		res.render("container", { view: "tracks", tracks: tracks });
+		res.render("vwTracks/tracks", { tracks: tracks });
 	} catch (error) {
 		console.error(error);
 		res.status(500).send("An error occurred while retrieving the tracks");
