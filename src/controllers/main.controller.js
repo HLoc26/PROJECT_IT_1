@@ -6,11 +6,11 @@ import { getHomepage } from "./homepage.controller.js";
 
 // Các hàm trả về dữ liệu cho routes/web.js
 const getLogin = (req, res) => {
-	res.render("login");
+	res.render("layouts/login", { layout: false });
 };
 
 const getProfilePage = (req, res) => {
-	res.render("container", { view: "profile" });
+	res.render("profile");
 };
 
 const postRegister = async (req, res) => {
@@ -50,7 +50,7 @@ const postLogin = async (req, res) => {
 		const user = await knex("users").where({ user_email: login_email }).first();
 		// console.log(user); // Debug
 		if (!user) {
-			console.log("Wro ng email");
+			console.log("Wrong email");
 			return res.status(401).json({ error: "Wrong email or password!" });
 		}
 
