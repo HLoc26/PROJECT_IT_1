@@ -7,9 +7,12 @@ export async function getArtistsPage(req, res) {
 
 export async function getArtistInfo(req, res) {
 	const artist_id = req.params.id;
-	// const artist_albums = await Artist.getArtistAlbums();
-	// const artist_tracks = await Artist.getArtistSongs();
-	// Artists albums
 
-	// Artists
+	const artist = await Artist.getArtistInfo(artist_id);
+	const artist_albums = await Artist.getArtistAlbums(artist_id); // Artists albums
+	const artist_tracks = await Artist.getArtistTracks(artist_id); // Artists tracks
+
+	console.log(artist);
+
+	return res.render("vwArtists/artist_home", { artist: artist, albums: artist_albums, tracks: artist_tracks });
 }
