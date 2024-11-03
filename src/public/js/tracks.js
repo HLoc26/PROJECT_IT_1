@@ -1,5 +1,6 @@
 function playTrack(src, title, artist) {
 	const audioPlayer = document.getElementById("audio-player");
+	const audioPlayerSrc = document.getElementById("audio-player-src");
 	const trackTitle = document.querySelector(".player-track-title");
 	const trackArtist = document.querySelector(".player-track-artist");
 	const playbtn = document.getElementsByClassName("play-btn")[0]; // Get the first play button
@@ -9,6 +10,7 @@ function playTrack(src, title, artist) {
 
 	// Update the audio source and play
 	audioPlayer.src = src;
+	audioPlayerSrc.src = src;
 	audioPlayer.play();
 
 	// Update song information
