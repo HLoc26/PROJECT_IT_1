@@ -44,3 +44,30 @@ function getAlbumImg(title) {
 			console.error("There was a problem with the fetch operation:", error);
 		});
 }
+document.addEventListener("DOMContentLoaded", () => {
+    const trackImages = document.querySelectorAll(".track-image");
+
+    trackImages.forEach((img) => {
+        const title = img.getAttribute("data-title");
+        const encodedTitle = encodeURIComponent(title);
+        const url = `/api/album/${encodedTitle}`;
+
+        // Fetch album cover based on the track title
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((albumData) => {
+                // Update the image src if album cover is available
+                const imgPath = albumData.album_cover_image;
+                img.src = imgPath ? "/images" + imgPath : "/images/albums/default.jpg";
+            })
+            .catch((error) => {
+                console.error("Error fetching album image:", error);
+            });
+    });
+});
+
