@@ -13,7 +13,7 @@
         <ul class="tracks-grid">
             <% tracks.forEach(track => { %>
                 <li class="track-item">
-                    <a href="#" onclick="playTrack('/music/<%= track.track_mp3_path %>', '<%= track.track_title %>', '<%= track.artist_name %>')" class="track-link">
+                    <a href="#" onclick="playTrack('<%= track.track_mp3_path %>', '<%= track.track_title %>', '<%= track.artist_name %>')" class="track-link">
                         <div class="track-image-container">
                             <!-- Default image that will be replaced by JavaScript -->
                             <img 
