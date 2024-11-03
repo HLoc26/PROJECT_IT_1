@@ -37,7 +37,7 @@ function getAlbumImg(title) {
 			// Example: display album image
 			const imgPath = albumData.album_cover_image;
 			if (imgPath) {
-				document.querySelector(".player-album-img").src = "/images" + albumData.album_cover_image; // Assuming the album data contains an image property
+				document.querySelector(".player-album-img").src = albumData.album_cover_image; // Assuming the album data contains an image property
 			} else {
 				document.querySelector(".player-album-img").src = "/images/albums/default.jpg";
 			}
