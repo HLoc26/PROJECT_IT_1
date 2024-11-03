@@ -17,7 +17,7 @@
                         <div class="track-image-container">
                             <!-- Default image that will be replaced by JavaScript -->
                             <img 
-                                src="/images/albums/default.jpg"
+                                src="<%= track.artist_pic %>"
                                 alt="<%= track.track_title %>"
                                 class="track-image"
                                 data-title="<%= track.track_title %>">
@@ -40,7 +40,8 @@
     <!-- Top Tracks Section -->
     <div class="tracks-section">
         <h2>Top Tracks</h2>
-        <ul class="top-tracks-list">
+        <ul class="top-tracks-list">'
+            
             <% Array(5).fill().forEach((_, i) => { %>
                 <li>
                     <div class="track-row">
