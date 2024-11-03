@@ -1,25 +1,61 @@
 <link rel="stylesheet" href="/css/tracks.css">
 <div class="container">
-    <h2>Recommended Tracks</h2>
-    <ul class="tracks-grid">
-        <% tracks.forEach(track => { %>
-            <li class="track-item">
-                <a href="#" onclick="playTrack('/music/<%= track.track_mp3_path %>')" class="track-link">
+    <div class="header-section">
+        <button class="upload-btn">
+            <i class="bi bi-cloud-upload upload-icon"></i>
+            Upload Music
+        </button>
+    </div>
+
+    <!-- Liked Tracks Section (Now in List View) -->
+    <div class="tracks-section">
+        <h2>Liked Tracks</h2>
+        <ul class="tracks-list">
+            <% Array(5).fill().forEach((_, i) => { %>
+                <li class="track-row">
                     <div class="track-image-container">
                         <img 
                             src="/api/placeholder/400/400"
-                            alt="<%= track.track_title %>"
+                            alt="Liked Track <%= i + 1 %>"
                             class="track-image">
                         <div class="track-overlay">
                             <i class="bi bi-play-circle play-icon"></i>
                         </div>
                     </div>
                     <div class="track-info">
-                        <h3 class="track-title"><%= track.track_title %></h3>
-                        <p class="artist-name"><%= track.artist_name %></p>
+                        <h3 class="track-title">Favorite Track <%= i + 1 %></h3>
+                        <p class="artist-name">Favorite Artist <%= i + 1 %></p>
                     </div>
-                </a>
-            </li>
-        <% }); %>
-    </ul>
+                    <span class="track-duration">3:4<%= i %></span>
+                    <i class="bi bi-heart-fill active like-btn"></i>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+
+    <!-- Top Tracks Section (Now in Grid View) -->
+    <div class="tracks-section">
+        <h2>Top Tracks</h2>
+        <ul class="tracks-grid">
+            <% Array(6).fill().forEach((_, i) => { %>
+                <li class="track-item">
+                    <a href="#" onclick="playTrack('/music/track<%= i %>.mp3')" class="track-link">
+                        <div class="track-image-container">
+                            <img 
+                                src="/api/placeholder/400/400"
+                                alt="Top Track <%= i + 1 %>"
+                                class="track-image">
+                            <div class="track-overlay">
+                                <i class="bi bi-play-circle play-icon"></i>
+                            </div>
+                        </div>
+                        <div class="track-info">
+                            <h3 class="track-title">Popular Track <%= i + 1 %></h3>
+                            <p class="artist-name">Top Artist <%= i + 1 %></p>
+                        </div>
+                    </a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
 </div>
