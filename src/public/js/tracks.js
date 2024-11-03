@@ -36,7 +36,7 @@ async function getAlbumImg(title) {
 		console.log(title, albumData);
 
 		if (albumData.album_cover_image) {
-			return "/images" + albumData.album_cover_image;
+			return  albumData.album_cover_image;
 		} else if (albumData.artist_pic_path) {
 			return albumData.artist_pic_path;
 		} else {
