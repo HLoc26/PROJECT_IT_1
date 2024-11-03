@@ -14,6 +14,8 @@ router.get("/login", controllers.getLogin);
 
 router.get("/artists", controllers.getArtistsPage);
 
+router.get("/artists/:id", controllers.getArtistInfo);
+
 router.get("/tracks", controllers.getTracksPage);
 
 router.get("/profile", controllers.getProfilePage);
