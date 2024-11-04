@@ -1,37 +1,47 @@
-// document.addEventListener("DOMContentLoaded", () => {
-// 	const links = document.querySelectorAll("a.side-link");
-// 	const content = document.getElementById("content");
+document.addEventListener("DOMContentLoaded", () => {
+	const content = document.getElementById("content");
 
-// 	links.forEach((link) => {
-// 		link.addEventListener("click", (e) => {
-// 			e.preventDefault();
-// 			const url = e.target.href;
-// 			history.pushState(null, "", url);
-// 			// Fetch nội dung của trang mới mà không làm mới trang
-// 			fetch(url)
-// 				.then((response) => response.text())
-// 				.then((html) => {
-// 					// Lấy nội dung cần thay đổi từ server
-// 					const newContent = new DOMParser().parseFromString(html, "text/html").querySelector("#content").innerHTML;
-// 					content.innerHTML = newContent;
-// 					initHomepage();
-// 				})
-// 				.catch((err) => console.error("Error:", err));
-// 		});
-// 	});
-// });
+	// Lắng nghe sự kiện click trên toàn bộ document
+	document.addEventListener("click", (e) => {
+		const target = e.target;
 
-// Set links for song-links
-const songLinks = document.querySelectorAll(".song-link");
+		// Kiểm tra xem target có phải là một link hoặc có phần tử cha là link không
+		let linkElement = target.matches("a") ? target : target.closest("a");
 
-songLinks.forEach((link) => {
-	link.addEventListener("click", function (e) {
-		e.preventDefault();
+		if (linkElement) {
+			e.preventDefault();
+			const url = linkElement.href;
+			history.pushState(null, "", url);
 
-		const mp3Path = this.getAttribute("data-mp3-path");
-		const title = this.getAttribute("data-title");
-		const artist = this.getAttribute("data-artist");
+			// Fetch nội dung của trang mới mà không làm mới trang
+			fetch(url)
+				.then((response) => response.text())
+				.then((html) => {
+					const newContent = new DOMParser().parseFromString(html, "text/html").querySelector("#content").innerHTML;
+					content.innerHTML = newContent;
 
-		playTrack(mp3Path, title, artist);
+					// Kiểm tra xem link có class là side-link không
+					if (linkElement.matches("a.side-link")) {
+						initHomepage(); // Khởi tạo lại nếu cần
+					}
+
+					// Kiểm tra xem link có class là artist-link không
+					if (linkElement.matches("a.artist-link")) {
+						initArtistPage(); // Khởi tạo lại cho trang nghệ sĩ nếu cần
+					}
+				})
+				.catch((err) => console.error("Error:", err));
+		}
+
+		// Kiểm tra nếu phần tử được click là song-link
+		if (target.matches(".song-link")) {
+			e.preventDefault();
+
+			const mp3Path = target.getAttribute("data-mp3-path");
+			const title = target.getAttribute("data-title");
+			const artist = target.getAttribute("data-artist");
+
+			playTrack(mp3Path, title, artist); // Gọi hàm playTrack để chơi bài hát
+		}
 	});
 });
