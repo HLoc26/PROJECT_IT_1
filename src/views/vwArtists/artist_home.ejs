@@ -152,7 +152,7 @@
         <div class="albums-scroll">
             <% albums.forEach(album => { %>
                 <div class="album-item">
-                    <a href="/artist/<%= artist.artist_id %>/album/<%= album.album_id %>">
+                    <a href="/artists/<%= artist.artist_id %>/album/<%= album.album_id %>">
                         <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
                         <div class="album-name"><%= album.album_name %></div>
                     </a>
@@ -164,15 +164,16 @@
     <div class="songs-list">
         <h2>Songs</h2>
         <ul id="artist-home-song-list">
-            <% tracks.forEach(track => { %>
+            <% tracks.forEach(track=> { %>
                 <li>
-                    <a href="#" class="song-link"
-                        data-mp3-path="<%= track.track_mp3_path %>" 
-                        data-title="<%= track.track_title %>" 
-                        data-artist="<%= artist.artist_name %>">
-                        <%= track.track_title %>
-                    </a>
-                    <span class="song-duration" data-mp3-path="<%= track.track_mp3_path %>">--:--</span>
+                    <% let path=track.track_mp3_path.includes("https://hlocstorage.blob.core.windows.net/music/") ?
+                        track.track_mp3_path : "https://hlocstorage.blob.core.windows.net/music/" + track.track_mp3_path; %>
+
+                        <a href="#" class="song-link" data-mp3-path="<%= path %>" data-title="<%= track.track_title %>"
+                            data-artist="<%= artist.artist_name %>">
+                            <%= track.track_title %>
+                        </a>
+                        <span class="song-duration" data-mp3-path="<%= path %>">--:--</span>
                 </li>
             <% }); %>
         </ul>
@@ -180,27 +181,27 @@
 </div>
 
 <script>
-// Function to format time in MM:SS
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-}
+// // Function to format time in MM:SS
+// function formatTime(seconds) {
+//     const minutes = Math.floor(seconds / 60);
+//     const remainingSeconds = Math.floor(seconds % 60);
+//     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+// }
 
-// Function to get audio duration
-function getAudioDuration(mp3Path, durationElement) {
-    const audio = new Audio(mp3Path);
-    audio.addEventListener('loadedmetadata', () => {
-        durationElement.textContent = formatTime(audio.duration);
-    });
-    audio.addEventListener('error', () => {
-        durationElement.textContent = '--:--';
-    });
-}
+// // Function to get audio duration
+// function getAudioDuration(mp3Path, durationElement) {
+//     const audio = new Audio(mp3Path);
+//     audio.addEventListener('loadedmetadata', () => {
+//         durationElement.textContent = formatTime(audio.duration);
+//     });
+//     audio.addEventListener('error', () => {
+//         durationElement.textContent = '--:--';
+//     });
+// }
 
-// Get duration for all songs
-document.querySelectorAll('.song-duration').forEach(span => {
-    const mp3Path = span.dataset.mp3Path;
-    getAudioDuration(mp3Path, span);
-});
+// // Get duration for all songs
+// document.querySelectorAll('.song-duration').forEach(span => {
+//     const mp3Path = span.dataset.mp3Path;
+//     getAudioDuration(mp3Path, span);
+// });
 </script>
