@@ -1,120 +1,164 @@
+<link rel="stylesheet" href="/css/container.css">
+<style>
+    .artist-page {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .artist-header {
+        position: relative;
+        text-align: left;
+        overflow: hidden;
+        width: 100%;
+        height: 300px;
+    }
+    
+    .artist-header img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.7);
+    }
+    
+    .artist-header h1 {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        color: white;
+        text-shadow: 1px 1px 2px black;
+        font-size: 2.5em;
+        margin: 0;
+    }
 
-    <link rel="stylesheet" href="/css/container.css">
-    <style>
-        .artist-page {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-        .artist-header {
-            position: relative;
-            text-align: left; /* Align text to the left */
-            overflow: hidden;
-            width: 100%; /* Full width */
-            height: 300px; /* Fixed height for rectangular shape */
-        }
-        .artist-header img {
-            width: 100%;
-            height: 100%; /* Fill height */
-            object-fit: cover; /* Crop image to fill the container */
-            filter: brightness(0.7);
-        }
-        .artist-header h1 {
-            position: absolute;
-            bottom: 10px; /* Position at the bottom */
-            left: 10px; /* Align to the left */
-            color: white;
-            text-shadow: 1px 1px 2px black;
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .songs-list, .artist-description {
-    padding: 20px;
-    background-color: #4a6e97;
-    margin: 20px;
-    border-radius: 8px;
-}
+    /* New album list styling */
+    .albums-container {
+        margin: 20px;
+        padding: 10px 0;
+    }
 
-.songs-list h2, .artist-description h2 {
-    margin-bottom: 10px;
-    font-size: 1.5em;
-}
+    .albums-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        gap: 20px;
+        padding-bottom: 10px;
+    }
 
-.songs-list ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
+    .albums-scroll::-webkit-scrollbar {
+        height: 8px;
+    }
 
-.songs-list li {
-    padding: 10px 20px;
-    border-bottom: 1px solid #333;
-}
+    .albums-scroll::-webkit-scrollbar-track {
+        background: #333;
+        border-radius: 4px;
+    }
 
-.songs-list li:last-child {
-    border-bottom: none;
-}
+    .albums-scroll::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 4px;
+    }
 
-#more-button {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    .album-item {
+        flex: 0 0 auto;
+        width: 180px;
+        text-align: center;
+    }
 
-#more-button:hover {
-    background-color: #3e8e41;
-}
-        .playlist-display {
-            display: flex; /* Use flexbox for horizontal layout */
-            overflow-x: auto; /* Enable horizontal scrolling */
-            padding: 10px 0; /* Space above and below the playlist */
-            scrollbar-width: none; /* For Firefox */
-            margin: 20px; /* Added margin for consistency */
-        }
+    .album-item img {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.2s;
+    }
 
-        .playlist-display::-webkit-scrollbar {
-            display: none; /* For Chrome, Safari, and Opera */
-        }
+    .album-item:hover img {
+        transform: scale(1.05);
+    }
 
-        .playlist-card {
-            min-width: 150px; /* Minimum width for each card (increase as needed) */
-            margin-right: 15px; /* Space between cards */
-            text-align: center; /* Center text under image */
-        }
+    .album-item a {
+        text-decoration: none;
+        color: white;
+    }
 
-        .playlist-card img {
-            width: 150px; /* Set a larger fixed width for images */
-            height: 150px; /* Set a larger fixed height for images */
-            object-fit: cover; /* Ensure images cover the area */
-            border-radius: 4px; /* Optional: Rounded corners */
-        }
-    </style>
+    .album-name {
+        margin-top: 8px;
+        font-size: 0.9em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 5px;
+    }
+
+    /* Updated song list styling */
+    .songs-list {
+        padding: 20px;
+        background-color: #4a6e97;
+        margin: 20px;
+        border-radius: 8px;
+    }
+
+    .songs-list h2 {
+        margin-bottom: 10px;
+        font-size: 1.5em;
+    }
+
+    .songs-list ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .songs-list li {
+        padding: 10px 20px;
+        border-bottom: 1px solid #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .songs-list li:last-child {
+        border-bottom: none;
+    }
+
+    .song-duration {
+        color: #ddd;
+        font-size: 0.9em;
+    }
+
+    .song-link {
+        color: white;
+        text-decoration: none;
+    }
+
+    .song-link:hover {
+        color: #ddd;
+    }
+</style>
+
 <div class="artist-page">
-
     <div class="artist-header">
-        <!-- Artist Picture -->
         <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
-        <!-- Artist Name Overlay -->
         <h1><%= artist.artist_name %></h1>
     </div>
 
-    <div>
+    <div class="albums-container">
         <h2>Albums</h2>
-        <ul>
+        <div class="albums-scroll">
             <% albums.forEach(album => { %>
-                <li>
-                    <!-- Call to artist's albums page -->
+                <div class="album-item">
                     <a href="/artist/<%= artist.artist_id %>/album/<%= album.album_id %>">
-                        <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>" height="100px"><%= album.album_name %>
+                        <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
+                        <div class="album-name"><%= album.album_name %></div>
                     </a>
-                </li>
+                </div>
             <% }); %>
-        </ul>
+        </div>
     </div>
 
     <div class="songs-list">
@@ -125,11 +169,38 @@
                     <a href="#" class="song-link"
                         data-mp3-path="<%= track.track_mp3_path %>" 
                         data-title="<%= track.track_title %>" 
-                        data-artist="<%= track.artist_name %>">
-                    <%= track.track_title %>
+                        data-artist="<%= artist.artist_name %>">
+                        <%= track.track_title %>
                     </a>
+                    <span class="song-duration" data-mp3-path="<%= track.track_mp3_path %>">--:--</span>
                 </li>
             <% }); %>
         </ul>
     </div>
 </div>
+
+<script>
+// Function to format time in MM:SS
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+// Function to get audio duration
+function getAudioDuration(mp3Path, durationElement) {
+    const audio = new Audio(mp3Path);
+    audio.addEventListener('loadedmetadata', () => {
+        durationElement.textContent = formatTime(audio.duration);
+    });
+    audio.addEventListener('error', () => {
+        durationElement.textContent = '--:--';
+    });
+}
+
+// Get duration for all songs
+document.querySelectorAll('.song-duration').forEach(span => {
+    const mp3Path = span.dataset.mp3Path;
+    getAudioDuration(mp3Path, span);
+});
+</script>
