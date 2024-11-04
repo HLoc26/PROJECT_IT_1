@@ -167,7 +167,7 @@
         <ul class="artists-grid">
             <% artists.forEach(artist => { %>
                 <li class="artist-item">
-                    <a href="/artists/<%= artist.artist_id %>">
+                    <a href="/artists/<%= artist.artist_id %>" class="artist-link">
                         <div class="artist-image-container">
                             <img
                                 src="<%= artist.artist_pic_path %>"
