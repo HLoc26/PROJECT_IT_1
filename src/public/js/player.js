@@ -35,7 +35,7 @@ function setProgress() {
 	const newTime = (progressInput.value / 100) * audioPlayer.duration;
 	audioPlayer.currentTime = newTime;
 }
-
+let isDragging = false;
 // Add event listeners for drag events
 progressInput.addEventListener("mousedown", () => {
 	isDragging = true; // User is dragging
