@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/artist-album.css">
+<div class="artist-page">
+    <div class="artist-header">
+        <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
+        <h1><%= artist.artist_name %></h1>
+    </div>
+
+    <div class="album-info">
+        <h2><%= album.album_name %></h2>
+        <div class="album-cover">
+            <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
+        </div>
+        <div class="songs-list">
+            <h2>Songs</h2>
+            <ul id="album-song-list">
+                <% tracks.forEach(track => { %>
+                    <li>
+                        <a href="/artist/<%= artist.artist_id %>/album/<%= album.album_id %>/track/<%= track.track_id %>">
+                            <%= track.track_title %>
+                        </a>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+</div>
