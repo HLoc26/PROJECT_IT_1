@@ -1,0 +1,207 @@
+<link rel="stylesheet" href="/css/container.css">
+<style>
+    .artist-page {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .artist-header {
+        position: relative;
+        text-align: left;
+        overflow: hidden;
+        width: 100%;
+        height: 300px;
+    }
+    
+    .artist-header img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.7);
+    }
+    
+    .artist-header h1 {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        color: white;
+        text-shadow: 1px 1px 2px black;
+        font-size: 2.5em;
+        margin: 0;
+    }
+
+    /* New album list styling */
+    .albums-container {
+        margin: 20px;
+        padding: 10px 0;
+    }
+
+    .albums-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        gap: 20px;
+        padding-bottom: 10px;
+    }
+
+    .albums-scroll::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .albums-scroll::-webkit-scrollbar-track {
+        background: #333;
+        border-radius: 4px;
+    }
+
+    .albums-scroll::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 4px;
+    }
+
+    .album-item {
+        flex: 0 0 auto;
+        width: 180px;
+        text-align: center;
+    }
+
+    .album-item img {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.2s;
+    }
+
+    .album-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .album-item a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .album-name {
+        margin-top: 8px;
+        font-size: 0.9em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 5px;
+    }
+
+    /* Updated song list styling */
+    .songs-list {
+        padding: 20px;
+        background-color: #4a6e97;
+        margin: 20px;
+        border-radius: 8px;
+    }
+
+    .songs-list h2 {
+        margin-bottom: 10px;
+        font-size: 1.5em;
+    }
+
+    .songs-list ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .songs-list li {
+        padding: 10px 20px;
+        border-bottom: 1px solid #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .songs-list li:last-child {
+        border-bottom: none;
+    }
+
+    .song-duration {
+        color: #ddd;
+        font-size: 0.9em;
+    }
+
+    .song-link {
+        color: white;
+        text-decoration: none;
+    }
+
+    .song-link:hover {
+        color: #ddd;
+    }
+</style>
+
+<div class="artist-page">
+    <div class="artist-header">
+        <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
+        <h1><%= artist.artist_name %></h1>
+    </div>
+
+    <div class="albums-container">
+        <h2>Albums</h2>
+        <div class="albums-scroll">
+            <% albums.forEach(album => { %>
+                <div class="album-item">
+                    <a href="/artists/<%= artist.artist_id %>/album/<%= album.album_id %>">
+                        <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
+                        <div class="album-name"><%= album.album_name %></div>
+                    </a>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <div class="songs-list">
+        <h2>Songs</h2>
+        <ul id="artist-home-song-list">
+            <% tracks.forEach(track=> { %>
+                <li>
+                    <% let path=track.track_mp3_path.includes("https://hlocstorage.blob.core.windows.net/music/") ?
+                        track.track_mp3_path : "https://hlocstorage.blob.core.windows.net/music/" + track.track_mp3_path; %>
+
+                        <a href="#" class="song-link" data-mp3-path="<%= path %>" data-title="<%= track.track_title %>"
+                            data-artist="<%= artist.artist_name %>">
+                            <%= track.track_title %>
+                        </a>
+                        <span class="song-duration" data-mp3-path="<%= path %>">--:--</span>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>
+
+<script>
+// // Function to format time in MM:SS
+// function formatTime(seconds) {
+//     const minutes = Math.floor(seconds / 60);
+//     const remainingSeconds = Math.floor(seconds % 60);
+//     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+// }
+
+// // Function to get audio duration
+// function getAudioDuration(mp3Path, durationElement) {
+//     const audio = new Audio(mp3Path);
+//     audio.addEventListener('loadedmetadata', () => {
+//         durationElement.textContent = formatTime(audio.duration);
+//     });
+//     audio.addEventListener('error', () => {
+//         durationElement.textContent = '--:--';
+//     });
+// }
+
+// // Get duration for all songs
+// document.querySelectorAll('.song-duration').forEach(span => {
+//     const mp3Path = span.dataset.mp3Path;
+//     getAudioDuration(mp3Path, span);
+// });
+</script>
