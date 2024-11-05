@@ -6,14 +6,14 @@ class Album {
 			const albumData = await knex("tracks as t")
 				.leftJoin("track_album as ta", "t.track_id", "ta.track_id")
 				.leftJoin("albums as a", "ta.album_id", "a.album_id")
-				.select("a.album_id", "a.album_name", "a.album_cover_image") // Add other album fields as necessary
+				.select("a.album_id", "a.album_name", "a.album_cover_image")
 				.where("t.track_title", trackTitle) // Filter by track title
-				.first(); // Use first() if you expect only one result
+				.first();
 
-			return albumData; // Return the album data or null if not found
+			return albumData;
 		} catch (error) {
 			console.error("Error retrieving album:", error);
-			throw error; // Rethrow the error for handling upstream
+			throw error;
 		}
 	}
 }
