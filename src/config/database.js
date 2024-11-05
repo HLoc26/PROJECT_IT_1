@@ -10,6 +10,7 @@ const config = {
 	password: process.env.AZURE_SQL_PASSWORD,
 	options: {
 		encrypt: true,
+		trustServerCertificate: true,
 	},
 };
 
