@@ -1,7 +1,7 @@
 import { compare, hash } from "bcrypt";
 import knex from "../config/knex.js";
 import { getTracksPage } from "./tracks.controller.js";
-import { getArtistsPage, getArtistInfo } from "./artists.controller.js";
+import { getArtistsPage, getArtistInfo, getAlbum } from "./artists.controller.js";
 import { getHomepage } from "./homepage.controller.js";
 
 // Các hàm trả về dữ liệu cho routes/web.js
@@ -71,6 +71,7 @@ export default {
 	getHomepage,
 	getArtistsPage,
 	getArtistInfo,
+	getAlbum,
 	getTracksPage,
 	getProfilePage,
 	getLogin,

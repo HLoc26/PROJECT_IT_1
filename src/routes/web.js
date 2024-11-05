@@ -16,9 +16,7 @@ router.get("/artists", controllers.getArtistsPage);
 
 router.get("/artists/:id", controllers.getArtistInfo);
 
-router.get("/artists/:id/album/:album_id", function (req, res) {
-	res.send("Hello");
-});
+router.get("/album/:id", controllers.getAlbum);
 
 router.get("/tracks", controllers.getTracksPage);
 
