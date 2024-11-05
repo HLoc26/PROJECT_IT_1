@@ -152,7 +152,7 @@
         <div class="albums-scroll">
             <% albums.forEach(album => { %>
                 <div class="album-item">
-                    <a href="/artists/<%= artist.artist_id %>/album/<%= album.album_id %>">
+                    <a href="/album/<%= album.album_id %>">      
                         <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
                         <div class="album-name"><%= album.album_name %></div>
                     </a>
