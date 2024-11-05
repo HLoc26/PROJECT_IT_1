@@ -3,7 +3,7 @@ function playTrack(src, title, artist) {
 	const audioPlayerSrc = document.getElementById("audio-player-src");
 	const trackTitle = document.querySelector(".player-track-title");
 	const trackArtist = document.querySelector(".player-track-artist");
-	const playbtn = document.getElementsByClassName("play-btn")[0]; // Get the first play button
+	const playbtn = document.getElementsByClassName("play-btn")[0];
 	const playIcon = playbtn.querySelector("i");
 	playIcon.classList.remove("bi-play-fill");
 	playIcon.classList.add("bi-pause-fill");
@@ -14,35 +14,51 @@ function playTrack(src, title, artist) {
 	audioPlayer.play();
 
 	// Update song information
-	getAlbumImg(title);
+	const albumImg = document.querySelectorAll(".player-album-img");
+	albumImg.forEach(async (img) => {
+		const imgPath = await getAlbumImg(title); // Wait for the async function to resolve
+		img.src = imgPath;
+	});
 	trackTitle.textContent = title;
 	trackArtist.textContent = artist;
 }
 
-function getAlbumImg(title) {
+async function getAlbumImg(title) {
 	// Encode the album title to handle spaces and special characters
 	const encodedTitle = encodeURIComponent(title);
-	const url = `/api/album/${encodedTitle}`; // Use a proper endpoint format
+	const url = `/api/track/img/${title}`;
 
-	fetch(url)
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
-			}
-			return response.json(); // Parse the JSON response
-		})
-		.then((albumData) => {
-			// Use the album data here
-			// console.log("Album data", albumData.album_cover_image); // Log or process the album data
-			// Example: display album image
-			const imgPath = albumData.album_cover_image;
-			if (imgPath) {
-				document.querySelector(".player-album-img").src = albumData.album_cover_image; // Assuming the album data contains an image property
-			} else {
-				document.querySelector(".player-album-img").src = "/images/albums/default.jpg";
-			}
-		})
-		.catch((error) => {
-			console.error("There was a problem with the fetch operation:", error);
-		});
+	try {
+		const response = await fetch(url);
+		if (!response.ok) {
+			throw new Error("Network response was not ok");
+		}
+		const albumData = await response.json();
+
+		console.log(title, albumData);
+
+		if (albumData.album_cover_image) {
+			return  albumData.album_cover_image;
+		} else if (albumData.artist_pic_path) {
+			return albumData.artist_pic_path;
+		} else {
+			return "/images/albums/default.jpg";
+		}
+	} catch (error) {
+		console.error("There was a problem with the fetch operation:", error);
+		return "/images/albums/default.jpg"; // Default image in case of an error
+	}
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+	const trackImages = document.querySelectorAll(".track-image");
+
+	trackImages.forEach(async function (img) {
+		const title = img.getAttribute("data-title");
+		const encodedTitle = encodeURIComponent(title);
+
+		const imgPath = await getAlbumImg(encodedTitle);
+		console.log("DOM: ", title, imgPath);
+		img.src = imgPath;
+	});
+});

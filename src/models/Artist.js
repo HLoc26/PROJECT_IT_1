@@ -26,6 +26,14 @@ class Artist {
 		const artist = await knex("artists").select("*").where("artist_id", artist_id).first();
 		return artist;
 	}
+	static async getArtistInfoByTrack(track_title) {
+		const tracks = await knex("tracks as t")
+			.join("artist_perform as ap", "t.track_id", "ap.track_id") // Join artist_perform
+			.join("artists as a", "ap.artist_id", "a.artist_id")
+			.where("t.track_title", track_title)
+			.first();
+		return tracks;
+	}
 }
 
 export default Artist;
