@@ -15,9 +15,13 @@
             <ul id="album-song-list">
                 <% tracks.forEach(track => { %>
                     <li>
-                        <a href="/artist/<%= artist.artist_id %>/album/<%= album.album_id %>/track/<%= track.track_id %>">
-                            <%= track.track_title %>
-                        </a>
+                        <% let path=track.track_mp3_path.includes("https://hlocstorage.blob.core.windows.net/music/") ? track.track_mp3_path
+                            : "https://hlocstorage.blob.core.windows.net/music/" + track.track_mp3_path; %>
+                        
+                            <a href="#" class="song-link" data-mp3-path="<%= path %>" data-title="<%= track.track_title %>"
+                                data-artist="<%= artist.artist_name %>">
+                                <%= track.track_title %>
+                            </a>
                     </li>
                 <% }); %>
             </ul>
