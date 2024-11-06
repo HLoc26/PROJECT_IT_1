@@ -20,6 +20,8 @@ router.get("/album/:id", controllers.getAlbum);
 
 router.get("/tracks", controllers.getTracksPage);
 
+router.get("/tracks/:id", controllers.getTrackDetail);
+
 router.get("/profile", controllers.getProfilePage);
 
 router.post("/register", [urlencoded({ extended: true }), json()], controllers.postRegister);
