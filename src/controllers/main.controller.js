@@ -1,6 +1,6 @@
 import { compare, hash } from "bcrypt";
 import knex from "../config/knex.js";
-import { getTracksPage } from "./tracks.controller.js";
+import { getTracksPage, getTrackDetail } from "./tracks.controller.js";
 import { getArtistsPage, getArtistInfo, getAlbum } from "./artists.controller.js";
 import { getHomepage } from "./homepage.controller.js";
 
@@ -73,6 +73,7 @@ export default {
 	getArtistInfo,
 	getAlbum,
 	getTracksPage,
+	getTrackDetail,
 	getProfilePage,
 	getLogin,
 	postRegister,
