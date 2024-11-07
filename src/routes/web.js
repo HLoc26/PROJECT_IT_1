@@ -26,4 +26,6 @@ router.post("/register", [urlencoded({ extended: true }), json()], controllers.p
 
 router.post("/login", [urlencoded({ extended: true }), json()], controllers.postLogin);
 
+router.get("/logout", controllers.getLogout);
+
 export default router;
