@@ -20,6 +20,7 @@
 		"ejs": "3.1.10",
 		"express": "4.21.0",
 		"express-ejs-layouts": "^2.5.1",
+		"express-session": "^1.18.1",
 		"knex": "^3.1.0",
 		"mssql": "^11.0.1",
 		"mysql2": "3.11.3",
