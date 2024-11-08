@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		let linkElement = target.matches("a") ? target : target.closest("a");
 
 		if (linkElement) {
+			if (linkElement.href.contains("/logout")) {
+				window.location.reload();
+				history.pushState("/login");
+				return;
+			}
 			e.preventDefault();
 			const url = linkElement.href;
 			history.pushState(null, "", url);
@@ -19,16 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				.then((html) => {
 					const newContent = new DOMParser().parseFromString(html, "text/html").querySelector("#content").innerHTML;
 					content.innerHTML = newContent;
-
-					// Kiểm tra xem link có class là side-link không
-					if (linkElement.matches("a.side-link")) {
-						initHomepage(); // Khởi tạo lại nếu cần
-					}
-
-					// Kiểm tra xem link có class là artist-link không
-					if (linkElement.matches("a.artist-link")) {
-						initArtistPage(); // Khởi tạo lại cho trang nghệ sĩ nếu cần
-					}
 				})
 				.catch((err) => console.error("Error:", err));
 		}

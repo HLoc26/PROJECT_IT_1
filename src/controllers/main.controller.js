@@ -13,6 +13,16 @@ const getProfilePage = (req, res) => {
 	res.render("profile");
 };
 
+const getLogout = (req, res) => {
+	req.session.destroy(function (err) {
+		if (err) {
+			return res.send("Error logging out");
+		}
+		console.log("Logged out");
+		res.render("layouts/login", { layout: false });
+	});
+};
+
 const postRegister = async (req, res) => {
 	const { user_name, user_email, user_password } = req.body;
 	try {
@@ -60,7 +70,12 @@ const postLogin = async (req, res) => {
 			return res.status(401).json({ error: "Wrong email or password" });
 		}
 
-		return res.status(200).json({ message: "Login success!" });
+		req.session.userId = user.user_id;
+		req.session.username = user.user_name;
+		req.session.role = user.user_role;
+		req.session.isAuthentication = true;
+		console.log("Login OK");
+		return res.status(200).redirect("/home");
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ error: "Internal server error" });
@@ -76,6 +91,7 @@ export default {
 	getTrackDetail,
 	getProfilePage,
 	getLogin,
+	getLogout,
 	postRegister,
 	postLogin,
 };

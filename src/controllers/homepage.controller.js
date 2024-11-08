@@ -1,5 +1,6 @@
 import Artist from "../models/Artist.js";
 export async function getHomepage(req, res) {
+	const username = req.session.username;
 	const artists = await Artist.get10Artists();
-	res.render("homepage", { artists: artists });
+	res.render("homepage", { artists: artists, username: username });
 }
