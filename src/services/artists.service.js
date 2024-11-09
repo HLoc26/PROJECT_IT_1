@@ -1,10 +1,10 @@
 import db from "../config/knex.js";
 export default {
-	getArtists() {
+	findAll() {
 		return db("artists").select("*");
 	},
 
-	get10Artists() {
+	findTop10() {
 		return db.raw("SELECT TOP 10 * FROM artists");
 	},
 
