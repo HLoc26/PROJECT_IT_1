@@ -9,9 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		let linkElement = target.matches("a") ? target : target.closest("a");
 
 		if (linkElement) {
-			if (linkElement.href.contains("/logout")) {
-				window.location.reload();
-				history.pushState("/login");
+			if (linkElement.href.includes("/logout")) {
+				history.replaceState(null, "", "/login");
+				fetch("/logout", {
+					method: "POST",
+				}).then(() => {
+					window.location.reload();
+				});
 				return;
 			}
 			e.preventDefault();
