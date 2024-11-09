@@ -15,6 +15,9 @@ const app = express();
 const port = process.env.PORT || 8080;
 const hostname = process.env.HOST_NAME;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // config template engine
 configViewEngine(app);
 
@@ -43,12 +46,6 @@ app.use(function (req, res, next) {
 		return isAuthenticated(req, res, next);
 	}
 });
-
-app.use(
-	express.urlencoded({
-		extended: true,
-	})
-);
 
 // .../
 app.use("/", webRoutes);
