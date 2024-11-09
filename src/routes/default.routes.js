@@ -1,8 +1,8 @@
 // Điều hướng trang
-import { Router, urlencoded, json } from "express";
-const router = Router();
+import { Router } from "express";
+import controllers from "../controllers/default.controller.js";
 
-import controllers from "../controllers/main.controller.js";
+const router = Router();
 
 router.get("/", function (req, res) {
 	res.redirect("/home");
