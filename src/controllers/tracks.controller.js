@@ -1,35 +1,41 @@
-import Track from "../models/Track.js";
-import Album from "../models/Album.js";
-// Controller or Service function to get tracks with artists
-export async function getTracksPage(req, res) {
-	try {
-		const tracks = await Track.getTracksArtists();
+import artistService from "../services/artists.service.js";
+import albumService from "../services/albums.service.js";
+import trackService from "../services/tracks.service.js";
 
-		tracks.forEach((track) => {
-			console.log(track.track_title, track.artist_name);
-		});
+export default {
+	// Controller or Service function to get tracks with artists
+	async getTracksPage(req, res) {
+		try {
+			const tracks = await trackService.findAll();
 
-		res.render("vwTracks/tracks", { tracks: tracks });
-	} catch (error) {
-		console.error(error);
-		res.status(500).send("An error occurred while retrieving the tracks");
-	}
-}
+			// Debugging
+			// tracks.forEach((track) => {
+			// 	console.log(track.track_title, track.artist_name);
+			// });
 
-export async function getTrackDetail(req, res) {
-	try {
-		const id = req.params.id; // Track id
-		const track = await Track.getTrackInfo(id);
-		const artist = await Track.getArtistInfo(id);
-		const album = await Track.getAlbumInfo(id);
+			res.render("vwTracks/tracks", { tracks: tracks });
+		} catch (error) {
+			console.error(error);
+			res.status(500).send("An error occurred while retrieving the tracks");
+		}
+	},
 
-		console.log(track);
-		console.log(artist);
-		console.log(album);
+	async getTrackDetail(req, res) {
+		try {
+			const track_id = req.params.id; // Track id
+			const track = await trackService.findById(track_id);
+			const artist = await artistService.findByTrackId(track_id);
+			const album = await albumService.findByTrackId(track_id);
 
-		return res.render("vwTracks/track_detail", { track: track, artist: artist, album: album });
-	} catch (error) {
-		console.error(error);
-		res.status(500).send("An error occurred while retrieving the track's information");
-	}
-}
+			// Debugging
+			// console.log(track);
+			// console.log(artist);
+			// console.log(album);
+
+			return res.render("vwTracks/track_detail", { track: track, artist: artist, album: album });
+		} catch (error) {
+			console.error(error);
+			res.status(500).send("An error occurred while retrieving the track's information");
+		}
+	},
+};
