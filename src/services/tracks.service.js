@@ -10,7 +10,7 @@ export default {
 	},
 
 	findAll() {
-		return knex("tracks as t")
+		return db("tracks as t")
 			.leftJoin("artist_perform as ap", "t.track_id", "ap.track_id")
 			.leftJoin("artists as a", "ap.artist_id", "a.artist_id")
 			.select(
@@ -24,7 +24,7 @@ export default {
 	},
 
 	findByAlbumId(album_id) {
-		const tracks = knex("tracks as t")
+		const tracks = db("tracks as t")
 			.join("track_album as ta", "ta.track_id", "t.track_id") // Join track_album
 			.join("albums as a", "a.album_id", "ta.album_id")
 			.where("a.album_id", album_id);
@@ -32,7 +32,7 @@ export default {
 	},
 
 	findById(track_id) {
-		const track = knex("tracks as t").select("*").where("t.track_id", track_id).first();
+		const track = db("tracks as t").select("*").where("t.track_id", track_id).first();
 		return track;
 	},
 };

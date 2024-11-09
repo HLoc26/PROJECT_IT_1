@@ -40,13 +40,13 @@ export default {
 		}
 	},
 	findByTrackId(track_id) {
-		const artist = knex("tracks as t")
+		const artist = db("tracks as t")
 			.join("artist_perform as ap", "t.track_id", "ap.track_id") // Join artist_perform
 			.join("artists as a", "a.artist_id", "ap.artist_id")
 			.select(
 				"t.track_id",
-				knex.raw("STRING_AGG(a.artist_name, ', ') AS artist_name"), // Aggregate artist names
-				knex.raw("MIN(a.artist_pic_path) AS artist_pic") // Use MAX or any aggregate function for non-grouped fields
+				db.raw("STRING_AGG(a.artist_name, ', ') AS artist_name"), // Aggregate artist names
+				db.raw("MIN(a.artist_pic_path) AS artist_pic") // Use MAX or any aggregate function for non-grouped fields
 			)
 			.where("t.track_id", track_id)
 			.groupBy("t.track_id")

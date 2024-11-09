@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	findByTrackId(track_id) {
-		const album = knex("tracks as t")
+		const album = db("tracks as t")
 			.join("track_album as ta", "t.track_id", "ta.track_id") // Join track_album
 			.join("albums as a", "a.album_id", "ta.album_id")
 			.select("*")
