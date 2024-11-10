@@ -14,6 +14,7 @@
 	"author": "hloc2605",
 	"license": "ISC",
 	"dependencies": {
+		"@azure/storage-blob": "^12.25.0",
 		"bcrypt": "^5.1.1",
 		"body-parser": "^1.20.3",
 		"dotenv": "16.4.5",
