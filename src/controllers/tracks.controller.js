@@ -2,6 +2,9 @@ import artistService from "../services/artists.service.js";
 import albumService from "../services/albums.service.js";
 import trackService from "../services/tracks.service.js";
 
+import { parseBuffer } from "music-metadata";
+import containerClient from "../config/azureStorage.js";
+
 export default {
 	// Controller or Service function to get tracks with artists
 	async getTracksPage(req, res) {
@@ -43,13 +46,42 @@ export default {
 		if (!req.file) {
 			return res.status(400).redirect("/tracks/upload");
 		}
-		const blobName = req.file.filename;
+		console.log(req.file);
+
+		// Gather information from req.body
+		const { upload_track_name, isVisible, upload_lyrics } = req.body;
+		const visibility = isVisible === "on" ? "public" : "private";
+		const lyrics = upload_lyrics && upload_lyrics.trim() ? upload_lyrics : null;
+
+		// Prepare to upload to storage
+		const blobName = req.file.originalname;
 		const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
 		try {
-			await blockBlobClient.upload(req.file.buffer, req.file.size);
+			// track_duration
+			const metadata = await parseBuffer(req.file.buffer);
+			const duration = metadata.format.duration;
 
-			const fileUrl = `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName}/${blobName}`;
-		} catch (error) {}
+			// Upload to azure storage
+			await blockBlobClient.upload(req.file.buffer, req.file.size);
+			// track_mp3_path
+			const fileUrl = `https://${process.env.STORAGE_ACC}.blob.core.windows.net/music/${blobName}`;
+
+			// Insert to db
+			const entity = {
+				track_title: upload_track_name,
+				track_duration: duration,
+				track_mp3_path: fileUrl,
+				lyrics: lyrics,
+				visibility: visibility,
+			};
+
+			console.log(">>>>> entity: ", entity);
+			await trackService.add(entity);
+			// TODO: Redirect to track detail page
+			res.status(200).redirect("/tracks");
+		} catch (error) {
+			console.log("ERROR: ", error);
+		}
 	},
 };
