@@ -17,8 +17,8 @@ export default {
 				"t.track_id",
 				"t.track_title",
 				"t.track_mp3_path", // Additional track field
-				knex.raw("STRING_AGG(a.artist_name, ', ') AS artist_name"), // Aggregate artist names
-				knex.raw("MIN(a.artist_pic_path) AS artist_pic") // Use MAX or any aggregate function for non-grouped fields
+				db.raw("STRING_AGG(a.artist_name, ', ') AS artist_name"), // Aggregate artist names
+				db.raw("MIN(a.artist_pic_path) AS artist_pic") // Use MAX or any aggregate function for non-grouped fields
 			)
 			.groupBy("t.track_id", "t.track_title", "t.track_mp3_path"); // Group by all non-aggregated fields
 	},

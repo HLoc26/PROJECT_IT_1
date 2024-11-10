@@ -52,7 +52,7 @@ app.use("/", webRoutes);
 // .../artists/
 app.use("/artists", artistRoutes);
 // .../albums/
-app.use("/albums", albumRoutes);
+app.use("/album", albumRoutes);
 // .../tracks/
 app.use("/tracks", trackRoutes);
 // .../api/

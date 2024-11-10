@@ -11,9 +11,9 @@ export default {
 	async getArtistInfo(req, res) {
 		const artist_id = req.params.id;
 
-		const artist = artistService.findById(artist_id);
-		const artist_albums = albumService.findByArtistId(artist_id); // Artists albums
-		const artist_tracks = trackService.findByArtistId(artist_id); // Artists tracks
+		const artist = await artistService.findById(artist_id);
+		const artist_albums = await albumService.findByArtistId(artist_id); // Artists albums
+		const artist_tracks = await trackService.findByArtistId(artist_id); // Artists tracks
 
 		return res.render("vwArtists/artist_home", { artist: artist, albums: artist_albums, tracks: artist_tracks });
 	},
