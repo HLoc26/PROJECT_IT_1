@@ -7,4 +7,8 @@ router.get("/", tracksController.getTracksPage);
 
 router.get("/:id", tracksController.getTrackDetail);
 
+router.get("/upload", function (req, res) {
+	res.render("vwTracks/upload");
+});
+
 export default router;
