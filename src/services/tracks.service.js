@@ -35,4 +35,10 @@ export default {
 		const track = db("tracks as t").select("*").where("t.track_id", track_id).first();
 		return track;
 	},
+
+	add(entity) {
+		// TODO: Insert to user_upload
+		const ret = db("tracks").insert(entity);
+		return ret;
+	},
 };
