@@ -38,4 +38,18 @@ export default {
 			res.status(500).send("An error occurred while retrieving the track's information");
 		}
 	},
+
+	async uploadFile(req, res) {
+		if (!req.file) {
+			return res.status(400).redirect("/tracks/upload");
+		}
+		const blobName = req.file.filename;
+		const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+		try {
+			await blockBlobClient.upload(req.file.buffer, req.file.size);
+
+			const fileUrl = `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName}/${blobName}`;
+		} catch (error) {}
+	},
 };
