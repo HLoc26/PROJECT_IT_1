@@ -24,8 +24,7 @@ export default {
 	findByTrackTitle(track_title) {
 		try {
 			const album = db("tracks as t")
-				.leftJoin("track_album as ta", "t.track_id", "ta.track_id")
-				.leftJoin("albums as a", "ta.album_id", "a.album_id")
+				.leftJoin("albums as a", "t.album_id", "a.album_id")
 				.select("a.album_id", "a.album_name", "a.album_cover_image")
 				.where("t.track_title", track_title) // Filter by track title
 				.first();
@@ -38,9 +37,8 @@ export default {
 	},
 	findByTrackId(track_id) {
 		const album = db("tracks as t")
-			.join("track_album as ta", "t.track_id", "ta.track_id") // Join track_album
-			.join("albums as a", "a.album_id", "ta.album_id")
-			.select("*")
+			.join("albums as a", "a.album_id", "t.album_id") // join albums
+			.select("a.album_id", "a.album_name", "a.album_cover_image")
 			.where("t.track_id", track_id)
 			.first();
 		return album;
