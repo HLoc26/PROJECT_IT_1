@@ -103,10 +103,10 @@
 
 /* Play Track Button */
 .play-track-btn {
-    background-color: #ffffff;
-    border: none;
+    background-color: transparent; /* Transparent background */
+    border: 2px solid #ffffff; /* White border for visibility */
     border-radius: 50%;
-    color: #4a6e97;
+    color: #ffffff; /* White icon color */
     width: 30px;
     height: 30px;
     display: none; /* Hidden by default */
@@ -116,7 +116,7 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .songs-list li:hover .play-track-btn {
@@ -124,8 +124,9 @@
 }
 
 .play-track-btn:hover {
-    background-color: #ffffff; /* Background color change on hover */
+    background-color: #ffffff; /* Light background color on hover */
     color: #3a5a7c; /* Icon color change on hover */
+    border-color: #3a5a7c; /* Border color change on hover */
 }
 
 .play-track-btn i {
