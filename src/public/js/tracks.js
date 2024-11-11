@@ -23,40 +23,16 @@ async function playTrack(track_id) {
 	audioPlayer.play();
 
 	// Update song information
-	const albumImg = document.querySelectorAll(".player-album-img");
-	albumImg.forEach(async (img) => {
-		const imgPath = await getAlbumImg(title); // Wait for the async function to resolve
-		img.src = imgPath;
-	});
-	trackTitle.textContent = title;
-	trackArtist.textContent = artist;
-}
-
-async function getAlbumImg(title) {
-	// Encode the album title to handle spaces and special characters
-	const encodedTitle = encodeURIComponent(title);
-	const url = `/api/track/img/${title}`;
-
-	try {
-		const response = await fetch(url);
-		if (!response.ok) {
-			throw new Error("Network response was not ok");
-		}
-		const albumData = await response.json();
-
-		console.log(title, albumData);
-
-		if (albumData.album_cover_image) {
-			return  albumData.album_cover_image;
-		} else if (albumData.artist_pic_path) {
-			return albumData.artist_pic_path;
-		} else {
-			return "/images/albums/default.jpg";
-		}
-	} catch (error) {
-		console.error("There was a problem with the fetch operation:", error);
-		return "/images/albums/default.jpg"; // Default image in case of an error
+	const albumImg = document.querySelector(".player-album-img");
+	if (track_data.album_cover_image) {
+		albumImg.src = track_data.album_cover_image;
+	} else if (track_data.artist_pic_path) {
+		albumImg.src = track_data.artist_pic_path;
+	} else {
+		albumImg.src = "/images/albums/default.jpg";
 	}
+	trackTitle.textContent = track_data.track_title;
+	trackArtist.textContent = track_data.artist_name;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
