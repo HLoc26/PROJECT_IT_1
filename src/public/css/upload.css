@@ -86,7 +86,8 @@
             color: #e6e6fa;
             border: none;
             border-radius: 6px;
-            font-size: 1rem;
+            font-size: 1.3rem;
+            padding: 12px 24px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
