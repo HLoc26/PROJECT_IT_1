@@ -1,4 +1,4 @@
-function playTrack(src, title, artist) {
+async function playTrack(track_id) {
 	const audioPlayer = document.getElementById("audio-player");
 	const audioPlayerSrc = document.getElementById("audio-player-src");
 	const trackTitle = document.querySelector(".player-track-title");
@@ -8,9 +8,18 @@ function playTrack(src, title, artist) {
 	playIcon.classList.remove("bi-play-fill");
 	playIcon.classList.add("bi-pause-fill");
 
+	const url = `/api/tracks/${+track_id}`;
+
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error("PlayTrack: Error fetching track information");
+	}
+	const track_data = await response.json();
+	console.log(track_data); // debug
+
 	// Update the audio source and play
-	audioPlayer.src = src;
-	audioPlayerSrc.src = src;
+	audioPlayer.src = `https://hlocstorage.blob.core.windows.net/music/${track_data.track_mp3_path}`;
+	audioPlayerSrc.src = `https://hlocstorage.blob.core.windows.net/music/${track_data.track_mp3_path}`;
 	audioPlayer.play();
 
 	// Update song information
