@@ -10,12 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		if (linkElement) {
 			if (linkElement.href.includes("/logout")) {
-				history.replaceState(null, "", "/login");
-				fetch("/logout", {
-					method: "POST",
-				}).then(() => {
-					window.location.reload();
-				});
+				loginRedirect();
 				return;
 			}
 			e.preventDefault();
@@ -23,13 +18,28 @@ document.addEventListener("DOMContentLoaded", () => {
 			history.pushState(null, "", url);
 
 			// Fetch nội dung của trang mới mà không làm mới trang
-			fetch(url)
-				.then((response) => response.text())
+			// Fetch content of the new page without refreshing
+			fetch(url, {
+				headers: {
+					"X-Requested-With": "XMLHttpRequest",
+				},
+			})
+				.then((response) => {
+					if (response.status === 303) {
+						// alert("303 See other");
+						// Redirect by manually setting the window location to "/login"
+						loginRedirect();
+						return;
+					}
+					return response.text();
+				})
 				.then((html) => {
 					const newContent = new DOMParser().parseFromString(html, "text/html").querySelector("#content").innerHTML;
 					content.innerHTML = newContent;
 				})
-				.catch((err) => console.error("Error:", err));
+				.catch((err) => {
+					console.error("Error:", err);
+				});
 		}
 
 		// Kiểm tra nếu phần tử được click là song-link
@@ -44,3 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 });
+
+function loginRedirect() {
+	console.log("Calling redirect");
+	history.replaceState(null, "", "/login");
+	fetch("/logout", {
+		method: "POST",
+	}).then(() => {
+		window.location.reload();
+	});
+}

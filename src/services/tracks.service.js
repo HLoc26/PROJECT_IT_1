@@ -24,15 +24,18 @@ export default {
 	},
 
 	findByAlbumId(album_id) {
-		const tracks = db("tracks as t")
-			.join("track_album as ta", "ta.track_id", "t.track_id") // Join track_album
-			.join("albums as a", "a.album_id", "ta.album_id")
-			.where("a.album_id", album_id);
+		const tracks = db("tracks as t").where("t.album_id", album_id);
 		return tracks;
 	},
 
 	findById(track_id) {
 		const track = db("tracks as t").select("*").where("t.track_id", track_id).first();
 		return track;
+	},
+
+	add(entity) {
+		// TODO: Insert to user_upload
+		const ret = db("tracks").insert(entity);
+		return ret;
 	},
 };

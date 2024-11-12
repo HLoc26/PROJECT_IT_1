@@ -14,6 +14,7 @@
 	"author": "hloc2605",
 	"license": "ISC",
 	"dependencies": {
+		"@azure/storage-blob": "^12.25.0",
 		"bcrypt": "^5.1.1",
 		"body-parser": "^1.20.3",
 		"dotenv": "16.4.5",
@@ -23,6 +24,8 @@
 		"express-session": "^1.18.1",
 		"knex": "^3.1.0",
 		"mssql": "^11.0.1",
+		"multer": "^1.4.5-lts.1",
+		"music-metadata": "^10.5.1",
 		"mysql2": "3.11.3",
 		"tedious": "^18.6.1"
 	},
