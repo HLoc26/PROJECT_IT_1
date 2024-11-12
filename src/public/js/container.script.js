@@ -41,17 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 					console.error("Error:", err);
 				});
 		}
-
-		// Kiểm tra nếu phần tử được click là song-link
-		if (target.matches(".song-link")) {
-			e.preventDefault();
-
-			const mp3Path = target.getAttribute("data-mp3-path");
-			const title = target.getAttribute("data-title");
-			const artist = target.getAttribute("data-artist");
-
-			playTrack(mp3Path, title, artist); // Gọi hàm playTrack để chơi bài hát
-		}
 	});
 });
 

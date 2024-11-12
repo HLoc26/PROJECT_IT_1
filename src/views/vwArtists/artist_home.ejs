@@ -166,14 +166,15 @@
         <ul id="artist-home-song-list">
             <% tracks.forEach(track=> { %>
                 <li>
-                    <% let path=track.track_mp3_path.includes("https://hlocstorage.blob.core.windows.net/music/") ?
-                        track.track_mp3_path : "https://hlocstorage.blob.core.windows.net/music/" + track.track_mp3_path; %>
-
-                        <a href="#" class="song-link" data-mp3-path="<%= path %>" data-title="<%= track.track_title %>"
-                            data-artist="<%= artist.artist_name %>">
+                    <div>
+                        <button class="play-track-btn" onclick="playTrack('<%= track.track_id %>')"><i class="bi bi-play-fill"></i></button>
+                        <a href="/tracks/<%= track.track_id %>" class="song-link">
                             <%= track.track_title %>
-                        </a>
-                        <span class="song-duration" data-mp3-path="<%= path %>">--:--</span>
+                    </a>
+                    </div>
+                    <% const track_duration_minute = Math.floor(+track.track_duration / 60) %>
+                    <% const track_duration_second = +track.track_duration % 60 %>
+                    <span class="song-duration"><%= track_duration_minute %>:<%= track_duration_second %></span>
                 </li>
             <% }); %>
         </ul>
