@@ -5,6 +5,7 @@ export default {
 		const songs = db("tracks as t")
 			.join("artist_perform as ap", "t.track_id", "ap.track_id") // Join artist_perform
 			.join("artists as a", "ap.artist_id", "a.artist_id")
+			.select("t.*")
 			.where("a.artist_id", artist_id);
 		return songs;
 	},
