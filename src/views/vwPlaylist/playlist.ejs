@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/playlist.css">
+  <div class="artist-page">
+    <div class="artist-header">
+      <img src="/api/placeholder/400/200" alt="Artist Banner" class="header-image">
+      <div class="header-content">
+        <h1 class="header-title">Alzheimer's Cure</h1>
+        <h2 class="header-subtitle">Made by: Sáng Nguyễn Quang</h2>
+        <p class="header-description">This is description</p>
+      </div>
+    </div>
+
+    <div class="songs-list">
+      <!-- Invisible checkbox to control the search container display -->
+      <input type="checkbox" id="add-toggle" style="display: none;">
+      <h2>
+        Songs
+        <label for="add-toggle" class="add-btn">
+          <i class="bi bi-plus-circle"></i>
+        </label>
+      </h2>
+
+      <!-- Search container to be toggled -->
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search songs...">
+      </div>
+
+      <!-- Song list -->
+      <ul>
+        <li>
+          <button class="play-track-btn">
+            <i class="bi bi-play-circle"></i>
+          </button>
+          <a href="#" class="song-link">Sick Enough to Die (Feat. Mellow)</a>
+          <span class="song-duration">4:29</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
