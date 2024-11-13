@@ -1,0 +1,161 @@
+
+.artist-page {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .artist-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    width: 100%;
+    height: 300px;
+    background-color: #333;
+  }
+
+  .header-image {
+    width: 400px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+
+  .header-content {
+    flex-grow: 1;
+  }
+
+  .header-title {
+    font-size: 3em;
+    margin: 0 0 10px 0;
+  }
+
+  .header-subtitle {
+    font-size: 1.2em;
+    margin: 0 0 10px 0;
+    color: #ddd;
+  }
+
+  .header-description {
+    font-size: 0.9em;
+    margin: 0;
+    color: #ccc;
+  }
+
+  .songs-list {
+    padding: 20px;
+    background-color: #4a6e97;
+    margin: 20px;
+    border-radius: 8px;
+  }
+
+  .songs-list h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+  }
+
+  .songs-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .songs-list li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+    position: relative;
+  }
+
+  .songs-list li:hover {
+    background-color: #3a5a7c;
+  }
+
+  .song-link {
+    color: white;
+    text-decoration: none;
+    margin-left: 50px;
+  }
+
+  .song-link:hover {
+    color: #ddd;
+  }
+
+  .song-duration {
+    color: #ddd;
+    font-size: 0.9em;
+  }
+
+  .play-track-btn {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    color: #ffffff;
+    width: 30px;
+    height: 30px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+
+  .songs-list li:hover .play-track-btn {
+    display: inline-flex;
+  }
+
+  .play-track-btn:hover {
+    background-color: #ffffff;
+    color: #3a5a7c;
+    border-color: #3a5a7c;
+  }
+
+  .play-track-btn i {
+    font-size: 1.2em;
+  }
+
+  /* Hide and show the search container */
+  .search-container {
+    display: none;
+    margin-top: 10px;
+  }
+
+  /* Check the checkbox to display the search container */
+  #add-toggle:checked + .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 300px;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .add-btn {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: color 0.3s;
+  }
+
+  .add-btn:hover {
+    color: #ddd;
+  }
