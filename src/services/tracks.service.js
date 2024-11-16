@@ -34,6 +34,14 @@ export default {
 		return track;
 	},
 
+	findByPlaylistId(playlist_id) {
+		const tracks = db("tracks as t")
+			.select("t.*")
+			.join("track_playlist as tp", "t.track_id", "tp.track_id") // Join track_id
+			.where("tp.playlist_id", playlist_id);
+		return tracks;
+	},
+
 	add(entity) {
 		// TODO: Insert to user_upload
 		const ret = db("tracks").insert(entity);
