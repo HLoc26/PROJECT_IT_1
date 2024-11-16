@@ -6,7 +6,7 @@ export default {
 	},
 
 	findById(user_id) {
-		return db("users").where("user_id", user_id);
+		return db("users").where("user_id", user_id).first();
 	},
 
 	add(entity) {
