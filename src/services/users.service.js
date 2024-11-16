@@ -5,6 +5,10 @@ export default {
 		return db("users").where("user_email", user_email);
 	},
 
+	findById(user_id) {
+		return db("users").where("user_id", user_id);
+	},
+
 	add(entity) {
 		return db("users").insert(entity);
 	},
