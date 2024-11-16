@@ -10,6 +10,10 @@ router.get("/", function (req, res) {
 	res.render("vwPlaylist/playlist");
 });
 
+router.get("/create", async function (req, res) {
+	res.render("vwPlaylist/create");
+});
+
 router.get("/:id", async function (req, res) {
 	const playlist_id = +req.params.id;
 	const request_user = res.locals.uid;
@@ -26,12 +30,13 @@ router.get("/:id", async function (req, res) {
 	res.render("vwPlaylist/playlist_detail", { playlist: playlist_info, owner: owner_info, tracks: tracks });
 });
 
-router.get("/create/:uid", async function (req, res) {
-	const uid = +req.params.uid;
+router.post("/create", async function (req, res) {
+	const uid = res.locals.uid;
+	const { new_playlist_name } = req.body;
 	const playlists = await playlistsService.findByUserId(uid);
 	const playlist_count = playlists.length;
 	const entity = {
-		playlist_name: `Your playlist #${playlist_count}`,
+		playlist_name: new_playlist_name || `Your playlist #${playlist_count}`,
 		playlist_visibility_mode: "private",
 		owner_id: uid,
 		create_time: new Date().toISOString(),
