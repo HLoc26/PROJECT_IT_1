@@ -6,6 +6,7 @@ import { isAuthenticated } from "./middlewares/auth.js";
 import { setUsername } from "./middlewares/setUser.js";
 import webRoutes from "./routes/default.routes.js";
 import trackRoutes from "./routes/tracks.routes.js";
+import playlistRoutes from "./routes/playlist.routes.js";
 import albumRoutes from "./routes/albums.routes.js";
 import artistRoutes from "./routes/artists.routes.js";
 import apiRoutes from "./routes/api.routes.js";
@@ -55,6 +56,8 @@ app.use("/artists", artistRoutes);
 app.use("/album", albumRoutes);
 // .../tracks/
 app.use("/tracks", trackRoutes);
+// .../playlists/
+app.use("/playlists", playlistRoutes);
 // .../api/
 app.use("/api", apiRoutes);
 
