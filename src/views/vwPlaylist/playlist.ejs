@@ -55,3 +55,11 @@
   </div>
 </div>
 </div>
+<script>
+  document.querySelectorAll('.playlist-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const playlist = header.parentElement;
+      playlist.classList.toggle('active');
+    });
+  });
+</script>
