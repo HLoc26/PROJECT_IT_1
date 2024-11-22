@@ -1,63 +1,42 @@
 <link rel="stylesheet" href="/css/playlist.css">
 <div class="top-header">
-  <h1 class="greeting">Hello, {Tên người dùng gì đó}, what is your playlist to listen to today?</h1>
+  <h1 class="greeting">Hello, <%= username %>, what is your playlist to listen to today?</h1>
   <a href="/playlists/create" class="create-playlist">CREATE PLAYLIST</a>
 </div>
 
 <div class="playlist-container">
-  <div class="playlist">
-    <div class="playlist-header">
-      <h2>Chill Vibes</h2>
-      <button class="arrow-btn">
-        <i class="bi bi-chevron-down"></i>
-      </button>
+  <% playlists.forEach(playlist => { %>
+    <div class="playlist">
+      <div class="playlist-header">
+        <h2>
+          <a href="/playlists/<%= playlist.playlist_id %>"> 
+            <%= playlist.playlist_name %>
+          </a>
+        </h2>
+        <button class="arrow-btn">
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+      <div class="playlist-content">
+        <ul class="song-list">
+          <% tracks[playlist.playlist_id].forEach(track => { %>
+            <li class="song-item">
+              <a href="/tracks/<%= track.track_id %>" class="song-link">
+                <%= track.track_title %>
+              </a>
+              <span class="song-duration"><%= Math.floor(track.track_duration / 60)%>:<%= track.track_duration % 60 %></span>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
     </div>
-    <div class="playlist-content">
-      <ul class="song-list">
-        <li class="song-item">
-          <a href="#" class="song-link">Sick Enough to Die (Feat. Mellow)</a>
-          <span class="song-duration">4:29</span>
-        </li>
-        <li class="song-item">
-          <a href="#" class="song-link">Summer Vibe</a>
-          <span class="song-duration">3:45</span>
-        </li>
-        <li class="song-item">
-          <a href="#" class="song-link">Midnight Dreams</a>
-          <span class="song-duration">5:12</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="playlist">
-    <div class="playlist-header">
-      <h2>Workout Mix</h2>
-      <button class="arrow-btn">
-        <i class="bi bi-chevron-down"></i>
-      </button>
-    </div>
-    <div class="playlist-content">
-      <ul class="song-list">
-        <li class="song-item">
-          <a href="#" class="song-link">Power Up</a>
-          <span class="song-duration">3:55</span>
-        </li>
-        <li class="song-item">
-          <a href="#" class="song-link">Running High</a>
-          <span class="song-duration">4:15</span>
-        </li>
-        <li class="song-item">
-          <a href="#" class="song-link">Maximum Energy</a>
-          <span class="song-duration">3:30</span>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <% }); %>
 </div>
+
 <script>
   document.querySelectorAll('.playlist-header').forEach(header => {
     header.addEventListener('click', () => {
+      console.log("Clicked")
       const playlist = header.parentElement;
       playlist.classList.toggle('active');
     });
