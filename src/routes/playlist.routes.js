@@ -6,8 +6,22 @@ import tracksService from "../services/tracks.service.js";
 
 const router = Router();
 
-router.get("/", function (req, res) {
-	res.render("vwPlaylist/playlist");
+router.get("/", async function (req, res) {
+	// Get user's playlist
+	const user_playlists = await playlistsService.findByUserId(res.locals.uid);
+	console.log(user_playlists);
+	var playlist_tracks = {};
+
+	for (let i = 0; i < user_playlists.length; i++) {
+		var playlist_id = user_playlists[i].playlist_id;
+		var tracks = await tracksService.findByPlaylistId(playlist_id);
+		playlist_tracks[playlist_id] = tracks;
+	}
+
+	console.log(playlist_tracks);
+
+	// Get each playlist's top 5 songs
+	res.render("vwPlaylist/playlist", { playlists: user_playlists, tracks: playlist_tracks });
 });
 
 router.get("/create", async function (req, res) {
