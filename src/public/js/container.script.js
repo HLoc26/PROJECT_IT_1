@@ -42,6 +42,27 @@ document.addEventListener("DOMContentLoaded", () => {
 				});
 		}
 	});
+
+	document.querySelector("#content").addEventListener("click", (e) => {
+		// Kiểm tra xem click có xảy ra trên phần tử playlist-header không
+		const header = e.target.closest(".playlist-header");
+		if (!header) return; // Nếu không, bỏ qua sự kiện
+
+		// Prevent the click from triggering if clicking on the playlist name link
+		if (e.target.tagName === "A") return;
+
+		// Toggle the active class on the parent playlist div
+		const playlist = header.closest(".playlist");
+		playlist.classList.toggle("active");
+
+		// Rotate arrow when playlist is active
+		const arrow = header.querySelector(".arrow-btn i");
+		if (playlist.classList.contains("active")) {
+			arrow.style.transform = "rotate(180deg)";
+		} else {
+			arrow.style.transform = "rotate(0deg)";
+		}
+	});
 });
 
 function loginRedirect() {

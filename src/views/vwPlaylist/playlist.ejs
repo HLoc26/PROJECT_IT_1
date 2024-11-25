@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/playlist.css">
+
 <div class="top-header">
   <h1 class="greeting">Hello, <%= username %>, what is your playlist to listen to today?</h1>
   <a href="/playlists/create" class="create-playlist">CREATE PLAYLIST</a>
@@ -33,12 +34,23 @@
   <% }); %>
 </div>
 
-<script>
+<!-- <script>
   document.querySelectorAll('.playlist-header').forEach(header => {
-    header.addEventListener('click', () => {
-      console.log("Clicked")
-      const playlist = header.parentElement;
+    header.addEventListener('click', (e) => {
+      // Prevent the click from triggering if clicking on the playlist name link
+      if (e.target.tagName === 'A') return;
+      
+      // Toggle the active class on the parent playlist div
+      const playlist = header.closest('.playlist');
       playlist.classList.toggle('active');
+      
+      // Rotate arrow when playlist is active
+      const arrow = header.querySelector('.arrow-btn i');
+      if (playlist.classList.contains('active')) {
+        arrow.style.transform = 'rotate(180deg)';
+      } else {
+        arrow.style.transform = 'rotate(0deg)';
+      }
     });
   });
-</script>
+</script> -->
