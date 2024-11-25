@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/", async function (req, res) {
 	// Get user's playlist
-	const user_playlists = await playlistsService.findByUserId(res.locals.uid);
+	const user_playlists = await playlistsService.findByUserId(res.locals.user_id);
 	console.log(user_playlists);
 	var playlist_tracks = {};
 
