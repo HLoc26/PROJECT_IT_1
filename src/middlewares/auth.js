@@ -1,6 +1,6 @@
 // Middleware to check authentication
 export function isAuthenticated(req, res, next) {
-	if (req.session && req.session.userId) {
+	if (req.session && req.session.user_id) {
 		return next();
 	} else {
 		console.log("Redirect to login");
