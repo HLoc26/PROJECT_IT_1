@@ -45,7 +45,7 @@ router.get("/:id", async function (req, res) {
 });
 
 router.post("/create", async function (req, res) {
-	const uid = res.locals.uid;
+	const uid = res.locals.user_id;
 	const { new_playlist_name } = req.body;
 	const playlists = await playlistsService.findByUserId(uid);
 	const playlist_count = playlists.length;
