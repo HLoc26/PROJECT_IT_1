@@ -1,0 +1,25 @@
+<img src="/images/profile-pic.jpg" alt="" height="100px">
+<h1>Username: <%= user.username %></h1>
+
+
+<h1>Listening history</h1>
+<ul>
+    <% track_history.forEach(track => { %>
+    <li>
+        <div>
+            <button class="play-track-btn" onclick="playTrack('<%= track.track_id %>')"><i
+                    class="bi bi-play-fill"></i></button>
+            <a href="/tracks/<%= track.track_id %>" class="song-link">
+                <%= track.track_title %>
+            </a>
+        </div>
+        <% const track_duration_minute=Math.floor(+track.track_duration / 60) %>
+            <% const track_duration_second=+track.track_duration % 60 %>
+                <span class="song-duration">
+                    <%= track_duration_minute %>:<%= track_duration_second %>
+                </span>
+    </li>
+    <% }); %>
+</ul>
+
+<h1>Liked playlists</h1>
