@@ -1,6 +1,7 @@
 import { compare, hash } from "bcrypt";
 import artistService from "../services/artists.service.js";
 import userService from "../services/users.service.js";
+import historyService from "../services/history.service.js";
 
 export default {
 	// Các hàm trả về dữ liệu cho routes/web.js
@@ -14,8 +15,13 @@ export default {
 		res.render("homepage", { artists: artists, username: username });
 	},
 
-	getProfilePage(req, res) {
-		res.render("profile");
+	async getProfilePage(req, res) {
+		const user = await userService.findById(req.session.user_id);
+		const track_history = await historyService.findByUserId(user.user_id);
+
+		console.log(track_history);
+
+		res.render("vwProfile/my_profile", { user: user, track_history: track_history });
 	},
 
 	async getLogout(req, res) {
@@ -77,7 +83,7 @@ export default {
 				return res.status(401).json({ error: "Wrong email or password" });
 			}
 
-			req.session.userId = user.user_id;
+			req.session.user_id = user.user_id;
 			req.session.username = user.user_name;
 			req.session.role = user.user_role;
 			req.session.isAuthentication = true;
