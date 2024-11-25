@@ -33,6 +33,25 @@ async function playTrack(track_id) {
 	}
 	trackTitle.textContent = track_data.track_title;
 	trackArtist.textContent = track_data.artist_name;
+
+	// Add song to history
+	const user_id = sessionStorage.getItem("user_id");
+	if (!user_id) {
+		console.log("user_id is null");
+		return;
+	}
+
+	try {
+		const response = await fetch("/api/history/", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ user_id, track_id }),
+		});
+		const result = await response.json();
+		console.log(result.message);
+	} catch (error) {
+		console.error("Error saving history:", error);
+	}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
