@@ -30,7 +30,7 @@ router.get("/create", async function (req, res) {
 
 router.get("/:id", async function (req, res) {
 	const playlist_id = +req.params.id;
-	const request_user = res.locals.uid;
+	const request_user = res.locals.user_id;
 	const playlist_info = await playlistsService.findById(playlist_id);
 
 	if (playlist_info.playlist_visibility_mode === "private" && request_user != playlist_info.owner_id) {
