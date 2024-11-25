@@ -1,5 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/playlist.css">
+
 <div class="top-header">
   <h1 class="greeting">Hello, <%= username %>, what is your playlist to listen to today?</h1>
   <a href="/playlists/create" class="create-playlist">CREATE PLAYLIST</a>
@@ -34,7 +35,7 @@
   <% }); %>
 </div>
 
-<script>
+<!-- <script>
   document.querySelectorAll('.playlist-header').forEach(header => {
     header.addEventListener('click', (e) => {
       // Prevent the click from triggering if clicking on the playlist name link
@@ -53,4 +54,4 @@
       }
     });
   });
-</script>
+</script> -->
