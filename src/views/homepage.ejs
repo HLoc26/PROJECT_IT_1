@@ -1,34 +1,26 @@
 <link rel="stylesheet" href="/css/homepage.css">
 
-<div class="homepage-container">
-
-    <!-- Main Content Section -->
-    <div class="main-content">
-        <div class="top-header">
-            <div class="header-left">
-                
-                <h1>Welcome, <%= username %></h1>
-            </div>
+<div class="recent">
+    <h1>Recently played</h1>
+    <div class="gallery-container">
+        <div class="gallery-overlay overlay-left">
+            <button class="scroll-btn" id="scroll-prev"><i class="bi bi-arrow-left-circle-fill"></i></button>
         </div>
-
-        <div class="middle-header">
-            <h1>Artists You May Like</h1>
-            <div class="artist-display" id="artistDisplay">
-                <!-- Artist cards will be generated here -->
-                <% for(let i=0; i < 10; i++){ %>
-                    <div class="artist-card">
-                        <a href="/artists/<%= artists[i].artist_id %>"> 
-                            <img src="<%= artists[i].artist_pic_path %>" alt="<%= artists[i].artist_name %>">
-                            <p>
-                                <%= artists[i].artist_name %>
-                            </p>
-                        </a>
-                    </div>
-                <% } %>
+        <div class="gallery">
+        <% track_history.forEach(track => { %>
+            <div class="track-card">
+                <img class="card-img" src="<%= track.album_cover_image ? track.album_cover_image : '/images/albums/album_default.png' %>" alt="">
+                <div class="card-description">
+                    <a href="/tracks/<%= track.track_id %>" class="song-link">
+                        <p class="home-track-name"><%= track.track_title %></p>
+                    </a>
+                    <p class="home-track-artist"><%= track.artist_name ? track.artist_name : track.user_name %></p>
+                </div>
             </div>
+        <% }); %>
         </div>
-
+        <div class="gallery-overlay overlay-right">
+            <button class="scroll-btn" id="scroll-next"><i class="bi bi-arrow-right-circle-fill"></i></button>
+        </div>
     </div>
 </div>
-
-<script src="/js/script.js"></script>
