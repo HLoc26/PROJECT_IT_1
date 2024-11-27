@@ -4,6 +4,7 @@ import trackService from "../services/tracks.service.js";
 
 import { parseBuffer } from "music-metadata";
 import containerClient from "../config/azureStorage.js";
+import likeService from "../services/like.service.js";
 
 export default {
 	// Controller or Service function to get tracks with artists
@@ -30,12 +31,14 @@ export default {
 			const artist = await artistService.findByTrackId(track_id);
 			const album = await albumService.findByTrackId(track_id);
 
+			const isLiked = await likeService.findLikedTrack(res.locals.user_id, track_id);
+
 			// Debugging
 			// console.log(track);
 			// console.log(artist);
 			// console.log(album);
 
-			return res.render("vwTracks/track_detail", { track: track, artist: artist, album: album });
+			return res.render("vwTracks/track_detail", { track: track, artist: artist, album: album, liked: isLiked });
 		} catch (error) {
 			console.error(error);
 			res.status(500).send("An error occurred while retrieving the track's information");

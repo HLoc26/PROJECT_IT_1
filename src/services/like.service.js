@@ -43,4 +43,8 @@ export default {
 	unlikeAlbum(user_id, album_id, time) {
 		return db("user_like_album").where({ user_id: user_id, album_id: album_id }).del();
 	},
+
+	findLikedTrack(user_id, track_id) {
+		return db("user_like_track").where({ user_id: user_id, track_id: track_id }).first();
+	},
 };
