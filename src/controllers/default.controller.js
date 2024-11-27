@@ -2,6 +2,7 @@ import { compare, hash } from "bcrypt";
 import artistService from "../services/artists.service.js";
 import userService from "../services/users.service.js";
 import historyService from "../services/history.service.js";
+import likeService from "../services/like.service.js";
 
 export default {
 	// Các hàm trả về dữ liệu cho routes/web.js
@@ -16,12 +17,15 @@ export default {
 	},
 
 	async getProfilePage(req, res) {
-		const user = await userService.findById(req.session.user_id);
-		const track_history = await historyService.findByUserId(user.user_id);
+		const user_id = res.locals.user_id;
+		const user = await userService.findById(user_id);
+		const track_history = await historyService.findByUserId(user_id);
 
-		console.log(track_history);
+		const liked_artists = await likeService.findLikedArtists(user_id);
+		// console.log(liked_artists);
+		// console.log(track_history);
 
-		res.render("vwProfile/my_profile", { user: user, track_history: track_history });
+		res.render("vwProfile/my_profile", { user: user, track_history: track_history, liked_artists: liked_artists });
 	},
 
 	async getLogout(req, res) {
