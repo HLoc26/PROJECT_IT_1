@@ -35,8 +35,15 @@ export default {
 	async getProfilePage(req, res) {
 		const user_id = res.locals.user_id;
 		const user = await userService.findById(user_id);
-		const track_history = await historyService.findByUserId(user_id);
+		const recent_tracks = await historyService.findByUserId(res.locals.user_id);
 
+		// Map recent_tracks to fetch additional details
+		const track_history = await Promise.all(
+			recent_tracks.map(async (recentTrack) => {
+				const track = await trackService.findById(recentTrack.track_id);
+				return track;
+			})
+		);
 		const liked_artists = await likeService.findLikedArtists(user_id);
 		// console.log(liked_artists);
 		// console.log(track_history);
