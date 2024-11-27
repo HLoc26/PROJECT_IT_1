@@ -12,20 +12,12 @@
         </div>
 
         <div class="middle-header">
-            <h1>Playlist Recommendation</h1>
-            <div class="playlist-display" id="playlistDisplay">
-                <!-- Playlist cards will be generated here -->
-            </div>
-        </div>
-
-
-        <div class="middle-header">
             <h1>Artists You May Like</h1>
             <div class="artist-display" id="artistDisplay">
                 <!-- Artist cards will be generated here -->
                 <% for(let i=0; i < 10; i++){ %>
                     <div class="artist-card">
-                        <a href="/api/artist/<%= artists[i].artist_id %>"> 
+                        <a href="/artists/<%= artists[i].artist_id %>"> 
                             <img src="<%= artists[i].artist_pic_path %>" alt="<%= artists[i].artist_name %>">
                             <p>
                                 <%= artists[i].artist_name %>
@@ -35,6 +27,7 @@
                 <% } %>
             </div>
         </div>
+
     </div>
 </div>
 
