@@ -1,5 +1,6 @@
 :root {
 	--main-bg-color: #0a0e14; /* Extremely dark blue (almost black) */
+	--secondary-bg-color: #1c1f26;
 	--main-text-color: #a7c6ed; /* Light icy blue */
 	--secondary-text-color: #b0c4de; /* Soft light steel blue */
 	--card-color-dark: #1c1f26; /* Very dark grayish blue */
@@ -26,6 +27,7 @@ html {
 	box-sizing: border-box;
 	font-family: Arial, sans-serif;
 	height: 100%;
+	background-color: var(--secondary-bg-color);
 }
 
 #container {
