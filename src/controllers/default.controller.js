@@ -1,6 +1,8 @@
 import { compare, hash } from "bcrypt";
 import artistService from "../services/artists.service.js";
 import userService from "../services/users.service.js";
+import trackService from "../services/tracks.service.js";
+import albumService from "../services/albums.service.js";
 import historyService from "../services/history.service.js";
 import likeService from "../services/like.service.js";
 
@@ -12,8 +14,22 @@ export default {
 
 	async getHomepage(req, res) {
 		const username = req.session.username;
-		const artists = await artistService.findTop10();
-		res.render("homepage", { artists: artists, username: username });
+		const recent_tracks = await historyService.findByUserId(res.locals.user_id);
+
+		// Map recent_tracks to fetch additional details
+		const history = await Promise.all(
+			recent_tracks.map(async (recentTrack) => {
+				const track = await trackService.findById(recentTrack.track_id);
+				const album = await albumService.findByTrackId(recentTrack.track_id);
+				const artist = await artistService.findByTrackId(recentTrack.track_id);
+				const uploader = await userService.findById(track.uploader_id);
+				return { ...track, ...album, ...artist, ...uploader };
+			})
+		);
+
+		console.log(history);
+
+		res.render("homepage", { track_history: history, username: username });
 	},
 
 	async getProfilePage(req, res) {
