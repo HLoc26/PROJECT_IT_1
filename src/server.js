@@ -1,24 +1,80 @@
-require("dotenv").config();
-const express = require("express");
-const configViewEngine = require("./config/viewEngine");
-const webRoutes = require("./routes/web");
-const connection = require("./config/database");
+import "dotenv/config";
+import express from "express";
+import session from "express-session";
+import configViewEngine from "./config/viewEngine.js";
+import { isAuthenticated } from "./middlewares/auth.js";
+import { setUsername } from "./middlewares/setUser.js";
+import webRoutes from "./routes/default.routes.js";
+import trackRoutes from "./routes/tracks.routes.js";
+import playlistRoutes from "./routes/playlist.routes.js";
+import albumRoutes from "./routes/albums.routes.js";
+import artistRoutes from "./routes/artists.routes.js";
+import apiRoutes from "./routes/api.routes.js";
+import { connectWithRetry } from "./config/database.js";
 
-const app = express(); // Express app
-const port = process.env.PORT || 8080; // Port
+const app = express();
+const port = process.env.PORT || 8080;
 const hostname = process.env.HOST_NAME;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // config template engine
 configViewEngine(app);
 
-// Route definition for 127.0.0.1/
+// Dùng session để lưu trạng thái đăng nhập
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET,
+		resave: false,
+		saveUninitialized: true,
+		cookie: {
+			maxAge: 1000 * 60 * 60, // 1 h
+			secure: false,
+		},
+	})
+);
+
+// Lưu username vào locals
+app.use(setUsername);
+
+// Đảm bảo đã đăng nhập
+app.use(function (req, res, next) {
+	const public_routes = ["/login", "/register"];
+	if (public_routes.includes(req.path)) {
+		return next();
+	} else {
+		return isAuthenticated(req, res, next);
+	}
+});
+
+// .../
 app.use("/", webRoutes);
+// .../artists/
+app.use("/artists", artistRoutes);
+// .../albums/
+app.use("/album", albumRoutes);
+// .../tracks/
+app.use("/tracks", trackRoutes);
+// .../playlists/
+app.use("/playlists", playlistRoutes);
+// .../api/
+app.use("/api", apiRoutes);
 
-connection.query("SELECT * FROM test", (err, results, fields) => {
-	console.log(results);
-	console.log(fields);
-});
+// Kiểm tra kết nối
+const startServer = async () => {
+	try {
+		// Đảm bảo kết nối với database
+		await connectWithRetry();
 
-app.listen(port, hostname, () => {
-	console.log(`App listening on ${hostname}:${port}`);
-});
+		// Khởi động server
+		app.listen(port, hostname, () => {
+			console.log(`App listening on ${hostname}:${port}`);
+		});
+	} catch (err) {
+		console.error("Could not start the server:", err.message);
+		process.exit(1); // Kết thúc chương trình nếu không thể kết nối với database
+	}
+};
+
+startServer();

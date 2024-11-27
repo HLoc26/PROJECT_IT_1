@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/playlist.css">
+
+<div class="top-header">
+  <h1 class="greeting">Hello, <%= username %>, what is your playlist to listen to today?</h1>
+  <a href="/playlists/create" class="create-playlist">CREATE PLAYLIST</a>
+</div>
+
+<div class="playlist-container">
+  <% playlists.forEach(playlist => { %>
+    <div class="playlist">
+      <div class="playlist-header">
+        <h2>
+          <a href="/playlists/<%= playlist.playlist_id %>"> 
+            <%= playlist.playlist_name %>
+          </a>
+        </h2>
+        <button class="arrow-btn">
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+      <div class="playlist-content">
+        <ul class="song-list">
+          <% tracks[playlist.playlist_id].forEach(track => { %>
+            <li class="song-item">
+              <a href="/tracks/<%= track.track_id %>" class="song-link">
+                <%= track.track_title %>
+              </a>
+              <span class="song-duration"><%= Math.floor(track.track_duration / 60)%>:<%= track.track_duration % 60 %></span>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  <% }); %>
+</div>
+
+<!-- <script>
+  document.querySelectorAll('.playlist-header').forEach(header => {
+    header.addEventListener('click', (e) => {
+      // Prevent the click from triggering if clicking on the playlist name link
+      if (e.target.tagName === 'A') return;
+      
+      // Toggle the active class on the parent playlist div
+      const playlist = header.closest('.playlist');
+      playlist.classList.toggle('active');
+      
+      // Rotate arrow when playlist is active
+      const arrow = header.querySelector('.arrow-btn i');
+      if (playlist.classList.contains('active')) {
+        arrow.style.transform = 'rotate(180deg)';
+      } else {
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+</script> -->

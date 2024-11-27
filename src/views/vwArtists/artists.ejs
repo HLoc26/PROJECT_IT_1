@@ -1,0 +1,186 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<style>
+    .container {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #44107A, #000000);
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        overflow: hidden;
+    }
+
+    .search-section {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    h1 {
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .search-bar-artist {
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 1rem 1.5rem;  /* Removed right padding */
+        padding-right: 48px;   /* Add specific right padding for icon */
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 1.125rem;
+        outline: none;
+        box-sizing: border-box;  /* Ensure padding is included in width */
+    }
+
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-input:focus {
+        box-shadow: 0 0 0 0px rgba(168, 85, 247, 0.5);
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 20px;
+        pointer-events: none;  /* Make icon not interfere with input */
+    }
+
+    .recent-artists {
+        margin-top: 3rem;
+        padding: 0 2rem;
+    }
+
+    .recent-artists h2 {
+        color: white;
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .artists-grid {
+        display: flex;
+        /* grid-template-columns: repeat(5, 1fr); */
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .artist-item {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+    }
+
+    .artist-item a{
+        text-decoration: none;
+    }
+
+    .artist-image-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 0.75rem;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+    .artist-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+        display: block;
+    }
+
+    .artist-image-container:hover .artist-image {
+        transform: scale(1.05);
+    }
+
+    .artist-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(168, 85, 247, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        border-radius: 50%;
+    }
+
+    .artist-image-container:hover .artist-overlay {
+        opacity: 1;
+    }
+
+    .artist-name {
+        color: white;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+    }
+
+    @media (max-width: 1200px) {
+        .artists-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .artists-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .artists-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="search-section">
+        <h1>Who do you want to listen today?</h1>
+        <div class="search-bar-artist">
+            <input type="text" class="search-input" placeholder="Search for artists...">
+            <i class="bi bi-search search-icon"></i>
+        </div>
+    </div>
+
+    <div class="recent-artists">
+        <h2>Your recent artists</h2>
+        <ul class="artists-grid">
+            <% artists.forEach(artist => { %>
+                <li class="artist-item">
+                    <a href="/artists/<%= artist.artist_id %>" class="artist-link">
+                        <div class="artist-image-container">
+                            <img
+                                src="<%= artist.artist_pic_path %>"
+                                alt="<%= artist.artist_name %>"
+                                class="artist-image">
+                            <div class="artist-overlay"></div>
+                        </div>
+                        <p class="artist-name">
+                            <%= artist.artist_name %>
+                        </p>
+                    </a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>

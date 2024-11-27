@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="/css/homepage.css">
+
+<div class="homepage-container">
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <div class="top-header">
+            <div class="header-left">
+                
+                <h1>Welcome, <%= username %></h1>
+            </div>
+        </div>
+
+        <div class="middle-header">
+            <h1>Playlist Recommendation</h1>
+            <div class="playlist-display" id="playlistDisplay">
+                <!-- Playlist cards will be generated here -->
+            </div>
+        </div>
+
+
+        <div class="middle-header">
+            <h1>Artists You May Like</h1>
+            <div class="artist-display" id="artistDisplay">
+                <!-- Artist cards will be generated here -->
+                <% for(let i=0; i < 10; i++){ %>
+                    <div class="artist-card">
+                        <a href="/api/artist/<%= artists[i].artist_id %>"> 
+                            <img src="<%= artists[i].artist_pic_path %>" alt="<%= artists[i].artist_name %>">
+                            <p>
+                                <%= artists[i].artist_name %>
+                            </p>
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/script.js"></script>

@@ -1,0 +1,24 @@
+<!-- Just making this looks good, dont reuse -->
+<link rel="stylesheet" href="/css/upload.css">
+<form action="" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Input file info</legend>
+        <div>
+            <label for="upload-track-name">Track name</label>
+            <input type="text" id="upload-track-name" name="upload_track_name">
+        </div>
+        <div>
+            <label for="mp3-upload">Choose mp3 file</label>
+            <input type="file" name="mp3_file" id="mp3-upload" accept="audio/*">
+        </div>
+        <div>
+            <label for="visibility">Visibility</label>
+            <input type="checkbox" name="visibility" id="visibility">
+        </div>
+        <label for="upload-lyrics">Lyrics</label>
+        <textarea name="upload_lyrics" id="upload-lyrics" rows="30"></textarea>
+    </fieldset>
+
+    <button type="submit">Upload</button>
+
+</form>
