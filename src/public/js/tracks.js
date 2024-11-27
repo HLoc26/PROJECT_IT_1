@@ -18,8 +18,8 @@ async function playTrack(track_id) {
 	console.log(track_data); // debug
 
 	// Update the audio source and play
-	audioPlayer.src = `https://hlocstorage.blob.core.windows.net/music/${track_data.track_mp3_path}`;
-	audioPlayerSrc.src = `https://hlocstorage.blob.core.windows.net/music/${track_data.track_mp3_path}`;
+	audioPlayer.src = `/uploads/music/${track_data.track_mp3_path}`;
+	audioPlayerSrc.src = `/uploads/music/${track_data.track_mp3_path}`;
 	audioPlayer.play();
 
 	// Update song information
