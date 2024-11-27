@@ -47,4 +47,16 @@ export default {
 	findLikedTrack(user_id, track_id) {
 		return db("user_like_track").where({ user_id: user_id, track_id: track_id }).first();
 	},
+
+	findLikedPlaylist(user_id, playlist_id) {
+		return db("user_like_playlist").where({ user_id: user_id, playlist_id: playlist_id }).first();
+	},
+
+	findLikedArtist(user_id, artist_id) {
+		return db("user_like_artist").where({ user_id: user_id, artist_id: artist_id }).first();
+	},
+
+	findLikedAlbum(user_id, album_id) {
+		return db("user_like_album").where({ user_id: user_id, album_id: album_id }).first();
+	},
 };
