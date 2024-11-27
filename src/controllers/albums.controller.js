@@ -13,7 +13,7 @@ export default {
 			const artist = await artistsService.findByAlbumId(album_id);
 			const tracks = await trackService.findByAlbumId(album_id);
 
-			const liked = await likeService.findLikedAlbum(res.locals.user_id, album_id);
+			const liked = await likeService.checkLikedAlbum(res.locals.user_id, album_id);
 
 			// console.log(artist);
 			return res.render("vwAlbum/album_detail", {

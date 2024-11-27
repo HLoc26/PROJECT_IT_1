@@ -31,7 +31,7 @@ export default {
 			const artist = await artistService.findByTrackId(track_id);
 			const album = await albumService.findByTrackId(track_id);
 
-			const isLiked = await likeService.findLikedTrack(res.locals.user_id, track_id);
+			const isLiked = await likeService.checkLikedTrack(res.locals.user_id, track_id);
 
 			// Debugging
 			// console.log(track);

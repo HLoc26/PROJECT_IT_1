@@ -16,7 +16,7 @@ export default {
 		const artist_albums = await albumService.findByArtistId(artist_id); // Artists albums
 		const artist_tracks = await trackService.findByArtistId(artist_id); // Artists tracks
 
-		const liked = await likeService.findLikedArtist(res.locals.user_id, artist_id);
+		const liked = await likeService.checkLikedArtist(res.locals.user_id, artist_id);
 
 		return res.render("vwArtists/artist_detail", {
 			artist: artist,
