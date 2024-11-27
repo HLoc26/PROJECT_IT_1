@@ -4,6 +4,8 @@
         <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
         <h1><%= artist.artist_name %></h1>
     </div>
+
+    <%- include("../partials/likeBtn", {liked: liked, type: 'artist' , id: artist.artist_id}) %>
     
     <div class="albums-container">
         <h2>Albums</h2>

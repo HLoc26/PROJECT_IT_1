@@ -6,8 +6,7 @@
 <img src="<%= album.album_cover_image %>" alt="" height="300px">
 <% } %>
 
-<button class="like-btn <%= liked ? 'liked' : '' %>" data-type="track" data-id="<%= track.track_id %>">
-    <i class="bi <%= liked ? 'bi-heart-fill' : 'bi-heart' %>"></i>
-</button>
+<%- include("../partials/likeBtn", {liked: liked, type: 'track' , id: track.track_id}) %>
+
 
 <pre><%= track.lyrics %></pre>
