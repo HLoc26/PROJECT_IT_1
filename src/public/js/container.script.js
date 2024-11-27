@@ -98,3 +98,58 @@ getSessionUserId().then((user_id) => {
 		console.log("User ID:", user_id);
 	}
 });
+
+document.addEventListener("click", function (event) {
+	if (event.target.closest(".like-btn")) {
+		const likeBtn = event.target.closest(".like-btn");
+		const id = likeBtn.dataset.id;
+		const type = likeBtn.dataset.type;
+
+		// Gửi yêu cầu lên server để xử lý trạng thái like/unlike
+		toggleLike(id, type, likeBtn);
+	}
+});
+
+async function toggleLike(id, type, btn) {
+	console.log("Toggling like");
+	const icon = btn.querySelector("i.bi");
+	console.log(icon);
+	try {
+		const isLiked = btn.classList.contains("liked");
+		if (!isLiked) {
+			const response = await fetch("/api/like", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ type: type, id: id }),
+			});
+			const result = response.json();
+
+			if (response.ok) {
+				btn.classList.toggle("liked");
+				icon.classList.remove("bi-heart");
+				icon.classList.add("bi-heart-fill");
+				console.log(icon);
+			} else {
+				console.error("Failed to toggle like status:", result.message);
+			}
+		} else {
+			const response = await fetch("/api/unlike", {
+				method: "DELETE",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ type: type, id: id }),
+			});
+			const result = response.json();
+
+			if (response.ok) {
+				btn.classList.toggle("liked");
+				icon.classList.remove("bi-heart-fill");
+				icon.classList.add("bi-heart");
+				console.log(icon);
+			} else {
+				console.error("Failed to toggle like status:", result.message);
+			}
+		}
+	} catch (error) {
+		console.error("Error toggling like:", error);
+	}
+}
