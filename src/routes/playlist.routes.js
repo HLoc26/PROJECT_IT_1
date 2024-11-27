@@ -1,6 +1,6 @@
 // Điều hướng trang
 import { Router } from "express";
-import playlistController from "../controllers/playlist.controller";
+import playlistController from "../controllers/playlist.controller.js";
 
 const router = Router();
 
