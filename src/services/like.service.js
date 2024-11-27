@@ -59,4 +59,11 @@ export default {
 	checkLikedAlbum(user_id, album_id) {
 		return db("user_like_album").where({ user_id: user_id, album_id: album_id }).first();
 	},
+
+	findLikedArtists(user_id) {
+		return db("user_like_artist as u")
+			.select("a.*") // Select artist info
+			.where("user_id", user_id)
+			.join("artists as a", "a.artist_id", "u.artist_id");
+	},
 };
