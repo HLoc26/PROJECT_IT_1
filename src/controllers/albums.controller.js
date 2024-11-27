@@ -12,7 +12,7 @@ export default {
 			const artist = await artistsService.findByAlbumId(album_id);
 			const tracks = await trackService.findByAlbumId(album_id);
 			console.log(artist);
-			return res.render("vwArtists/artist_album", { album: album, artist: artist, tracks: tracks });
+			return res.render("vwAlbum/album_detail", { album: album, artist: artist, tracks: tracks });
 		} else {
 			return res.status(404).send("Album not found!");
 		}
