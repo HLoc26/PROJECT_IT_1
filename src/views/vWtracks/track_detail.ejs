@@ -5,4 +5,8 @@
 <% if (album) { %>
 <img src="<%= album.album_cover_image %>" alt="" height="300px">
 <% } %>
+
+<%- include("../partials/likeBtn", {liked: liked, type: 'track' , id: track.track_id}) %>
+
+
 <pre><%= track.lyrics %></pre>

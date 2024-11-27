@@ -4,7 +4,7 @@
         <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
         <h1><%= artist.artist_name %></h1>
     </div>
-
+    <%- include("../partials/likeBtn", {liked: liked, type: "album", id: album.album_id}) %>
     <div class="album-info">
         <h2><%= album.album_name %></h2>
         <div class="album-cover">
