@@ -14,6 +14,9 @@ export default {
 
 	async getHomepage(req, res) {
 		const username = req.session.username;
+
+		const artists = await artistService.findTop10();
+
 		const recent_tracks = await historyService.findByUserId(res.locals.user_id);
 
 		// Map recent_tracks to fetch additional details
@@ -21,15 +24,28 @@ export default {
 			recent_tracks.map(async (recentTrack) => {
 				const track = await trackService.findById(recentTrack.track_id);
 				const album = await albumService.findByTrackId(recentTrack.track_id);
-				const artist = await artistService.findByTrackId(recentTrack.track_id);
+				const artist = await artistService.findByTrackId2(recentTrack.track_id);
 				const uploader = await userService.findById(track.uploader_id);
-				return { ...track, ...album, ...artist, ...uploader };
+				return { ...track, ...album, artist, ...uploader };
 			})
 		);
 
-		console.log(history);
+		// Get top albums
+		// Get top albums
+		const top_albums = await albumService.findTop(5);
 
-		res.render("homepage", { track_history: history, username: username });
+		await Promise.all(
+			top_albums.map(async (album) => {
+				// console.log(album);
+				const tracks = (await trackService.findByAlbumId(+album.album_id[0])).slice(0, 5);
+				album.tracks = tracks;
+				return album;
+			})
+		);
+
+		// console.log(album_tracks);
+
+		res.render("homepage", { username: username, artists: artists, top_albums: top_albums, track_history: history });
 	},
 
 	async getProfilePage(req, res) {
