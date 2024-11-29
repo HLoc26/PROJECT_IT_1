@@ -20,7 +20,8 @@ export default {
 
 	async addHistory(req, res) {
 		console.log("AddHistory: ", req.body);
-		const { user_id, track_id } = req.body;
+		const user_id = req.session.user_id;
+		const { track_id } = req.body;
 		console.log(user_id, track_id);
 		const entity = {
 			user_id: user_id,
