@@ -8,6 +8,9 @@ async function playTrack(track_id) {
 	playIcon.classList.remove("bi-play-fill");
 	playIcon.classList.add("bi-pause-fill");
 
+	const song_info = document.getElementById("player-song-info");
+	song_info.style.opacity = 100;
+
 	const url = `/api/tracks/${+track_id}`;
 
 	const response = await fetch(url);

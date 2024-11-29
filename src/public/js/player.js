@@ -1,6 +1,14 @@
 const audioPlayer = document.getElementById("audio-player");
 const progressInput = document.getElementById("progress");
 const volumeInput = document.getElementById("volume");
+
+var readyState = audioPlayer.readyState;
+
+if (readyState == 0) {
+	const song_info = document.getElementById("player-song-info");
+	song_info.style.opacity = 0;
+}
+
 function playAudio() {
 	const playbtn = document.getElementsByClassName("play-btn")[0]; // Get the first play button
 	const playIcon = playbtn.querySelector("i"); // Assuming the icon is an <i> element inside the button
