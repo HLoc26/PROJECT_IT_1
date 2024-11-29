@@ -222,3 +222,5 @@ async function toggleLike(id, type, btn) {
 		console.error("Error toggling like:", error);
 	}
 }
+
+var trackQueue = [];
