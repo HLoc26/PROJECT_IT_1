@@ -5,6 +5,9 @@ const volumeInput = document.getElementById("volume");
 let trackQueue = [];
 
 let queueIndex = 0;
+let isLoop = false;
+let isShuffling = false;
+let originalQueue = [...trackQueue];
 
 var readyState = audioPlayer.readyState;
 
@@ -109,13 +112,13 @@ setVolume();
 
 // Add this event listener to automatically play next track
 audioPlayer.addEventListener("ended", async () => {
-	if (queueIndex < trackQueue.length - 1) {
+	if (!isLoop && queueIndex < trackQueue.length - 1) {
 		queueIndex++;
-		const track_id = trackQueue[queueIndex].track_id;
-		const track = await fetchTrack(track_id);
-		updatePlayerUI(track);
-		play(track.track_mp3_path);
 	}
+	const track_id = trackQueue[queueIndex].track_id;
+	const track = await fetchTrack(track_id);
+	updatePlayerUI(track);
+	play(track.track_mp3_path);
 });
 
 async function prevAudio() {
@@ -125,6 +128,7 @@ async function prevAudio() {
 		const track = await fetchTrack(track_id);
 		updatePlayerUI(track);
 		play(track.track_mp3_path);
+		console.log("Prev: ", queueIndex);
 	}
 }
 
@@ -135,6 +139,7 @@ async function nextAudio() {
 		const track = await fetchTrack(track_id);
 		updatePlayerUI(track);
 		play(track.track_mp3_path);
+		console.log("Next: ", queueIndex);
 	}
 }
 
@@ -236,6 +241,7 @@ async function fetchNewQueue(track_id) {
 function loadQueue(tracks) {
 	trackQueue = tracks; // Replace the queue with new tracks
 	currentIndex = 0; // Reset the current index
+	originalQueue = [...trackQueue];
 }
 
 function play(path) {
@@ -251,3 +257,21 @@ document.querySelectorAll(".manip-btn").forEach((btn) => {
 		btn.classList.toggle("active");
 	});
 });
+
+function shuffle() {
+	if (isShuffling) {
+		trackQueue = [...originalQueue];
+	} else {
+		for (let i = trackQueue.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[trackQueue[i], trackQueue[j]] = [trackQueue[j], trackQueue[i]];
+		}
+	}
+	queueIndex = 0; // Reset to first track after shuffling
+	isShuffling = !isShuffling;
+	console.log("shuffle: ", queueIndex);
+}
+
+function loop() {
+	isLoop = !isLoop;
+}
