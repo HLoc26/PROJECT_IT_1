@@ -43,4 +43,29 @@ export default {
 			.first();
 		return album;
 	},
+
+	findTop(number) {
+		// Subquery t1: Count play count per track
+		const t1 = db("user_listen_history") // Count
+			.select("track_id")
+			.count("track_id as play_count")
+			.groupBy("track_id")
+			.as("t1");
+
+		// Subquery t: Aggregate play counts per album
+		const t = db("tracks")
+			.join(t1, "t1.track_id", "tracks.track_id")
+			.whereNotNull("tracks.album_id")
+			.groupBy("tracks.album_id")
+			.select("tracks.album_id")
+			.sum("t1.play_count as total_play_count")
+			.as("t");
+
+		// Main query: Join albums and artists
+		const result = db("albums as a") // Get all
+			.join(t, "a.album_id", "t.album_id")
+			.join("artists as ar", "a.artist_id", "ar.artist_id")
+			.limit(number);
+		return result;
+	},
 };

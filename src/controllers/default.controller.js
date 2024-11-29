@@ -1,6 +1,8 @@
 import { compare, hash } from "bcrypt";
 import artistService from "../services/artists.service.js";
 import userService from "../services/users.service.js";
+import trackService from "../services/tracks.service.js";
+import albumService from "../services/albums.service.js";
 import historyService from "../services/history.service.js";
 import likeService from "../services/like.service.js";
 
@@ -12,15 +14,52 @@ export default {
 
 	async getHomepage(req, res) {
 		const username = req.session.username;
+
 		const artists = await artistService.findTop10();
-		res.render("homepage", { artists: artists, username: username });
+
+		const recent_tracks = await historyService.findByUserId(res.locals.user_id);
+
+		// Map recent_tracks to fetch additional details
+		const history = await Promise.all(
+			recent_tracks.map(async (recentTrack) => {
+				const track = await trackService.findById(recentTrack.track_id);
+				const album = await albumService.findByTrackId(recentTrack.track_id);
+				const artist = await artistService.findByTrackId2(recentTrack.track_id);
+				const uploader = await userService.findById(track.uploader_id);
+				return { ...track, ...album, artist, ...uploader };
+			})
+		);
+
+		// Get top albums
+		// Get top albums
+		const top_albums = await albumService.findTop(5);
+
+		await Promise.all(
+			top_albums.map(async (album) => {
+				// console.log(album);
+				const tracks = (await trackService.findByAlbumId(+album.album_id[0])).slice(0, 5);
+				album.tracks = tracks;
+				return album;
+			})
+		);
+
+		// console.log(album_tracks);
+
+		res.render("homepage", { username: username, artists: artists, top_albums: top_albums, track_history: history });
 	},
 
 	async getProfilePage(req, res) {
 		const user_id = res.locals.user_id;
 		const user = await userService.findById(user_id);
-		const track_history = await historyService.findByUserId(user_id);
+		const recent_tracks = await historyService.findByUserId(res.locals.user_id);
 
+		// Map recent_tracks to fetch additional details
+		const track_history = await Promise.all(
+			recent_tracks.map(async (recentTrack) => {
+				const track = await trackService.findById(recentTrack.track_id);
+				return track;
+			})
+		);
 		const liked_artists = await likeService.findLikedArtists(user_id);
 		// console.log(liked_artists);
 		// console.log(track_history);

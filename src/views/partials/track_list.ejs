@@ -1,16 +1,67 @@
-<ul>
+<style>
+    .track-list{
+        padding: 0
+    }
+    .track-list li{
+        border-bottom: 1px solid gray;
+        padding: 10px 0px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .track-item-left{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .track-item-left a{
+        line-height: 30px;
+    }
+
+    .track-item-duration{
+        color: gray;
+        padding-right: 10px;
+        padding-top: 5px
+    }
+
+    button.play-track-btn{
+        background: transparent;
+        border: 2px solid #ffffff; /* White border for visibility */
+        border-radius: 50%;
+        color: #ffffff; /* White icon color */
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        line-height: 27px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    button.play-track-btn:hover{
+        background: white;
+        color: black
+    }
+    .track-item-left .song-link{
+        color: var(--secondary-text-color);
+        font-weight: 300;
+        font-size: larger;
+    }
+</style>
+
+<ul class="track-list">
     <% tracks.forEach(track=> { %>
         <li>
-            <div>
+            <div class="track-item-left">
                 <button class="play-track-btn" onclick="playTrack('<%= track.track_id %>')"><i
-                        class="bi bi-play-fill"></i></button>
+                        class="bi bi-play-fill"></i>
+                </button>
                 <a href="/tracks/<%= track.track_id %>" class="song-link">
                     <%= track.track_title %>
                 </a>
             </div>
             <% const track_duration_minute=Math.floor(+track.track_duration / 60) %>
             <% const track_duration_second=+track.track_duration % 60 %>
-            <span class="song-duration">
+            <span class="track-item-duration">
                 <%= track_duration_minute %>:<%= track_duration_second %>
             </span>
         </li>

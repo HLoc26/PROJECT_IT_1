@@ -5,7 +5,9 @@ export default {
 		const history = db("user_listen_history as u")
 			.join("tracks as t", "t.track_id", "u.track_id") // Join track
 			.where("u.user_id", user_id)
-			.distinct("t.*");
+			.select("t.track_id", db.raw("MAX(u.time) AS latest_time")) // Use db.raw for MAX()
+			.groupBy("t.track_id")
+			.orderBy("latest_time", "desc");
 		return history;
 	},
 
