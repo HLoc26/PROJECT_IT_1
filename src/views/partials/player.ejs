@@ -5,14 +5,18 @@
         <div class="player-song-details">
             <span class="player-track-title">Track Title</span>
             <span class="player-track-artist">Track Artist</span>
-    </div>
-
+        </div>
+        <button class="like-btn" data-type="track" data-id="">
+            <i class="bi"></i>
+        </button>
     </div>
     <div class="player-controls">
         <div class="player-control-btn">
+            <button onclick="shuffle()" class="manip-btn control-btn"><i class="bi bi-shuffle"></i></button>
             <button onclick="prevAudio()" class="control-btn prev-btn"><i class="bi bi-skip-backward-fill"></i></button>
             <button onclick="playAudio()" class="control-btn play-btn"><i class="bi bi-play-fill"></i></button>
             <button onclick="nextAudio()" class="control-btn next-btn"><i class="bi bi-skip-forward-fill"></i></button>
+            <button onclick="loop()" class="manip-btn control-btn"><i class="bi bi-arrow-repeat"></i></button>
         </div>
         <div class="progress-bar">
             <input type="range" id="progress" value="0" min="0" max="100" step="1" class="progress-input"
