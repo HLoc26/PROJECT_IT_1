@@ -162,15 +162,17 @@ p {
 }
 
 .album-container {
-	display: flex;
-	width: 100%;
-	justify-content: space-around;
+	column-count: 2; /* Number of columns */
+	column-gap: 15px; /* Space between columns */
 }
 
 .album-card {
-	width: 50%;
+	width: 95%;
+	display: inline-block;
 	margin: 15px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
 }
 
 .album-card-header {
