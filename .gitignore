@@ -1,4 +1,5 @@
 test.*
+uploads/music/
 # Logs
 logs
 *.log
