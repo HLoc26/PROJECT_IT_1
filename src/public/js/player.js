@@ -2,6 +2,8 @@ const audioPlayer = document.getElementById("audio-player");
 const progressInput = document.getElementById("progress");
 const volumeInput = document.getElementById("volume");
 
+let trackQueue = [];
+
 let queueIndex = 0;
 
 var readyState = audioPlayer.readyState;
