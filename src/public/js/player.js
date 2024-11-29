@@ -138,11 +138,22 @@ async function nextAudio() {
 
 // Update the UI
 function updatePlayerUI(track_data) {
-	console.log("Update: ", track_data);
+	// console.log("Update: ", track_data);
 	// Update song information
 	const trackTitle = document.querySelector(".player-track-title");
 	const trackArtist = document.querySelector(".player-track-artist");
 	const albumImg = document.querySelector(".player-album-img");
+	const likeBtn = document.querySelector(".like-btn");
+	const likeIcon = document.querySelector(".like-btn i");
+	if (track_data.liked) {
+		likeBtn.classList.add("liked");
+		likeIcon.classList.add("bi-heart-fill");
+		likeIcon.classList.remove("bi-heart");
+	} else {
+		likeIcon.classList.add("bi-heart");
+		likeIcon.classList.remove("bi-heart-fill");
+	}
+
 	if (track_data.album_cover_image) {
 		albumImg.src = track_data.album_cover_image;
 	} else if (track_data.artist_pic_path) {
@@ -193,7 +204,7 @@ async function addHistory(track_id) {
 			body: JSON.stringify({ track_id }),
 		});
 		const result = await response.json();
-		console.log(result.message);
+		// console.log(result.message);
 	} catch (error) {
 		console.error("Error saving history:", error);
 	}
@@ -212,7 +223,7 @@ async function fetchNewQueue(track_id) {
 		}
 
 		const { queue } = await response.json();
-		console.log(queue);
+		// console.log(queue);
 		// Load the new queue into the player
 		loadQueue(queue);
 	} catch (error) {
@@ -232,3 +243,9 @@ function play(path) {
 	audioPlayerSrc.src = `/uploads/music/${path}`;
 	audioPlayer.play();
 }
+
+document.querySelectorAll(".manip-btn").forEach((btn) => {
+	btn.addEventListener("click", () => {
+		btn.classList.toggle("active");
+	});
+});

@@ -11,9 +11,11 @@ export default {
 		const album = await albumService.findByTrackId(track_id);
 		const artist = await artistService.findByTrackId(track_id);
 
-		const ret = { ...track, ...album, ...artist };
+		const liked = await likeService.checkLikedTrack(req.session.user_id, track_id);
 
-		// console.log("RET: ", ret);
+		const ret = { ...track, ...album, ...artist, liked: liked ? true : false };
+
+		console.log("RET: ", ret);
 
 		res.status(200).json(ret);
 	},
