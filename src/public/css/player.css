@@ -31,7 +31,7 @@
 	background-color: rgb(40, 69, 85);
 }
 
-.player-song-info {
+#player-song-info {
 	display: flex;
 	flex-direction: row;
 	width: 25%;
@@ -67,7 +67,7 @@
 	margin: auto;
 }
 
-.player-volume input{
+.player-volume input {
 	cursor: pointer;
 }
 .progress-bar input {
