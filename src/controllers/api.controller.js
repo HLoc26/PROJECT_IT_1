@@ -98,4 +98,46 @@ export default {
 			return res.status(400).json({ message: error });
 		}
 	},
+
+	async getNewQueue(req, res) {
+		const { track_id } = req.body;
+		const clickedTrack = await trackService.findById(track_id);
+		if (!clickedTrack) {
+			return res.status(404).json({ error: "Track not found" });
+		}
+		console.log("clicked: ", clickedTrack);
+
+		const queue = [clickedTrack];
+
+		// Find tracks with same artist
+		const artists = await artistService.findByTrackId2(track_id);
+
+		await Promise.all(
+			artists.map(async (artist) => {
+				// console.log(album);
+				const tracks = await trackService.findByArtistId(artist.artist_id);
+				queue.push(...tracks);
+				return tracks;
+			})
+		);
+
+		// Find tracks with same uploader
+		const tracks_uploader = await trackService.findByUploaderId(clickedTrack.uploader_id);
+		queue.push(...tracks_uploader);
+
+		// Find tracks with same genre
+		// ...
+
+		const uniqueQueue = [];
+		const trackIds = new Set();
+		queue.forEach((track) => {
+			if (!trackIds.has(track.track_id)) {
+				trackIds.add(track.track_id);
+				uniqueQueue.push(track);
+			}
+		});
+		console.log(uniqueQueue);
+
+		return res.status(200).json({ queue: uniqueQueue });
+	},
 };
