@@ -34,17 +34,6 @@ export default {
 		res.status(200).json({ message: "Saved history" });
 	},
 
-	async getSession(req, res) {
-		if (req.session && req.session.user_id) {
-			res.json({
-				user_id: req.session.user_id,
-				username: req.session.username,
-			});
-		} else {
-			res.status(401).json({ message: "User not authenticated" });
-		}
-	},
-
 	async like(req, res) {
 		// console.log("like:", req.body);
 		const { type, id } = req.body;
