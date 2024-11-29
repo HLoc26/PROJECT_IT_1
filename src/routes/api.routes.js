@@ -10,6 +10,8 @@ router.post("/history", apiController.addHistory);
 
 router.get("/session", apiController.getSession);
 
+router.post("/queue", apiController.getNewQueue);
+
 router.post("/like", apiController.like);
 
 router.delete("/unlike", apiController.unlike);
