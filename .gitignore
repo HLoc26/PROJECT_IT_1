@@ -1,5 +1,5 @@
 test.*
-uploads/music/
+src/public/uploads/music/
 # Logs
 logs
 *.log
