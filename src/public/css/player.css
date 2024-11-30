@@ -71,8 +71,16 @@
 	cursor: pointer;
 }
 
+.progress-bar {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	gap: 5px;
+	justify-content: space-between;
+}
+
 .progress-bar input {
-	width: 100%;
+	width: 85%;
 	cursor: pointer;
 }
 

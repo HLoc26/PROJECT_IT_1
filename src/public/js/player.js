@@ -1,6 +1,8 @@
 const audioPlayer = document.getElementById("audio-player");
 const progressInput = document.getElementById("progress");
 const volumeInput = document.getElementById("volume");
+const currentTime = document.querySelector(".player-current-time");
+const endTime = document.querySelector(".player-end-time");
 
 let trackQueue = [];
 
@@ -36,6 +38,7 @@ audioPlayer.addEventListener("timeupdate", () => {
 	if (!isDragging && audioPlayer.duration > 0) {
 		const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
 		progressInput.value = percentage;
+		currentTime.innerHTML = `${String(Math.floor(audioPlayer.currentTime / 60)).padStart(2, "0")}:${String(Math.floor(audioPlayer.currentTime) % 60).padStart(2, "0")}`;
 	}
 });
 
@@ -145,7 +148,7 @@ async function nextAudio() {
 
 // Update the UI
 function updatePlayerUI(track_data) {
-	// console.log("Update: ", track_data);
+	console.log("Update: ", track_data);
 	// Update song information
 	const trackTitle = document.querySelector(".player-track-title");
 	const trackArtist = document.querySelector(".player-track-artist");
@@ -170,6 +173,7 @@ function updatePlayerUI(track_data) {
 	}
 	trackTitle.textContent = track_data.track_title;
 	trackArtist.textContent = track_data.artist_name;
+	endTime.textContent = `${String(Math.floor(track_data.track_duration / 60)).padStart(2, "0")}:${String(Math.floor(track_data.track_duration) % 60).padStart(2, "0")}`;
 }
 
 async function fetchTrack(track_id) {
