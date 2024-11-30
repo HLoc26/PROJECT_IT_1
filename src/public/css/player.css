@@ -12,14 +12,17 @@
 	gap: 15px;
 }
 
-.player-track-title {
+.player-track-title a {
 	color: var(--main-text-color);
+	text-decoration: none;
 	font-size: large;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-
+.player-track-title a:hover {
+	text-decoration: underline;
+}
 .player-track-artist {
 	color: gray;
 }

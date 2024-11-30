@@ -150,7 +150,7 @@ async function nextAudio() {
 function updatePlayerUI(track_data) {
 	console.log("Update: ", track_data);
 	// Update song information
-	const trackTitle = document.querySelector(".player-track-title");
+	const trackTitle = document.querySelector(".player-track-title a");
 	const trackArtist = document.querySelector(".player-track-artist");
 	const albumImg = document.querySelector(".player-album-img");
 	const likeBtn = document.querySelector(".footer-player .like-btn");
@@ -176,6 +176,7 @@ function updatePlayerUI(track_data) {
 		albumImg.src = "/images/albums/album_default.jpg";
 	}
 	trackTitle.textContent = track_data.track_title;
+	trackTitle.setAttribute("href", `/tracks/${track_data.track_id}`);
 	trackArtist.textContent = track_data.artist_name;
 	endTime.textContent = `${String(Math.floor(track_data.track_duration / 60)).padStart(2, "0")}:${String(Math.floor(track_data.track_duration) % 60).padStart(2, "0")}`;
 }
