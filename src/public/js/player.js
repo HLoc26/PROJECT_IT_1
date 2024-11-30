@@ -153,8 +153,12 @@ function updatePlayerUI(track_data) {
 	const trackTitle = document.querySelector(".player-track-title");
 	const trackArtist = document.querySelector(".player-track-artist");
 	const albumImg = document.querySelector(".player-album-img");
-	const likeBtn = document.querySelector(".like-btn");
-	const likeIcon = document.querySelector(".like-btn i");
+	const likeBtn = document.querySelector(".footer-player .like-btn");
+	const likeIcon = document.querySelector(".footer-player .like-btn i");
+
+	likeBtn.setAttribute("data-id", track_data.track_id);
+	console.log(likeBtn);
+
 	if (track_data.liked) {
 		likeBtn.classList.add("liked");
 		likeIcon.classList.add("bi-heart-fill");
