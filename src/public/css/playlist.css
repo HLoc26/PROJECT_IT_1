@@ -1,163 +1,91 @@
-
-body {
-  background-color: var(--main-bg-color);
-  color: var(--main-text-color);
+<<<<<< frontend/playlistUI
+main {
+	padding: 30px;
 }
 .top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: var(--main-bg-color);
-  margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-
 .greeting {
-  color: var(--main-text-color);
-  font-size: 1.5rem;
-  margin: 0;
-  font-weight: 500;
+	color: var(--main-text-color);
 }
 
 .create-playlist {
-  background-color: var(--card-color-light);
-  color: var(--main-text-color);
-  padding: 10px 20px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: background-color 0.2s ease;
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: var(--main-bg-color); /* Replace with your button color */
+	color: var(--main-text-color); /* Replace with your text color */
+	text-align: center;
+	text-decoration: none; /* Removes underline */
+	border-radius: 5px; /* Rounded corners */
+	font-weight: bold;
+	font-size: 14px;
+	max-height: 17px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .create-playlist:hover {
-  background-color: var(--sidebar-tab-active);
-  color: var(--main-text-color);
-  text-decoration: none;
+	background-color: var(--sidebar-tab-hover);
+	transform: scale(1.05);
 }
+
+.create-playlist:active {
+	background-color: var(--sidebar-tab-active);
+	transform: scale(0.98);
+}
+
 .playlist-container {
-  padding: 20px;
-  background-color: var(--main-bg-color);
-}
-
-.playlist-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.playlist-header h1 {
-  color: var(--secondary-text-color);
-  font-size: 1.25rem;
-  margin: 0;
-}
-
-.playlist-scroll {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 10px 0;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.playlist-scroll::-webkit-scrollbar {
-  display: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 15px;
+	width: 100%;
 }
 
 .playlist-card {
-  flex: 0 0 200px;
-  min-width: 200px;
+	width: 200px;
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
   background-color: var(--card-color-dark);
-  border-radius: 8px;
-  padding: 0;
-  transition: background-color 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
 }
 
 .playlist-card:hover {
-  background-color: var(--card-color-light);
+	transform: translateY(-10px);
+	box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4);
 }
 
-.playlist-image {
-  position: relative;
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.playlist-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s ease;
-}
-
-.playlist-card:hover .playlist-image img {
-  transform: scale(1.05);
-}
-
-.playlist-lock {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 4px;
-  border-radius: 50%;
+.playlist-cover {
+	width: 200px;
+	height: 200px;
+	border-radius: 10px;
 }
 
 .playlist-title {
-  font-size: 0.9rem;
-  margin: 0;
-  padding: 0 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--main-text-color);
+	font-size: large;
+	color: var(--main-text-color);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-.playlist-creator {
-  font-size: 0.8rem;
-  color: var(--secondary-text-color);
-  margin: 4px 0 12px 0;
-  padding: 0 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.playlist-title a {
+	text-decoration: none;
+	color: var(--main-text-color);
+	line-height: 30px;
+	text-align: center;
 }
 
-.filter-container {
-  display: flex;
-  gap: 8px;
+.playlist-title:hover {
+	text-decoration: underline;
 }
 
-.filter-input {
-  background-color: var(--card-color-dark);
-  border: 1px solid var(--card-color-light);
-  border-radius: 4px;
-  padding: 4px 12px;
-  color: var(--main-text-color);
-}
-
-.filter-input::placeholder {
-  color: var(--secondary-text-color);
-}
-
-.filter-select {
-  background-color: var(--card-color-dark);
-  border: 1px solid var(--card-color-light);
-  border-radius: 4px;
-  padding: 4px 12px;
-  color: var(--main-text-color);
-}
-
-.filter-input:focus,
-.filter-select:focus {
-  outline: none;
-  border-color: var(--sidebar-tab-active);
-  background-color: var(--card-color-light);
+.playlist-owner {
+	color: gray;
 }

@@ -42,6 +42,11 @@ export default {
 		return tracks;
 	},
 
+	findByUploaderId(uploader_id) {
+		const tracks = db("tracks as t").select("*").where("t.uploader_id", uploader_id);
+		return tracks;
+	},
+
 	add(entity) {
 		// TODO: Insert to user_upload
 		const ret = db("tracks").insert(entity);

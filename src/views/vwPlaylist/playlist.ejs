@@ -1,56 +1,27 @@
 <link rel="stylesheet" href="/css/playlist.css">
-
+<main>
 <div class="top-header">
   <h1 class="greeting">Hello, <%= username %>, what is your playlist to listen to today?</h1>
   <a href="/playlists/create" class="create-playlist">CREATE PLAYLIST</a>
 </div>
+
 <div class="playlist-container">
-  <div class="playlist-header">
-    <h1>Hear your own playlists and the playlists you've liked:</h1>
-    <div class="filter-container">
-      <input type="text" class="filter-input" placeholder="Filter playlists...">
-      <select class="filter-select">
-        <option value="">All Playlists</option>
-        <option value="mine">My Playlists</option>
-        <option value="liked">Liked Playlists</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="playlist-scroll">
-    <% playlists.forEach(playlist => { %>
-      <!-- Playlist Card -->
-      <div class="playlist-card" data-playlist-id="<%= playlist.playlist_id %>" data-type="<%= playlist.type %>">
-        <div class="playlist-image">
-          <img src="<%= playlist.cover_image || '/default-cover.jpg' %>" alt="Playlist cover">
-        </div>
-        <p class="playlist-title"><%= playlist.playlist_name %></p>
-        <p class="playlist-creator">
-          Created by: <%= playlist.owner_id %><!-- Co the xai query lay cai ten cua user ve dc k? -->
-        </p>
-      </div>
-    <% }); %>
-  </div>
-
-
-
-<!-- <script>
-  document.querySelectorAll('.playlist-header').forEach(header => {
-    header.addEventListener('click', (e) => {
-      // Prevent the click from triggering if clicking on the playlist name link
-      if (e.target.tagName === 'A') return;
-      
-      // Toggle the active class on the parent playlist div
-      const playlist = header.closest('.playlist');
-      playlist.classList.toggle('active');
-      
-      // Rotate arrow when playlist is active
-      const arrow = header.querySelector('.arrow-btn i');
-      if (playlist.classList.contains('active')) {
-        arrow.style.transform = 'rotate(180deg)';
-      } else {
-        arrow.style.transform = 'rotate(0deg)';
-      }
-    });
-  });
-</script> -->
+	<% playlists.forEach(playlist => { %>
+	<div class="playlist-card">
+		<a href="/playlists/<%= playlist.playlist_id %>">
+			<img class="playlist-cover" src="<%= playlist.cover %>" alt="">
+		</a>
+		<div class="playlist-title">
+			<a href="/playlists/<%= playlist.playlist_id %>">
+			<% if (playlist.liked) { %>
+				<i class="bi bi-heart-fill"></i>
+			<% } else { %>
+				<i class="bi bi-lock-fill"></i>
+			<% } %>
+			<%= playlist.playlist_name %>
+			</a>
+		</div>
+	</div>
+	<% }); %>
+</div>
+</main>
