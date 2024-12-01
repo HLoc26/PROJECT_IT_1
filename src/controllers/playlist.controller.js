@@ -1,24 +1,21 @@
 import playlistsService from "../services/playlists.service.js";
 import usersService from "../services/users.service.js";
 import tracksService from "../services/tracks.service.js";
+import likeService from "../services/like.service.js";
 
 export default {
 	async getDefault(req, res) {
 		// Get user's playlist
-		const user_playlists = await playlistsService.findByUserId(res.locals.user_id);
+		const user_playlists = await playlistsService.findByUserId(req.session.user_id);
+
+		const liked_playlists = await likeService.findLikedPlaylists(req.session.user_id);
 		console.log(user_playlists);
-		var playlist_tracks = {};
-
-		for (let i = 0; i < user_playlists.length; i++) {
-			var playlist_id = user_playlists[i].playlist_id;
-			var tracks = await tracksService.findByPlaylistId(playlist_id);
-			playlist_tracks[playlist_id] = tracks;
-		}
-
-		console.log(playlist_tracks);
 
 		// Get each playlist's top 5 songs
-		res.render("vwPlaylist/playlist", { playlists: user_playlists, tracks: playlist_tracks });
+		res.render("vwPlaylist/playlist", {
+			created_playlists: user_playlists,
+			liked_playlists: liked_playlists,
+		});
 	},
 
 	getCreate(req, res) {
