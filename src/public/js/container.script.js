@@ -144,30 +144,6 @@ function loginRedirect() {
 	});
 }
 
-async function getSessionUserId() {
-	try {
-		const response = await fetch("/api/session");
-		if (!response.ok) {
-			console.error("Failed to fetch session data.");
-			return null;
-		}
-		const data = await response.json();
-		sessionStorage.setItem("user_id", data.user_id);
-		return data.user_id;
-	} catch (error) {
-		console.error("Error fetching session data:", error);
-		return null;
-	}
-}
-
-getSessionUserId().then((user_id) => {
-	if (!user_id) {
-		console.log("User not logged in.");
-	} else {
-		console.log("User ID:", user_id);
-	}
-});
-
 document.addEventListener("click", function (event) {
 	if (event.target.closest(".like-btn")) {
 		const likeBtn = event.target.closest(".like-btn");

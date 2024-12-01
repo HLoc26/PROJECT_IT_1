@@ -11,16 +11,19 @@ export default {
 		const album = await albumService.findByTrackId(track_id);
 		const artist = await artistService.findByTrackId(track_id);
 
-		const ret = { ...track, ...album, ...artist };
+		const liked = await likeService.checkLikedTrack(req.session.user_id, track_id);
 
-		// console.log("RET: ", ret);
+		const ret = { ...track, ...album, ...artist, liked: liked ? true : false };
+
+		console.log("RET: ", ret);
 
 		res.status(200).json(ret);
 	},
 
 	async addHistory(req, res) {
 		console.log("AddHistory: ", req.body);
-		const { user_id, track_id } = req.body;
+		const user_id = req.session.user_id;
+		const { track_id } = req.body;
 		console.log(user_id, track_id);
 		const entity = {
 			user_id: user_id,
@@ -31,17 +34,6 @@ export default {
 		const ret = await historyService.addHistory(entity);
 		console.log(ret);
 		res.status(200).json({ message: "Saved history" });
-	},
-
-	async getSession(req, res) {
-		if (req.session && req.session.user_id) {
-			res.json({
-				user_id: req.session.user_id,
-				username: req.session.username,
-			});
-		} else {
-			res.status(401).json({ message: "User not authenticated" });
-		}
 	},
 
 	async like(req, res) {
@@ -97,5 +89,47 @@ export default {
 		} catch (error) {
 			return res.status(400).json({ message: error });
 		}
+	},
+
+	async getNewQueue(req, res) {
+		const { track_id } = req.body;
+		const clickedTrack = await trackService.findById(track_id);
+		if (!clickedTrack) {
+			return res.status(404).json({ error: "Track not found" });
+		}
+		console.log("clicked: ", clickedTrack);
+
+		const queue = [clickedTrack];
+
+		// Find tracks with same artist
+		const artists = await artistService.findByTrackId2(track_id);
+
+		await Promise.all(
+			artists.map(async (artist) => {
+				// console.log(album);
+				const tracks = await trackService.findByArtistId(artist.artist_id);
+				queue.push(...tracks);
+				return tracks;
+			})
+		);
+
+		// Find tracks with same uploader
+		const tracks_uploader = await trackService.findByUploaderId(clickedTrack.uploader_id);
+		queue.push(...tracks_uploader);
+
+		// Find tracks with same genre
+		// ...
+
+		const uniqueQueue = [];
+		const trackIds = new Set();
+		queue.forEach((track) => {
+			if (!trackIds.has(track.track_id)) {
+				trackIds.add(track.track_id);
+				uniqueQueue.push(track);
+			}
+		});
+		console.log(uniqueQueue);
+
+		return res.status(200).json({ queue: uniqueQueue });
 	},
 };

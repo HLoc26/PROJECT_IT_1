@@ -8,7 +8,7 @@ router.get("/tracks/:id", apiController.getTrackInfo);
 
 router.post("/history", apiController.addHistory);
 
-router.get("/session", apiController.getSession);
+router.post("/queue", apiController.getNewQueue);
 
 router.post("/like", apiController.like);
 
