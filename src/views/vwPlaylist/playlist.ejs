@@ -8,29 +8,31 @@
   <div class="playlist-header">
     <h1>Hear your own playlists and the playlists you've liked:</h1>
     <div class="filter-container">
-      <input type="text" class="filter-input" placeholder="Filter">
+      <input type="text" class="filter-input" placeholder="Filter playlists...">
       <select class="filter-select">
-        <option>All</option>
+        <option value="">All Playlists</option>
+        <option value="mine">My Playlists</option>
+        <option value="liked">Liked Playlists</option>
       </select>
     </div>
   </div>
 
   <div class="playlist-scroll">
-    <!-- Playlist 1 -->
-    <div class="playlist-card">
-      <div class="playlist-image">
-        <img src="/api/placeholder/300/300" alt="Playlist cover">
-        <div class="playlist-lock">
-          <svg width="16" height="16" fill="none" stroke="white" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-            </path>
-          </svg>
+    <% playlists.forEach(playlist => { %>
+      <!-- Playlist Card -->
+      <div class="playlist-card" data-playlist-id="<%= playlist.playlist_id %>" data-type="<%= playlist.type %>">
+        <div class="playlist-image">
+          <img src="<%= playlist.cover_image || '/default-cover.jpg' %>" alt="Playlist cover">
         </div>
+        <p class="playlist-title"><%= playlist.playlist_name %></p>
+        <p class="playlist-creator">
+          Created by: <%= playlist.creator_name %>
+        </p>
       </div>
-      <p class="playlist-title">title name</p>
-      <p class="playlist-creator">user created name</p>
-    </div>
+    <% }); %>
+  </div>
+</div>
+
 
 
     <!-- Add more playlist cards as needed -->
