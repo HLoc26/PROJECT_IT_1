@@ -5,34 +5,38 @@
   <a href="/playlists/create" class="create-playlist">CREATE PLAYLIST</a>
 </div>
 
-<div class="playlist-container">
-  <% playlists.forEach(playlist => { %>
-    <div class="playlist">
-      <div class="playlist-header">
-        <h2>
-          <a href="/playlists/<%= playlist.playlist_id %>"> 
-            <%= playlist.playlist_name %>
-          </a>
-        </h2>
-        <button class="arrow-btn">
-          <i class="bi bi-chevron-down"></i>
-        </button>
-      </div>
-      <div class="playlist-content">
-        <ul class="song-list">
-          <% tracks[playlist.playlist_id].forEach(track => { %>
-            <li class="song-item">
-              <a href="/tracks/<%= track.track_id %>" class="song-link">
-                <%= track.track_title %>
-              </a>
-              <span class="song-duration"><%= Math.floor(track.track_duration / 60)%>:<%= track.track_duration % 60 %></span>
-            </li>
-          <% }); %>
-        </ul>
-      </div>
+<div class="playlist-grid">
+  <div class="playlist-header">
+    <h1>Hear your own playlists and the playlists you've liked:</h1>
+    <div class="filter-container">
+      <input type="text" class="filter-input" placeholder="Filter">
+      <select class="filter-select">
+        <option>All</option>
+      </select>
     </div>
-  <% }); %>
-</div>
+  </div>
+
+  <div class="container-fluid p-0">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+      <!-- Playlist 1 -->
+      <div class="col">
+        <div class="playlist-card">
+          <div class="playlist-image">
+            <img src="/api/placeholder/300/300" alt="Playlist cover">
+            <div class="playlist-lock">
+              <svg width="16" height="16" fill="none" stroke="white" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <p class="playlist-title">playlist name</p>
+          <p class="playlist-creator">creator</p>
+        </div>
+      </div>
+
+
 
 <!-- <script>
   document.querySelectorAll('.playlist-header').forEach(header => {
