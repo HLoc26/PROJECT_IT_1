@@ -115,6 +115,64 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		}
 	});
+	document.querySelector("#content").addEventListener("click", (e) => {
+		const recentTracksList = document.getElementById("recent-tracks");
+		const playlistTracksList = document.getElementById("playlist-tracks");
+
+		// Add to Playlist functionality
+		if (e.target.classList.contains("add-to-playlist-btn")) {
+			const trackItem = e.target.closest(".track-item");
+
+			// Create a clone of the track item
+			const clonedTrackItem = trackItem.cloneNode(true);
+
+			// Replace "Add to Playlist" button with "Remove" button
+			const addButton = clonedTrackItem.querySelector(".add-to-playlist-btn");
+			const removeButton = document.createElement("button");
+			removeButton.type = "button";
+			removeButton.textContent = "Remove";
+			removeButton.classList.add("remove-from-playlist-btn");
+			addButton.replaceWith(removeButton);
+
+			// Hide original track instead of removing
+			trackItem.classList.add("hidden");
+
+			// Add to playlist tracks
+			playlistTracksList.appendChild(clonedTrackItem);
+		}
+
+		// Remove from Playlist functionality
+		if (e.target.classList.contains("remove-from-playlist-btn")) {
+			const trackItem = e.target.closest(".track-item");
+
+			// Find the original track in the recent tracks list
+			const originalTrackId = trackItem.dataset.trackId;
+			const originalTrack = Array.from(recentTracksList.querySelectorAll(".track-item")).find((item) => item.dataset.trackId === originalTrackId);
+
+			if (originalTrack) {
+				// Remove hidden class to make the original track visible again
+				originalTrack.classList.remove("hidden");
+			}
+
+			// Remove the cloned track from the playlist
+			trackItem.remove();
+		}
+
+		// Before form submission, collect track IDs
+		if (e.target.classList.contains("submit-button")) {
+			const trackIds = Array.from(playlistTracksList.querySelectorAll(".track-item")).map((item) => item.dataset.trackId);
+
+			// Create hidden inputs to send track IDs with the form
+			const form = e.target.closest("form");
+			trackIds.forEach((trackId) => {
+				const hiddenInput = document.createElement("input");
+				hiddenInput.type = "hidden";
+				hiddenInput.name = "track_ids";
+				hiddenInput.value = trackId;
+				form.appendChild(hiddenInput);
+			});
+		}
+	});
 });
 
 function toggleDropdown() {
