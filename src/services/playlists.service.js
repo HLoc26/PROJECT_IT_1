@@ -16,4 +16,9 @@ export default {
 		const playlists = db("playlists").where("owner_id", user_id);
 		return playlists;
 	},
+
+	addTrack(track_id, playlist_id) {
+		const entity = { track_id: track_id, playlist_id: playlist_id };
+		return db("track_playlist").insert(entity);
+	},
 };
