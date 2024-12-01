@@ -15,16 +15,16 @@ export default {
 
 		const ret = { ...track, ...album, ...artist, liked: liked ? true : false };
 
-		console.log("RET: ", ret);
+		// console.log("RET: ", ret);
 
 		res.status(200).json(ret);
 	},
 
 	async addHistory(req, res) {
-		console.log("AddHistory: ", req.body);
+		// console.log("AddHistory: ", req.body);
 		const user_id = req.session.user_id;
 		const { track_id } = req.body;
-		console.log(user_id, track_id);
+		// console.log(user_id, track_id);
 		const entity = {
 			user_id: user_id,
 			track_id: track_id,
@@ -32,7 +32,7 @@ export default {
 		};
 
 		const ret = await historyService.addHistory(entity);
-		console.log(ret);
+		// console.log(ret);
 		res.status(200).json({ message: "Saved history" });
 	},
 
@@ -97,7 +97,7 @@ export default {
 		if (!clickedTrack) {
 			return res.status(404).json({ error: "Track not found" });
 		}
-		console.log("clicked: ", clickedTrack);
+		// console.log("clicked: ", clickedTrack);
 
 		const queue = [clickedTrack];
 
@@ -128,7 +128,7 @@ export default {
 				uniqueQueue.push(track);
 			}
 		});
-		console.log(uniqueQueue);
+		// console.log(uniqueQueue);
 
 		return res.status(200).json({ queue: uniqueQueue });
 	},

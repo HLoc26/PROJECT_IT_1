@@ -72,7 +72,7 @@ export default {
 			if (err) {
 				return res.send("Error logging out");
 			}
-			console.log("Logged out");
+			// console.log("Logged out");
 			res.render("layouts/login", { layout: false });
 		});
 	},
@@ -82,14 +82,14 @@ export default {
 		try {
 			// Query
 			const existing = await userService.findByEmail(user_email);
-			console.log("Existing:", existing);
+			// console.log("Existing:", existing);
 			if (existing.length) {
-				console.log("Email in use");
+				// console.log("Email in use");
 				return res.status(400).json({ error: "Email already in use" });
 			}
 			const hashedPwd = await hash(user_password, 10);
 
-			console.log("HashedPWD:", hashedPwd);
+			// console.log("HashedPWD:", hashedPwd);
 
 			const new_user = {
 				user_name: user_name,
@@ -100,7 +100,7 @@ export default {
 
 			const ret = await userService.add(new_user);
 
-			console.log(`Created ${ret} row`); // TO-DO: Show success alert
+			// console.log(`Created ${ret} row`); // TO-DO: Show success alert
 			return res.status(201).json({ message: "Account created successfully!" });
 		} catch (error) {
 			console.error(error);
@@ -116,13 +116,13 @@ export default {
 			const users = await userService.findByEmail(login_email);
 			// console.log(user); // Debug
 			if (users.length === 0) {
-				console.log("Wrong email");
+				// console.log("Wrong email");
 				return res.status(401).json({ error: "Wrong email or password!" });
 			}
 			const user = users[0];
 			const match = await compare(login_password, user.user_password);
 			if (!match) {
-				console.log("Wrong pwd");
+				// console.log("Wrong pwd");
 				return res.status(401).json({ error: "Wrong email or password" });
 			}
 
@@ -131,7 +131,7 @@ export default {
 			req.session.role = user.user_role;
 			req.session.isAuthentication = true;
 
-			console.log("Login OK");
+			// console.log("Login OK");
 			return res.status(200).redirect("/home");
 		} catch (error) {
 			console.log(error);

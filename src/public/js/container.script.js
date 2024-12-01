@@ -193,7 +193,7 @@ window.onclick = function (event) {
 };
 
 function loginRedirect() {
-	console.log("Calling redirect");
+	// console.log("Calling redirect");
 	history.replaceState(null, "", "/login");
 	fetch("/logout", {
 		method: "POST",
@@ -214,9 +214,9 @@ document.addEventListener("click", function (event) {
 });
 
 async function toggleLike(id, type, btn) {
-	console.log("Toggling like");
+	// console.log("Toggling like");
 	const icon = btn.querySelector("i.bi");
-	console.log(icon);
+	// console.log(icon);
 	try {
 		const isLiked = btn.classList.contains("liked");
 		if (!isLiked) {
@@ -247,7 +247,7 @@ async function toggleLike(id, type, btn) {
 				btn.classList.toggle("liked");
 				icon.classList.remove("bi-heart-fill");
 				icon.classList.add("bi-heart");
-				console.log(icon);
+				// console.log(icon);
 			} else {
 				console.error("Failed to toggle like status:", result.message);
 			}

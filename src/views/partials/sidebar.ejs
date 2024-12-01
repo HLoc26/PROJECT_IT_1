@@ -27,13 +27,13 @@
     sideLinks = document.querySelectorAll(".side-link")
 
     sideLinks.forEach(link => {
-        console.log(link)
+        // console.log(link)
         link.addEventListener('click', function () {
             sideLinks.forEach(link => {
                 link.removeAttribute('active')
             });
             this.setAttribute('active', '')
-            console.log(this.getAttributeNames())
+            // console.log(this.getAttributeNames())
         })
     });
 </script>

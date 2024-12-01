@@ -49,7 +49,7 @@ export default {
 		if (!req.file) {
 			return res.status(400).redirect("/tracks/upload");
 		}
-		console.log(req.file);
+		// console.log(req.file);
 
 		// Gather information from req.body
 		const { upload_track_name, isVisible, upload_lyrics } = req.body;
@@ -64,11 +64,11 @@ export default {
 			// Construct full path to the saved file
 			const fullFilePath = path.join(__dirname, "..", "public", "uploads", "music", req.file.filename);
 
-			console.log(fullFilePath);
+			// console.log(fullFilePath);
 
 			// track_duration
 			const metadata = await parseFile(fullFilePath);
-			console.log(metadata);
+			// console.log(metadata);
 			const duration = Math.floor(metadata.format.duration);
 
 			// track_mp3_path (local path)
@@ -84,7 +84,7 @@ export default {
 				visibility: visibility,
 			};
 
-			console.log(">>>>> entity: ", entity);
+			// console.log(">>>>> entity: ", entity);
 			await trackService.add(entity);
 			// TODO: Redirect to track detail page
 			res.status(200).redirect("/tracks");
