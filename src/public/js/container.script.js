@@ -202,13 +202,41 @@ function loginRedirect() {
 	});
 }
 
-document.addEventListener("click", function (event) {
+document.addEventListener("click", async function (event) {
+	if (event.target.closest(".add-to-playlists-btn")) {
+		// console.log("hehe");
+		const popup = document.querySelector("#playlist-popup-container");
+		const playlistsDiv = popup.querySelector(".playlists");
+		const overlay = document.querySelector("#overlay");
+		popup.style.display = "block";
+		overlay.style.display = "block";
+
+		// Fetch playlists using await
+		const response = await fetch("/api/playlists");
+		const data = await response.json();
+
+		console.log("data", data);
+
+		// Populate the playlists div with the fetched playlists
+		playlistsDiv.innerHTML = data.playlists
+			.map(
+				(playlist) => `
+				<label>
+					<input type="checkbox" data-playlist-id="${playlist.playlist_id}">
+					${playlist.playlist_name}
+				</label>
+			`
+			)
+			.join("");
+	}
+});
+
+document.addEventListener("click", async function (event) {
 	if (event.target.closest(".like-btn")) {
 		const likeBtn = event.target.closest(".like-btn");
 		const id = likeBtn.dataset.id;
 		const type = likeBtn.dataset.type;
 
-		// Gửi yêu cầu lên server để xử lý trạng thái like/unlike
 		toggleLike(id, type, likeBtn);
 	}
 });
@@ -242,7 +270,6 @@ async function toggleLike(id, type, btn) {
 				body: JSON.stringify({ type: type, id: id }),
 			});
 			const result = response.json();
-
 			if (response.ok) {
 				btn.classList.toggle("liked");
 				icon.classList.remove("bi-heart-fill");
@@ -254,5 +281,58 @@ async function toggleLike(id, type, btn) {
 		}
 	} catch (error) {
 		console.error("Error toggling like:", error);
+	}
+}
+
+function closePlaylist() {
+	const popup = document.querySelector("#playlist-popup-container");
+	const overlay = document.querySelector("#overlay");
+	popup.style.display = "none";
+	overlay.style.display = "none";
+}
+
+async function savePlaylist() {
+	const popup = document.querySelector("#playlist-popup-container");
+	const selectedCheckboxes = popup.querySelectorAll("input[type='checkbox']:checked");
+	const selectedPlaylistIds = [];
+	const popup_err = popup.querySelector(".popup-error");
+	// Collect the IDs of the selected playlists
+	selectedCheckboxes.forEach((checkbox) => {
+		selectedPlaylistIds.push(checkbox.dataset.playlistId);
+	});
+
+	console.log("Selected: ", selectedPlaylistIds);
+
+	if (selectedPlaylistIds.length === 0) {
+		popup_err.innerHTML = "Please select at least one playlist.";
+		return;
+	}
+	try {
+		const audioPlayer = document.getElementById("audio-player");
+		const track_mp3_path = decodeURIComponent(audioPlayer.src.split("/").pop()); // Extracts the file name from the URL
+		console.log("current track:", track_mp3_path); // "song1.mp3"
+
+		// Send the selected playlists to the server
+		const response = await fetch("/api/save-track-playlists", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				track_mp3_path: track_mp3_path,
+				playlists: selectedPlaylistIds,
+			}),
+		});
+
+		const result = await response.json();
+
+		if (response.ok) {
+			console.log("Track added to playlists:", result.message);
+			closePlaylist(); // Close the popup
+		} else {
+			console.error("Failed to save playlists:", result.message);
+		}
+	} catch (error) {
+		console.error("Error saving playlists:", error);
 	}
 }
