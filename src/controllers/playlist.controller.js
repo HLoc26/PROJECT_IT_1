@@ -2,20 +2,59 @@ import playlistsService from "../services/playlists.service.js";
 import usersService from "../services/users.service.js";
 import tracksService from "../services/tracks.service.js";
 import likeService from "../services/like.service.js";
+import albumService from "../services/albums.service.js";
 
 export default {
 	async getDefault(req, res) {
-		// Get user's playlist
-		const user_playlists = await playlistsService.findByUserId(req.session.user_id);
+		try {
+			// Get user's playlists
+			const user_playlists = await playlistsService.findByUserId(req.session.user_id);
 
-		const liked_playlists = await likeService.findLikedPlaylists(req.session.user_id);
-		console.log(user_playlists);
+			// Get playlists liked by the user
+			const liked_playlists = await likeService.findLikedPlaylists(req.session.user_id);
 
-		// Get each playlist's top 5 songs
-		res.render("vwPlaylist/playlist", {
-			created_playlists: user_playlists,
-			liked_playlists: liked_playlists,
-		});
+			const playlists = [];
+			const playlist_id = new Set();
+
+			liked_playlists.forEach((playlist) => {
+				playlist.liked = true;
+				if (!playlist_id.has(playlist.playlist_id)) {
+					playlists.push(playlist);
+					playlist_id.add(playlist.playlist_id);
+				}
+			});
+			user_playlists.forEach((playlist) => {
+				if (!playlist_id.has(playlist.playlist_id)) {
+					playlists.push(playlist);
+					playlist_id.add(playlist.playlist_id);
+				}
+			});
+
+			// Function to get playlist cover
+			async function getPlaylistCover(playlistId) {
+				const tracks = await tracksService.findByPlaylistId(playlistId);
+				const firstTrack = tracks[0];
+				console.log(playlistId, firstTrack);
+				if (!firstTrack) return "/images/albums/album_default.png";
+
+				const album = await albumService.findById(firstTrack.album_id);
+				return album && album.album_cover_image ? album.album_cover_image : "/images/albums/album_default.png";
+			}
+
+			// Add cover images to created playlists
+			for (const playlist of playlists) {
+				playlist.cover = await getPlaylistCover(playlist.playlist_id);
+			}
+
+			console.log(playlists);
+			// Render the playlists view
+			res.render("vwPlaylist/playlist", {
+				playlists: playlists,
+			});
+		} catch (error) {
+			console.error("Error in getDefault:", error);
+			res.status(500).send("An error occurred while loading playlists.");
+		}
 	},
 
 	getCreate(req, res) {
