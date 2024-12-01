@@ -1,3 +1,4 @@
+<<<<<< frontend/playlistUI
 main {
 	padding: 30px;
 }
@@ -49,7 +50,8 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--card-color-dark);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 	border-radius: 8px;
 }
