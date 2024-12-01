@@ -3,6 +3,8 @@ import usersService from "../services/users.service.js";
 import tracksService from "../services/tracks.service.js";
 import likeService from "../services/like.service.js";
 import albumService from "../services/albums.service.js";
+import historyService from "../services/history.service.js";
+import artistsService from "../services/artists.service.js";
 
 export default {
 	async getDefault(req, res) {
@@ -34,7 +36,7 @@ export default {
 			async function getPlaylistCover(playlistId) {
 				const tracks = await tracksService.findByPlaylistId(playlistId);
 				const firstTrack = tracks[0];
-				console.log(playlistId, firstTrack);
+				// console.log(playlistId, firstTrack);
 				if (!firstTrack) return "/images/albums/album_default.png";
 
 				const album = await albumService.findById(firstTrack.album_id);
@@ -46,7 +48,7 @@ export default {
 				playlist.cover = await getPlaylistCover(playlist.playlist_id);
 			}
 
-			console.log(playlists);
+			// console.log(playlists);
 			// Render the playlists view
 			res.render("vwPlaylist/playlist", {
 				playlists: playlists,
@@ -57,8 +59,35 @@ export default {
 		}
 	},
 
-	getCreate(req, res) {
-		res.render("vwPlaylist/create");
+	async getCreate(req, res) {
+		// Get user listen history
+		const history = await historyService.findByUserId(req.session.user_id);
+
+		const track_list = [];
+		await Promise.all(
+			history.map(async (track) => {
+				// console.log(album);
+				const tracks = await tracksService.findById(track.track_id);
+				track_list.push(tracks);
+				return tracks;
+			})
+		);
+
+		await Promise.all(
+			track_list.map(async (track) => {
+				const artist = await artistsService.findByTrackId(track.track_id);
+				if (!artist) {
+					console.log("FOUND HERE: ", track, artist);
+					track.artist = "";
+				} else {
+					track.artist = artist;
+				}
+			})
+		);
+
+		// console.log(track_list);
+
+		res.render("vwPlaylist/create", { history: track_list });
 	},
 
 	async getDetail(req, res) {
@@ -78,20 +107,27 @@ export default {
 	},
 
 	async postCreate(req, res) {
-		const uid = res.locals.user_id;
-		const { new_playlist_name } = req.body;
-		const playlists = await playlistsService.findByUserId(uid);
+		const user_id = req.session.user_id;
+		const { new_playlist_name, visibility, track_ids } = req.body;
+		const playlists = await playlistsService.findByUserId(user_id);
 		const playlist_count = playlists.length;
 		const entity = {
 			playlist_name: new_playlist_name || `Your playlist #${playlist_count}`,
-			playlist_visibility_mode: "private",
-			owner_id: uid,
+			playlist_visibility_mode: visibility,
+			owner_id: user_id,
 			create_time: new Date().toISOString(),
 		};
 
 		const created_playlist = await playlistsService.create(entity);
-		const new_playlist = created_playlist[0];
-		console.log(new_playlist);
-		res.redirect(`/playlists/${new_playlist.playlist_id}`);
+		const new_playlist_id = created_playlist[0].playlist_id;
+
+		// Add tracks to playlist
+		await Promise.all(
+			track_ids.map(async (track_id) => {
+				await playlistsService.addTrack(+track_id, new_playlist_id);
+			})
+		);
+
+		res.redirect(`/playlists/${new_playlist_id}`);
 	},
 };
