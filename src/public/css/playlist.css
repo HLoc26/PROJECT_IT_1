@@ -1,111 +1,83 @@
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #1a1025; /* Purplish-black background */
-  color: #ffffff;
-}
-
-.top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.create-playlist {
-  background-color: #2d1b69;
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  transition: background-color 0.3s;
-}
-
-.create-playlist:hover {
-  background-color: #3d2b79;
-}
-
-.greeting {
-  font-size: 2em;
-  margin: 0;
-}
-
-.playlist-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.playlist {
-  background-color: #2d1b69; /* Darker purple for playlist background */
-  border-radius: 8px;
-  margin-bottom: 20px;
-  overflow: hidden;
+.playlist-grid {
+  padding: 20px;
 }
 
 .playlist-header {
-  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  background-color: #241553; /* Slightly darker purple for header */
+  margin-bottom: 24px;
 }
 
-.playlist-header:hover {
-  background-color: #2d1b69;
-}
-
-.playlist-header h2 {
+.playlist-header h1 {
+  color: #666;
+  font-size: 1.25rem;
   margin: 0;
-  font-size: 1.5em;
 }
 
-.playlist-content {
-  display: none;
-  padding: 0 20px;
+.playlist-card {
+  margin-bottom: 20px;
 }
 
-.playlist.active .playlist-content {
-  display: block;
+.playlist-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
-.song-list {
-  list-style: none;
-  padding: 0;
+.playlist-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
 }
 
-.song-item {
-  padding: 15px 0;
-  border-bottom: 1px solid #341f7a; /* Lighter purple for borders */
+.playlist-image:hover img {
+  transform: scale(1.05);
+}
+
+.playlist-lock {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.playlist-title {
+  font-size: 0.9rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-creator {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filter-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 8px;
 }
 
-.song-item:hover {
-  background-color: #341f7a;
+.filter-input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 12px;
 }
 
-.song-link {
-  color: white;
-  text-decoration: none;
-  flex-grow: 1;
-}
-
-.song-duration {
-  color: #b8b2d1; /* Lighter purple for duration */
-  margin-left: 20px;
-}
-
-.arrow-btn {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 1.2em;
-  padding: 0;
-  transition: transform 0.3s;
-}
-
-.playlist.active .arrow-btn {
-  transform: rotate(180deg);
+.filter-select {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 12px;
+  color: #fd7e14;
 }
