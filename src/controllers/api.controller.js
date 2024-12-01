@@ -3,6 +3,7 @@ import albumService from "../services/albums.service.js";
 import artistService from "../services/artists.service.js";
 import historyService from "../services/history.service.js";
 import likeService from "../services/like.service.js";
+import playlistsService from "../services/playlists.service.js";
 export default {
 	async getTrackInfo(req, res) {
 		const track_id = req.params.id;
@@ -131,5 +132,33 @@ export default {
 		// console.log(uniqueQueue);
 
 		return res.status(200).json({ queue: uniqueQueue });
+	},
+	async getPlaylists(req, res) {
+		const playlists = await playlistsService.findByUserId(req.session.user_id);
+
+		// console.log(playlists);
+
+		res.status(200).json({ playlists: playlists });
+	},
+
+	async saveTrackPlaylists(req, res) {
+		try {
+			const { track_mp3_path, playlists } = req.body;
+
+			const track = await trackService.findByMp3Path(track_mp3_path);
+
+			console.log(track, playlists);
+
+			await Promise.all(
+				playlists.map(async (playlist_id) => {
+					await playlistsService.addTrack(track.track_id, +playlist_id);
+				})
+			);
+
+			res.status(200).json({ message: "Success" });
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ message: error });
+		}
 	},
 };
