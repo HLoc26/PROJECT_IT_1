@@ -198,6 +198,14 @@ async function playTrack(track_id) {
 	playIcon.classList.add("bi-pause-fill");
 
 	const song_info = document.getElementById("player-song-info");
+
+	const addBtn = song_info.querySelector(".add-to-playlists-btn");
+
+	addBtn.dataset.trackId = track_id;
+	addBtn.onclick = (track_id) => {
+		openPlaylistPopup(track_id);
+	};
+
 	song_info.style.opacity = 100;
 
 	fetchNewQueue(track_id);
