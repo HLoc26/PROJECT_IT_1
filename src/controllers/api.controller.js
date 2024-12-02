@@ -143,9 +143,11 @@ export default {
 
 	async saveTrackPlaylists(req, res) {
 		try {
-			const { track_mp3_path, playlists } = req.body;
+			const { track_info, playlists } = req.body;
 
-			const track = await trackService.findByMp3Path(track_mp3_path);
+			const track = track_info.includes(".") // Find by mp3 paht or by id
+				? await trackService.findByMp3Path(track_info)
+				: await trackService.findById(track_info);
 
 			console.log(track, playlists);
 
