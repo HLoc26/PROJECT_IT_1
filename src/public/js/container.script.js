@@ -202,34 +202,44 @@ function loginRedirect() {
 	});
 }
 
-document.addEventListener("click", async function (event) {
-	if (event.target.closest(".add-to-playlists-btn")) {
-		// console.log("hehe");
-		const popup = document.querySelector("#playlist-popup-container");
-		const playlistsDiv = popup.querySelector(".playlists");
-		const overlay = document.querySelector("#overlay");
-		popup.style.display = "block";
-		overlay.style.display = "block";
+async function openPlaylistPopup(trackId) {
+	const popup = document.querySelector("#playlist-popup-container");
+	const playlistsDiv = popup.querySelector(".playlists");
+	const overlay = document.querySelector("#overlay");
+	const saveBtn = popup.querySelector(".save-playlists");
+	const popupErr = popup.querySelector(".popup-error");
 
-		// Fetch playlists using await
+	// Clear previous error messages
+	popupErr.innerHTML = "";
+
+	// Assign track ID to the save button
+	saveBtn.dataset.trackId = trackId;
+
+	// Show the popup and overlay
+	popup.style.display = "block";
+	overlay.style.display = "block";
+
+	try {
+		// Fetch playlists dynamically
 		const response = await fetch("/api/playlists");
 		const data = await response.json();
 
-		console.log("data", data);
-
-		// Populate the playlists div with the fetched playlists
+		// Populate playlists into the popup
 		playlistsDiv.innerHTML = data.playlists
 			.map(
 				(playlist) => `
-				<label>
-					<input type="checkbox" data-playlist-id="${playlist.playlist_id}">
-					${playlist.playlist_name}
-				</label>
-			`
+                <label>
+                    <input type="checkbox" data-playlist-id="${playlist.playlist_id}">
+                    ${playlist.playlist_name}
+                </label>
+            `
 			)
 			.join("");
+	} catch (error) {
+		console.error("Error fetching playlists:", error);
+		playlistsDiv.innerHTML = "Failed to load playlists.";
 	}
-});
+}
 
 document.addEventListener("click", async function (event) {
 	if (event.target.closest(".like-btn")) {
