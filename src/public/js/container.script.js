@@ -304,32 +304,32 @@ function closePlaylist() {
 async function savePlaylist() {
 	const popup = document.querySelector("#playlist-popup-container");
 	const selectedCheckboxes = popup.querySelectorAll("input[type='checkbox']:checked");
+	const saveBtn = popup.querySelector(".save-playlists");
+	const popupErr = popup.querySelector(".popup-error");
+	const trackId = saveBtn.dataset.trackId; // Get the track ID
 	const selectedPlaylistIds = [];
-	const popup_err = popup.querySelector(".popup-error");
-	// Collect the IDs of the selected playlists
+
+	const audioPlayer = document.getElementById("audio-player");
+	const mp3_path = decodeURIComponent(audioPlayer.src.split("/").pop()); // Extracts the file name from the URL
+	console.log("current track:", mp3_path); // "song1.mp3"
+
+	const track_info = trackId ? trackId : mp3_path; // Collect selected playlist IDs
+
 	selectedCheckboxes.forEach((checkbox) => {
 		selectedPlaylistIds.push(checkbox.dataset.playlistId);
 	});
 
-	console.log("Selected: ", selectedPlaylistIds);
-
 	if (selectedPlaylistIds.length === 0) {
-		popup_err.innerHTML = "Please select at least one playlist.";
+		popupErr.innerHTML = "Please select at least one playlist.";
 		return;
 	}
-	try {
-		const audioPlayer = document.getElementById("audio-player");
-		const track_mp3_path = decodeURIComponent(audioPlayer.src.split("/").pop()); // Extracts the file name from the URL
-		console.log("current track:", track_mp3_path); // "song1.mp3"
 
-		// Send the selected playlists to the server
+	try {
 		const response = await fetch("/api/save-track-playlists", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				track_mp3_path: track_mp3_path,
+				track_info: track_info,
 				playlists: selectedPlaylistIds,
 			}),
 		});
@@ -338,7 +338,7 @@ async function savePlaylist() {
 
 		if (response.ok) {
 			console.log("Track added to playlists:", result.message);
-			closePlaylist(); // Close the popup
+			closePlaylist();
 		} else {
 			console.error("Failed to save playlists:", result.message);
 		}
