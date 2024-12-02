@@ -17,7 +17,7 @@ export default {
 
 		const artists = await artistService.findTop10();
 
-		const recent_tracks = await historyService.findByUserId(res.locals.user_id);
+		const recent_tracks = await historyService.findByUserId(req.session.user_id);
 
 		// Map recent_tracks to fetch additional details
 		const history = await Promise.all(
@@ -31,7 +31,6 @@ export default {
 		);
 
 		// Get top albums
-		// Get top albums
 		const top_albums = await albumService.findTop(5);
 
 		await Promise.all(
@@ -43,8 +42,22 @@ export default {
 			})
 		);
 
-		// console.log(album_tracks);
+		await Promise.all(
+			top_albums.map(async (album) => {
+				if (album.tracks && album.tracks.length > 0) {
+					await Promise.all(
+						album.tracks.map(async (track) => {
+							const liked = await likeService.checkLikedTrack(req.session.user_id, track.track_id);
+							track.liked = liked ? true : false;
+						})
+					);
+				}
+			})
+		);
 
+		top_albums.forEach((album) => {
+			console.log(album.tracks);
+		});
 		res.render("homepage", { username: username, artists: artists, top_albums: top_albums, track_history: history });
 	},
 
