@@ -1,25 +1,36 @@
-<img src="/images/profile-pic.jpg" alt="" height="100px">
-<h1>Username: <%= user.username %></h1>
+<main>
+    <link rel="stylesheet" href="/css/profile.css">
+    <img src="/images/profile-pic.jpg" alt="" height="100px">
+    <h1>Username: <%= user.username %></h1>
 
 
-<h1>Listening history</h1>
-<%- include("../partials/track_list", {tracks: track_history}) %>
+    <h1>Listening history</h1>
+    <%- include("../partials/track_list", {tracks: track_history}) %>
 
-<h1>Liked playlists</h1>
+    <div class="row-container">
+        <div class="title">
+            <h1>Public playlists</h1>
+            <a href="/playlists">See your private playlists</a>
+        </div>
+            <%- include("../partials/playlist", {playlists: playlists}) %>
+    </div>
 
-<h1>Liked artists</h1>
-<ul>
-    <% liked_artists.forEach(artist => { %>
-        <li>
-            <a href="/artists/<%= artist.artist_id %>" class="artist-link">
-                <div class="artist-image-container">
-                    <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>" class="artist-image" width="100px">
-                    <div class="artist-overlay"></div>
-                </div>
-                <p class="artist-name">
-                    <%= artist.artist_name %>
-                </p>
-            </a>
-        </li>
-    <% }); %>
-</ul>
+    <ul></ul>
+
+    <h1>Liked artists</h1>
+    <ul>
+        <% liked_artists.forEach(artist => { %>
+            <li>
+                <a href="/artists/<%= artist.artist_id %>" class="artist-link">
+                    <div class="artist-image-container">
+                        <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>" class="artist-image" width="100px">
+                        <div class="artist-overlay"></div>
+                    </div>
+                    <p class="artist-name">
+                        <%= artist.artist_name %>
+                    </p>
+                </a>
+            </li>
+        <% }); %>
+    </ul>
+</main>
