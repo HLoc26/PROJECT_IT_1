@@ -110,7 +110,7 @@ export default {
 	},
 
 	getChangePass(req, res) {
-		res.render("vwProfile/account");
+		res.render("vwProfile/change_pass");
 	},
 
 	async getLogout(req, res) {
