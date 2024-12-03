@@ -168,8 +168,8 @@ export default {
 		const query = req.query.q;
 		const category = req.query.c;
 
-		console.log(req.query);
-		console.log(query, category);
+		// console.log(req.query);
+		// console.log(query, category);
 
 		if (!query || !category) {
 			return res.status(400).json({ error: "Missing query or category" });
@@ -193,7 +193,7 @@ export default {
 				default:
 					return res.status(400).json({ error: "Invalid category" });
 			}
-			console.log(results);
+			// console.log(results);
 			res.json(results); // Send the search results as JSON
 		} catch (error) {
 			console.error(error);
