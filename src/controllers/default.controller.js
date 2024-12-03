@@ -102,11 +102,22 @@ export default {
 		}
 
 		const liked_artists = await likeService.findLikedArtists(user_id);
+		const follower_count = await userService.countFollower(user_id);
+		const following_count = await userService.countFollowing(user_id);
+		const tracks_count = await userService.countUploadedTrack(user_id);
 		// console.log(liked_artists);
 		// console.log(track_history);
 		// console.log(user);
 
-		res.render("vwProfile/my_profile", { user: user, track_history: track_history, playlists: user_playlists, liked_artists: liked_artists });
+		res.render("vwProfile/my_profile", {
+			user: user,
+			track_history: track_history,
+			playlists: user_playlists,
+			liked_artists: liked_artists,
+			follower_count: follower_count.follower_count,
+			following_count: following_count.following_count,
+			tracks_count: tracks_count.tracks_count,
+		});
 	},
 
 	getChangePass(req, res) {
