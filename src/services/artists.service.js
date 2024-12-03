@@ -61,4 +61,7 @@ export default {
 			.where("t.track_id", track_id);
 		return artist;
 	},
+	findByName(artist_name) {
+		return db("artists").where("artist_name", "like", `%${artist_name}%`);
+	},
 };
