@@ -46,6 +46,9 @@
         font-weight: 300;
         font-size: larger;
     }
+    .track-item-right{
+        padding: 5px;
+    }
 </style>
 
 <ul class="track-list">
@@ -59,11 +62,15 @@
                     <%= track.track_title %>
                 </a>
             </div>
-            <% const track_duration_minute=Math.floor(+track.track_duration / 60) %>
-            <% const track_duration_second=+track.track_duration % 60 %>
-            <span class="track-item-duration">
-                <%= track_duration_minute %>:<%= track_duration_second %>
-            </span>
+            <div class="track-item-right">
+                <%- include("./likeBtn", {liked: track.liked, type: "track", id: track.track_id}) %>
+                <%- include ("./addBtn", {id: track.track_id}) %>
+                <% const track_duration_minute=Math.floor(+track.track_duration / 60) %>
+                <% const track_duration_second=+track.track_duration % 60 %>
+                <span class="track-item-duration">
+                    <%= track_duration_minute %>:<%= track_duration_second %>
+                </span>
+            </div>
         </li>
     <% }); %>
 </ul>

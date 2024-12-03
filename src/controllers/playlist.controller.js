@@ -77,7 +77,7 @@ export default {
 			track_list.map(async (track) => {
 				const artist = await artistsService.findByTrackId(track.track_id);
 				if (!artist) {
-					console.log("FOUND HERE: ", track, artist);
+					// console.log("FOUND HERE: ", track, artist);
 					track.artist = "";
 				} else {
 					track.artist = artist;

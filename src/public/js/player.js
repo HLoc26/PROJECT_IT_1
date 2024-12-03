@@ -131,7 +131,7 @@ async function prevAudio() {
 		const track = await fetchTrack(track_id);
 		updatePlayerUI(track);
 		play(track.track_mp3_path);
-		console.log("Prev: ", queueIndex);
+		// console.log("Prev: ", queueIndex);
 	}
 }
 
@@ -142,13 +142,13 @@ async function nextAudio() {
 		const track = await fetchTrack(track_id);
 		updatePlayerUI(track);
 		play(track.track_mp3_path);
-		console.log("Next: ", queueIndex);
+		// console.log("Next: ", queueIndex);
 	}
 }
 
 // Update the UI
 function updatePlayerUI(track_data) {
-	console.log("Update: ", track_data);
+	// console.log("Update: ", track_data);
 	// Update song information
 	const trackTitle = document.querySelector(".player-track-title a");
 	const trackArtist = document.querySelector(".player-track-artist");
@@ -157,7 +157,7 @@ function updatePlayerUI(track_data) {
 	const likeIcon = document.querySelector(".footer-player .like-btn i");
 
 	likeBtn.setAttribute("data-id", track_data.track_id);
-	console.log(likeBtn);
+	// console.log(likeBtn);
 
 	if (track_data.liked) {
 		likeBtn.classList.add("liked");
@@ -198,6 +198,14 @@ async function playTrack(track_id) {
 	playIcon.classList.add("bi-pause-fill");
 
 	const song_info = document.getElementById("player-song-info");
+
+	const addBtn = song_info.querySelector(".add-to-playlists-btn");
+
+	addBtn.dataset.trackId = track_id;
+	addBtn.onclick = (track_id) => {
+		openPlaylistPopup(track_id);
+	};
+
 	song_info.style.opacity = 100;
 
 	fetchNewQueue(track_id);
@@ -278,7 +286,7 @@ function shuffle() {
 	}
 	queueIndex = 0; // Reset to first track after shuffling
 	isShuffling = !isShuffling;
-	console.log("shuffle: ", queueIndex);
+	// console.log("shuffle: ", queueIndex);
 }
 
 function loop() {

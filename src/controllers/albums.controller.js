@@ -7,7 +7,7 @@ export default {
 	async getAlbum(req, res) {
 		// console.log(req.query);
 		const album_id = +req.params.id; // album_id
-		console.log(album_id);
+		// console.log(album_id);
 		if (album_id) {
 			const album = await albumService.findById(album_id);
 			const artist = await artistsService.findByAlbumId(album_id);

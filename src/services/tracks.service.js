@@ -47,6 +47,11 @@ export default {
 		return tracks;
 	},
 
+	findByMp3Path(path) {
+		const track = db("tracks as t").select("t.*").where("t.track_mp3_path", path).first();
+		return track;
+	},
+
 	add(entity) {
 		// TODO: Insert to user_upload
 		const ret = db("tracks").insert(entity);

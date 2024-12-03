@@ -30,14 +30,4 @@
     function dropdown() {
         document.getElementById("dropdown-profile").classList.toggle("show");
     }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function (e) {
-        if (!e.target.matches('.dropbtn')) {
-            var profileDrop = document.getElementById("dropdown-profile");
-            if (profileDrop.classList.contains('show')) {
-                profileDrop.classList.remove('show');
-            }
-        }
-    }
 </script>

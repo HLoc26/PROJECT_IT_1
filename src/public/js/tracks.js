@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const encodedTitle = encodeURIComponent(title);
 
 		const imgPath = await getAlbumImg(encodedTitle);
-		console.log("DOM: ", title, imgPath);
+		// console.log("DOM: ", title, imgPath);
 		img.src = imgPath;
 	});
 });

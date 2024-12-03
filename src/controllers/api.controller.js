@@ -3,6 +3,7 @@ import albumService from "../services/albums.service.js";
 import artistService from "../services/artists.service.js";
 import historyService from "../services/history.service.js";
 import likeService from "../services/like.service.js";
+import playlistsService from "../services/playlists.service.js";
 export default {
 	async getTrackInfo(req, res) {
 		const track_id = req.params.id;
@@ -15,16 +16,16 @@ export default {
 
 		const ret = { ...track, ...album, ...artist, liked: liked ? true : false };
 
-		console.log("RET: ", ret);
+		// console.log("RET: ", ret);
 
 		res.status(200).json(ret);
 	},
 
 	async addHistory(req, res) {
-		console.log("AddHistory: ", req.body);
+		// console.log("AddHistory: ", req.body);
 		const user_id = req.session.user_id;
 		const { track_id } = req.body;
-		console.log(user_id, track_id);
+		// console.log(user_id, track_id);
 		const entity = {
 			user_id: user_id,
 			track_id: track_id,
@@ -32,7 +33,7 @@ export default {
 		};
 
 		const ret = await historyService.addHistory(entity);
-		console.log(ret);
+		// console.log(ret);
 		res.status(200).json({ message: "Saved history" });
 	},
 
@@ -97,7 +98,7 @@ export default {
 		if (!clickedTrack) {
 			return res.status(404).json({ error: "Track not found" });
 		}
-		console.log("clicked: ", clickedTrack);
+		// console.log("clicked: ", clickedTrack);
 
 		const queue = [clickedTrack];
 
@@ -128,8 +129,38 @@ export default {
 				uniqueQueue.push(track);
 			}
 		});
-		console.log(uniqueQueue);
+		// console.log(uniqueQueue);
 
 		return res.status(200).json({ queue: uniqueQueue });
+	},
+	async getPlaylists(req, res) {
+		const playlists = await playlistsService.findByUserId(req.session.user_id);
+
+		// console.log(playlists);
+
+		res.status(200).json({ playlists: playlists });
+	},
+
+	async saveTrackPlaylists(req, res) {
+		try {
+			const { track_info, playlists } = req.body;
+
+			const track = track_info.includes(".") // Find by mp3 paht or by id
+				? await trackService.findByMp3Path(track_info)
+				: await trackService.findById(track_info);
+
+			console.log(track, playlists);
+
+			await Promise.all(
+				playlists.map(async (playlist_id) => {
+					await playlistsService.addTrack(track.track_id, +playlist_id);
+				})
+			);
+
+			res.status(200).json({ message: "Success" });
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ message: error });
+		}
 	},
 };
