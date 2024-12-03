@@ -104,8 +104,13 @@ export default {
 		const liked_artists = await likeService.findLikedArtists(user_id);
 		// console.log(liked_artists);
 		// console.log(track_history);
+		// console.log(user);
 
 		res.render("vwProfile/my_profile", { user: user, track_history: track_history, playlists: user_playlists, liked_artists: liked_artists });
+	},
+
+	getChangePass(req, res) {
+		res.render("vwProfile/account");
 	},
 
 	async getLogout(req, res) {
