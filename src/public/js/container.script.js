@@ -188,6 +188,55 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		}
 	});
+
+	document.querySelector("#content").addEventListener("click", async (e) => {
+		if (e.target.closest("#search-btn")) {
+			const query = document.getElementById("search-input").value;
+			const category = document.getElementById("search-category").value;
+
+			if (!query) {
+				return;
+			}
+
+			try {
+				const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&c=${category}`);
+				const results = await response.json();
+				const resultsContainer = document.getElementById("search-results");
+				resultsContainer.classList.remove("hidden");
+				resultsContainer.innerHTML = ""; // Clear previous results
+
+				if (results.length === 0) {
+					resultsContainer.innerHTML = "<p>No results found.</p>";
+				} else {
+					results.forEach((result) => {
+						const resultItem = document.createElement("div");
+						resultItem.classList.add("search-result-item"); // Add class for styling
+
+						let resultLink = "";
+
+						// Depending on the result type, create a link
+						if (result.track_id) {
+							resultLink = `/tracks/${result.track_id}`;
+							resultItem.innerHTML = `<a href="${resultLink}" class="result-link">${result.track_title}</a>`;
+						} else if (result.artist_id) {
+							resultLink = `/artists/${result.artist_id}`;
+							resultItem.innerHTML = `<a href="${resultLink}" class="result-link">${result.artist_name}</a>`;
+						} else if (result.album_id) {
+							resultLink = `/albums/${result.album_id}`;
+							resultItem.innerHTML = `<a href="${resultLink}" class="result-link">${result.album_name}</a>`;
+						} else if (result.user_id) {
+							resultLink = `/users/${result.user_id}`;
+							resultItem.innerHTML = `<a href="${resultLink}" class="result-link">${result.user_name}</a>`;
+						}
+
+						resultsContainer.appendChild(resultItem);
+					});
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	});
 });
 
 function toggleDropdown() {

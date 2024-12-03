@@ -196,4 +196,7 @@ export default {
 			return res.status(500).json({ error: "Internal server error" });
 		}
 	},
+	async getSearchPage(req, res) {
+		res.render("search");
+	},
 };

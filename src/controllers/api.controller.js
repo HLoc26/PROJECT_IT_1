@@ -4,6 +4,7 @@ import artistService from "../services/artists.service.js";
 import historyService from "../services/history.service.js";
 import likeService from "../services/like.service.js";
 import playlistsService from "../services/playlists.service.js";
+import userService from "../services/users.service.js";
 export default {
 	async getTrackInfo(req, res) {
 		const track_id = req.params.id;
@@ -161,6 +162,42 @@ export default {
 		} catch (error) {
 			console.error(error);
 			res.status(500).json({ message: error });
+		}
+	},
+	async getSearchResult(req, res) {
+		const query = req.query.q;
+		const category = req.query.c;
+
+		console.log(req.query);
+		console.log(query, category);
+
+		if (!query || !category) {
+			return res.status(400).json({ error: "Missing query or category" });
+		}
+
+		try {
+			let results = [];
+			switch (category) {
+				case "tracks":
+					results = await trackService.findByTitle(query);
+					break;
+				case "artists":
+					results = await artistService.findByName(query);
+					break;
+				case "albums":
+					results = await albumService.findByName(query);
+					break;
+				case "users":
+					results = await userService.findByName(query);
+					break;
+				default:
+					return res.status(400).json({ error: "Invalid category" });
+			}
+			console.log(results);
+			res.json(results); // Send the search results as JSON
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ error: "Server error" });
 		}
 	},
 };

@@ -57,4 +57,8 @@ export default {
 		const ret = db("tracks").insert(entity);
 		return ret;
 	},
+
+	findByTitle(track_title) {
+		return db("tracks").where("track_title", "like", `%${track_title}%`);
+	},
 };

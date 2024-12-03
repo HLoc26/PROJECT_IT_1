@@ -10,6 +10,8 @@ router.get("/", function (req, res) {
 
 router.get("/home", controllers.getHomepage);
 
+router.get("/search", controllers.getSearchPage);
+
 router.get("/login", controllers.getLogin);
 
 router.get("/profile", controllers.getProfilePage);

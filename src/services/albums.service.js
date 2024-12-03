@@ -68,4 +68,8 @@ export default {
 			.limit(number);
 		return result;
 	},
+
+	findByName(album_name) {
+		return db("albums").where("album_name", "like", `%${album_name}%`);
+	},
 };

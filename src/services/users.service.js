@@ -33,4 +33,8 @@ export default {
 			.where("uploader_id", user_id) // Count uploaded tracks
 			.first();
 	},
+
+	findByName(user_name) {
+		return db("users").where("user_name", "like", `%${user_name}%`);
+	},
 };
