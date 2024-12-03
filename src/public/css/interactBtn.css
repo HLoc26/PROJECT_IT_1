@@ -1,5 +1,5 @@
 /* General Styles for the Like Button */
-.like-btn {
+.interact-btn {
 	background-color: transparent;
 	border: 2px solid var(--card-color-light); /* Dark navy gray */
 	border-radius: 50%;
@@ -21,7 +21,7 @@
 	background-color: #007bff; /* Bright blue background when liked */
 }
 
-.like-btn .bi {
+.interact-btn .bi {
 	color: #ffffff; /* White icon color by default */
 	transition: color 0.3s ease-in-out;
 }
@@ -32,18 +32,18 @@
 }
 
 /* Hover effect */
-.like-btn:hover {
+.interact-btn:hover {
 	transform: scale(1.1); /* Slightly enlarge the button */
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	border-color: #0056b3; /* Dark blue on hover */
 }
 
-.like-btn:hover .bi {
+.interact-btn:hover .bi {
 	color: #0056b3; /* Dark blue icon color on hover */
 }
 
 /* Add a subtle click animation */
-.like-btn:active {
+.interact-btn:active {
 	transform: scale(0.98); /* Slightly shrink the button on click */
 	transition: transform 0.1s ease-in-out;
 }
