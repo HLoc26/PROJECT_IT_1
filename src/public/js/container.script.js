@@ -5,10 +5,25 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (scrollPrev) {
 		scrollPrev.disabled = true;
 	}
+	const body = document.getElementsByTagName("body")[0];
+	body.addEventListener("scroll", () => {
+		console.log("Scrolling");
+		const profileDrop = document.getElementById("dropdown-profile");
+		if (profileDrop.classList.contains("show")) {
+			profileDrop.classList.remove("show");
+		}
+	});
 
 	// Lắng nghe sự kiện click trên toàn bộ document
 	document.addEventListener("click", (e) => {
 		const target = e.target;
+
+		if (!e.target.closest(".dropbtn")) {
+			var profileDrop = document.getElementById("dropdown-profile");
+			if (profileDrop.classList.contains("show")) {
+				profileDrop.classList.remove("show");
+			}
+		}
 		// Kiểm tra xem target có phải là một link hoặc có phần tử cha là link không
 		let linkElement = target.matches("a") ? target : target.closest("a");
 
