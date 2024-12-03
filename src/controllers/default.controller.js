@@ -1,7 +1,7 @@
 import { compare, hash } from "bcrypt";
 import artistService from "../services/artists.service.js";
 import userService from "../services/users.service.js";
-import trackService from "../services/tracks.service.js";
+import tracksService from "../services/tracks.service.js";
 import albumService from "../services/albums.service.js";
 import historyService from "../services/history.service.js";
 import likeService from "../services/like.service.js";
@@ -22,7 +22,7 @@ export default {
 		// Map recent_tracks to fetch additional details
 		const history = await Promise.all(
 			recent_tracks.map(async (recentTrack) => {
-				const track = await trackService.findById(recentTrack.track_id);
+				const track = await tracksService.findById(recentTrack.track_id);
 				const album = await albumService.findByTrackId(recentTrack.track_id);
 				const artist = await artistService.findByTrackId2(recentTrack.track_id);
 				const uploader = await userService.findById(track.uploader_id);
@@ -36,7 +36,7 @@ export default {
 		await Promise.all(
 			top_albums.map(async (album) => {
 				// console.log(album);
-				const tracks = (await trackService.findByAlbumId(+album.album_id[0])).slice(0, 5);
+				const tracks = (await tracksService.findByAlbumId(+album.album_id[0])).slice(0, 5);
 				album.tracks = tracks;
 				return album;
 			})
@@ -69,7 +69,7 @@ export default {
 		// Map recent_tracks to fetch additional details
 		const track_history = await Promise.all(
 			recent_tracks.map(async (recentTrack) => {
-				const track = await trackService.findById(recentTrack.track_id);
+				const track = await tracksService.findById(recentTrack.track_id);
 				return track;
 			})
 		);
