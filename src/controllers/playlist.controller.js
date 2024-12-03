@@ -92,7 +92,7 @@ export default {
 
 	async getDetail(req, res) {
 		const playlist_id = +req.params.id;
-		const request_user = res.locals.user_id;
+		const request_user = req.session.user_id;
 		const playlist_info = await playlistsService.findById(playlist_id);
 
 		if (playlist_info.playlist_visibility_mode === "private" && request_user != playlist_info.owner_id) {
@@ -103,6 +103,14 @@ export default {
 		const owner_info = await usersService.findById(playlist_info.owner_id);
 		// Get playlist tracks
 		const tracks = await tracksService.findByPlaylistId(playlist_id);
+
+		await Promise.all(
+			tracks.map(async (track) => {
+				const liked = await likeService.checkLikedTrack(request_user, track.track_id);
+				track.liked = liked ? true : false;
+			})
+		);
+
 		res.render("vwPlaylist/playlist_detail", { playlist: playlist_info, owner: owner_info, tracks: tracks });
 	},
 
