@@ -284,7 +284,7 @@ async function toggleLike(id, type, btn) {
 				btn.classList.toggle("liked");
 				icon.classList.remove("bi-heart");
 				icon.classList.add("bi-heart-fill");
-				console.log(icon);
+				// console.log(icon);
 			} else {
 				console.error("Failed to toggle like status:", result.message);
 			}
@@ -326,7 +326,7 @@ async function savePlaylist() {
 
 	const audioPlayer = document.getElementById("audio-player");
 	const mp3_path = decodeURIComponent(audioPlayer.src.split("/").pop()); // Extracts the file name from the URL
-	console.log("current track:", mp3_path); // "song1.mp3"
+	// console.log("current track:", mp3_path); // "song1.mp3"
 
 	const track_info = trackId ? trackId : mp3_path; // Collect selected playlist IDs
 
@@ -352,7 +352,7 @@ async function savePlaylist() {
 		const result = await response.json();
 
 		if (response.ok) {
-			console.log("Track added to playlists:", result.message);
+			// console.log("Track added to playlists:", result.message);
 			closePlaylist();
 		} else {
 			console.error("Failed to save playlists:", result.message);

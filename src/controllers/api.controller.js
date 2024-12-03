@@ -149,7 +149,7 @@ export default {
 				? await trackService.findByMp3Path(track_info)
 				: await trackService.findById(track_info);
 
-			console.log(track, playlists);
+			// console.log(track, playlists);
 
 			await Promise.all(
 				playlists.map(async (playlist_id) => {

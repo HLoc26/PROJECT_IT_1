@@ -12,6 +12,7 @@
     .track-item-left{
         display: flex;
         flex-direction: row;
+        width: 65%;
     }
 
     .track-item-left a{
@@ -45,6 +46,9 @@
         color: var(--secondary-text-color);
         font-weight: 300;
         font-size: larger;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .track-item-right{
         padding: 5px;

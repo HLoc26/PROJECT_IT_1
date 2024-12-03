@@ -122,12 +122,13 @@ export default {
 		const new_playlist_id = created_playlist[0].playlist_id;
 
 		// Add tracks to playlist
-		await Promise.all(
-			track_ids.map(async (track_id) => {
-				await playlistsService.addTrack(+track_id, new_playlist_id);
-			})
-		);
-
+		if (track_ids) {
+			await Promise.all(
+				track_ids.map(async (track_id) => {
+					await playlistsService.addTrack(+track_id, new_playlist_id);
+				})
+			);
+		}
 		res.redirect(`/playlists/${new_playlist_id}`);
 	},
 };
