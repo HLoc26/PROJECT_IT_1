@@ -15,8 +15,10 @@
 			<a href="/playlists/<%= playlist.playlist_id %>">
 			<% if (playlist.liked) { %>
 				<i class="bi bi-heart-fill"></i>
-			<% } else { %>
+			<% } else if (playlist.playlist_visibility_mode == 'private') { %>
 				<i class="bi bi-lock-fill"></i>
+			<% } else { %>
+				<i></i>
 			<% } %>
 			<%= playlist.playlist_name %>
 			</a>
