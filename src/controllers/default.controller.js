@@ -73,6 +73,14 @@ export default {
 				return track;
 			})
 		);
+
+		await Promise.all(
+			track_history.map(async (track) => {
+				const liked = await likeService.checkLikedTrack(req.session.user_id, track.track_id);
+				track.liked = liked ? true : false;
+			})
+		);
+
 		const liked_artists = await likeService.findLikedArtists(user_id);
 		// console.log(liked_artists);
 		// console.log(track_history);
