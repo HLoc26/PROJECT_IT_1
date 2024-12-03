@@ -200,4 +200,21 @@ export default {
 			res.status(500).json({ error: "Server error" });
 		}
 	},
+
+	async changeVisibility(req, res) {
+		try {
+			const { playlist_id, visibility } = req.body;
+
+			// console.log(playlist_id, req.body);
+
+			// Update the playlist visibility mode in the database
+			await playlistsService.updateVisibility(playlist_id, visibility);
+
+			// Redirect back to the playlist detail page
+			res.status(200).json({ message: "Done" });
+		} catch (error) {
+			console.error("Error updating playlist visibility:", error);
+			res.status(500).send("Internal Server Error");
+		}
+	},
 };
