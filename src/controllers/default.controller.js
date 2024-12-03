@@ -55,16 +55,16 @@ export default {
 			})
 		);
 
-		top_albums.forEach((album) => {
-			console.log(album.tracks);
-		});
+		// top_albums.forEach((album) => {
+		// 	console.log(album.tracks);
+		// });
 		res.render("homepage", { username: username, artists: artists, top_albums: top_albums, track_history: history.slice(0, 15) });
 	},
 
 	async getProfilePage(req, res) {
 		const user_id = res.locals.user_id;
 		const user = await userService.findById(user_id);
-		const recent_tracks = await historyService.findByUserId(res.locals.user_id);
+		const recent_tracks = await historyService.findByUserId(req.session.user_id);
 
 		// Map recent_tracks to fetch additional details
 		const track_history = await Promise.all(
