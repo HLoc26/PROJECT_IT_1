@@ -1,0 +1,31 @@
+Hello, search for some thing?
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="Search...">
+    <select id="search-category">
+        <option value="tracks">Tracks</option>
+        <option value="artists">Artists</option>
+        <option value="albums">Albums</option>
+        <option value="users">Users</option>
+    </select>
+    <button id="search-btn">Search</button>
+</div>
+
+<div id="search-results"></div>
+
+<style>
+    .search-container {
+  display: flex;
+  gap: 10px;
+  background-color: var(--sidebar-bg);
+  padding: 10px;
+}
+
+#search-results {
+  margin-top: 20px;
+  background-color: var(--card-color-light);
+  padding: 20px;
+  border-radius: 5px;
+  color: var(--main-text-color);
+}
+
+</style>
