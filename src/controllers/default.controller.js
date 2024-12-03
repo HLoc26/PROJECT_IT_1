@@ -58,7 +58,7 @@ export default {
 		top_albums.forEach((album) => {
 			console.log(album.tracks);
 		});
-		res.render("homepage", { username: username, artists: artists, top_albums: top_albums, track_history: history });
+		res.render("homepage", { username: username, artists: artists, top_albums: top_albums, track_history: history.slice(0, 15) });
 	},
 
 	async getProfilePage(req, res) {
