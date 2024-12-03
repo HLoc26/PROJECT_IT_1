@@ -1,0 +1,108 @@
+.artist-page {
+	background-color: var(--main-bg-color);
+	color: var(--main-text-color);
+	padding: 40px;
+}
+
+.artist-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+	gap: 20px;
+}
+
+.artist-header img {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 3px solid var(--secondary-text-color);
+}
+
+.artist-header .artist-info h1 {
+	font-size: 2.5rem;
+	margin: 0;
+	color: var(--secondary-text-color);
+}
+
+.artist-info {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 50px 0 10px 10px;
+}
+
+.albums-container {
+	margin-bottom: 30px;
+}
+
+.albums-container h2 {
+	color: var(--secondary-text-color);
+	border-bottom: 2px solid var(--secondary-bg-color);
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+.albums-scroll {
+	display: flex;
+	overflow-x: auto;
+	gap: 20px;
+	padding-bottom: 15px;
+}
+
+.album-item {
+	flex: 0 0 auto;
+	width: 180px;
+	text-align: center;
+}
+
+.album-item img {
+	width: 180px;
+	height: 180px;
+	object-fit: cover;
+	border-radius: 8px;
+	transition: transform 0.3s ease;
+}
+
+.album-item:hover img {
+	transform: scale(1.05);
+}
+
+.album-item .album-name {
+	margin-top: 10px;
+	color: var(--secondary-text-color);
+	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.album-item a:has(.album-name) {
+	text-decoration: none;
+}
+
+.album-item a:has(.album-name):hover {
+	text-decoration: underline;
+	color: var(--main-text-color);
+}
+
+.songs-list h2 {
+	color: var(--secondary-text-color);
+	border-bottom: 2px solid var(--secondary-bg-color);
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+/* Scrollbar styling for modern browsers */
+.albums-scroll::-webkit-scrollbar {
+	height: 8px;
+}
+
+.albums-scroll::-webkit-scrollbar-track {
+	background: var(--secondary-bg-color);
+}
+
+.albums-scroll::-webkit-scrollbar-thumb {
+	background-color: var(--card-color-light);
+	border-radius: 4px;
+}
