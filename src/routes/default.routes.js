@@ -14,6 +14,8 @@ router.get("/login", controllers.getLogin);
 
 router.get("/profile", controllers.getProfilePage);
 
+router.get("/password", controllers.getChangePass);
+
 router.post("/register", controllers.postRegister);
 
 router.post("/login", controllers.postLogin);
