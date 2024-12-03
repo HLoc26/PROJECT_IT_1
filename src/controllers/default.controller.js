@@ -77,13 +77,13 @@ export default {
 
 		await Promise.all(
 			track_history.map(async (track) => {
-				const liked = await likeService.checkLikedTrack(req.session.user_id, track.track_id);
+				const liked = await likeService.checkLikedTrack(user_id, track.track_id);
 				track.liked = liked ? true : false;
 			})
 		);
 
 		// Get user's playlists
-		const user_playlists = await playlistsService.findPublicByUserId(req.session.user_id);
+		const user_playlists = await playlistsService.findPublicByUserId(user_id);
 
 		// Function to get playlist cover
 		async function getPlaylistCover(playlistId) {
