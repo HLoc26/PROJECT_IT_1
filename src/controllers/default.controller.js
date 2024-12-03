@@ -171,6 +171,7 @@ export default {
 			req.session.username = user.user_name;
 			req.session.role = user.user_role;
 			req.session.isAuthentication = true;
+			req.session.user = user;
 
 			// console.log("Login OK");
 			return res.status(200).redirect("/home");
