@@ -63,9 +63,9 @@ export default {
 	},
 
 	async getProfilePage(req, res) {
-		const user_id = res.locals.user_id;
+		const user_id = req.session.user_id;
 		const user = await userService.findById(user_id);
-		const recent_tracks = await historyService.findByUserId(req.session.user_id);
+		const recent_tracks = await historyService.findByUserId(user_id);
 
 		// Map recent_tracks to fetch additional details
 		const track_history = await Promise.all(
