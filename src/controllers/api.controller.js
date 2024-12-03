@@ -163,4 +163,35 @@ export default {
 			res.status(500).json({ message: error });
 		}
 	},
+	async getSearchResult(req, res) {
+		const { query, category } = req.query;
+
+		if (!query || !category) {
+			return res.status(400).json({ error: "Missing query or category" });
+		}
+		try {
+			let results = [];
+			switch (category) {
+				case "tracks":
+					results = await db("track").where("track_name", "like", `%${query}%`);
+					break;
+				case "artists":
+					results = await db("artist").where("artist_name", "like", `%${query}%`);
+					break;
+				case "albums":
+					results = await db("album").where("album_name", "like", `%${query}%`);
+					break;
+				case "users":
+					results = await db("user").where("user_name", "like", `%${query}%`);
+					break;
+				default:
+					return res.status(400).json({ error: "Invalid category" });
+			}
+
+			res.json(results); // Send the search results as JSON
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ error: "Server error" });
+		}
+	},
 };

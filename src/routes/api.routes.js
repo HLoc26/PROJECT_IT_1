@@ -9,6 +9,8 @@ router.get("/tracks/:id", apiController.getTrackInfo);
 
 router.get("/playlists", apiController.getPlaylists);
 
+router.get("/search", apiController.getSearchResult);
+
 router.post("/save-track-playlists", apiController.saveTrackPlaylists);
 
 router.post("/history", apiController.addHistory);
