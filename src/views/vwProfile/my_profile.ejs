@@ -1,36 +1,78 @@
 <main>
     <link rel="stylesheet" href="/css/profile.css">
-    <img src="/images/profile-pic.jpg" alt="" height="100px">
-    <h1>Username: <%= user.username %></h1>
 
-
-    <h1>Listening history</h1>
-    <%- include("../partials/track_list", {tracks: track_history}) %>
-
-    <div class="row-container">
-        <div class="title">
-            <h1>Public playlists</h1>
-            <a href="/playlists">See your private playlists</a>
+    <div class="profile-header">
+        <div class="profile-pic-container">
+            <img src="<%= user.user_profile_pic %>" alt="Profile Picture" class="profile-pic">
+            <button class="edit-pic-btn">
+                <i class="bi bi-pencil"></i>
+            </button>
         </div>
-            <%- include("../partials/playlist", {playlists: playlists}) %>
+        <div class="profile-info">
+            <h1 class="user-name">
+                <%= user.user_name %>
+            </h1>
+        </div>
     </div>
 
-    <ul></ul>
-
-    <h1>Liked artists</h1>
-    <ul>
-        <% liked_artists.forEach(artist => { %>
-            <li>
-                <a href="/artists/<%= artist.artist_id %>" class="artist-link">
-                    <div class="artist-image-container">
-                        <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>" class="artist-image" width="100px">
-                        <div class="artist-overlay"></div>
-                    </div>
-                    <p class="artist-name">
-                        <%= artist.artist_name %>
-                    </p>
-                </a>
-            </li>
-        <% }); %>
-    </ul>
+    <div class="main-container">
+        <div class="left-container">
+            <div class="row-container">
+                <div class="playlist-container-header">
+                    <h1>Public playlists</h1>
+                    <a href="/playlists">See more</a>
+                </div>
+                <% if (playlists.length > 0) { %>
+                    <%- include("../partials/playlist", {playlists: playlists}) %>
+                <% } else { %>
+                    <h3 class="empty-noti">Looks like you have not created any public playlist...</h3>
+                <% } %>
+            </div>
+            <div class="row-container">
+                <h1>Liked artists</h1>
+                <div class="artist-container">
+                    <% if (liked_artists.length > 0) { %>
+                        <ul class="artist-list">
+                            <% liked_artists.forEach(artist=> { %>
+                                <li class="artist-card">
+                                    <a href="/artists/<%= artist.artist_id %>" class="artist-link">
+                                        <div class="artist-image-container">
+                                            <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>" class="artist-image"
+                                                width="100px">
+                                            <div class="artist-overlay"></div>
+                                        </div>
+                                        <p class="artist-name">
+                                            <%= artist.artist_name %>
+                                        </p>
+                                    </a>
+                                </li>
+                                <% }); %>
+                        </ul>
+                    <% } else {%>
+                        <h3 class="empty-noti">Looks like you have not liked any artist...</h3>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="row-container stats-container">
+                <div class="stats">
+                    <span class="stats-name">Follower</span>
+                    <span class="stats-value"><%= follower_count %></span>
+                </div>
+                <div class="stats">
+                    <span class="stats-name">Following</span>
+                    <span class="stats-value"><%= following_count %></span>
+                </div>
+                <div class="stats">
+                    <span class="stats-name">Tracks</span>
+                    <span class="stats-value"><%= tracks_count %></span>
+                </div>
+            </div>
+            <div class="row-container">
+                <h1>Listening history</h1>
+                <%- include("../partials/track_list", {tracks: track_history}) %>
+            </div>
+        </div>
+    </div>
 </main>
