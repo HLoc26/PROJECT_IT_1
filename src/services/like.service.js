@@ -73,4 +73,18 @@ export default {
 			.where("user_id", user_id)
 			.join("playlists as p", "p.playlist_id", "u.playlist_id");
 	},
+
+	findLikedTracks(user_id) {
+		return db("user_like_track as u")
+			.select("t.*") // Select only tracks info
+			.where("user_id", user_id)
+			.join("tracks as t", "t.track_id", "u.track_id");
+	},
+
+	findLikedUsers(user_id) {
+		return db("user_follow_user as u")
+			.select("users.*") // Select followed
+			.where("u.user_id", user_id)
+			.join("users", "users.user_id", "u.follow_id");
+	},
 };
