@@ -374,6 +374,62 @@ async function toggleLike(id, type, btn) {
 	}
 }
 
+document.addEventListener("click", async function (event) {
+	if (event.target.closest(".follow-btn")) {
+		const followBtn = event.target.closest(".follow-btn");
+		const id = followBtn.dataset.id;
+
+		toggleFollow(id, followBtn);
+	}
+});
+
+async function toggleFollow(id, btn) {
+	const icon = btn.querySelector("i.bi");
+	const status = btn.querySelector("span");
+	const stats_follower = document.querySelector(".stats-container .stats-value");
+	const follower_count = +stats_follower.textContent.trim();
+	try {
+		const isFollowed = btn.classList.contains("followed");
+		if (!isFollowed) {
+			const response = await fetch("/api/follow", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ follow_id: id }),
+			});
+			const result = response.json();
+
+			if (response.ok) {
+				btn.classList.toggle("followed");
+				icon.classList.remove("bi-person-plus-fill");
+				icon.classList.add("bi-person-check-fill");
+				status.innerHTML = "Followed";
+				stats_follower.textContent = follower_count + 1;
+			} else {
+				console.error("Failed to toggle like status:", result.message);
+			}
+		} else {
+			const response = await fetch("/api/unfollow", {
+				method: "DELETE",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ follow_id: id }),
+			});
+			const result = response.json();
+
+			if (response.ok) {
+				btn.classList.toggle("followed");
+				icon.classList.remove("bi-person-check-fill");
+				icon.classList.add("bi-person-plus-fill");
+				status.innerHTML = "Follow";
+				stats_follower.textContent = follower_count - 1;
+			} else {
+				console.error("Failed to toggle like status:", result.message);
+			}
+		}
+	} catch (error) {
+		console.error("Error toggling like:", error);
+	}
+}
+
 function closePlaylist() {
 	const popup = document.querySelector("#playlist-popup-container");
 	const overlay = document.querySelector("#overlay");
