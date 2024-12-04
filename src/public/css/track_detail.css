@@ -1,0 +1,117 @@
+.track-details {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: var(--card-color-dark);
+	color: var(--main-text-color);
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.track-header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.track-title {
+	font-size: 2rem;
+	font-weight: bold;
+	margin: 0;
+}
+
+.artist-name {
+	font-size: 1.5rem;
+	color: var(--secondary-text-color);
+	margin: 10px 0;
+}
+
+.album-info {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+}
+
+.album-cover {
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.track-actions {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+	padding: 5px;
+}
+
+.track-lyrics {
+	margin-top: 20px;
+	padding: 15px;
+	background-color: var(--card-color-light);
+	border-radius: 10px;
+}
+
+.lyrics-header {
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.lyrics-content {
+	font-family: "Courier New", Courier, monospace;
+	white-space: pre-wrap;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: var(--main-text-color);
+}
+.album-info {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+}
+
+.album-cover-container {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+.album-cover {
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	width: 30%;
+	height: auto;
+}
+
+.overlay-play-btn {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: rgba(0, 0, 0, 0.6);
+	color: var(--main-text-color);
+	border: none;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	font-size: 1.5rem;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.overlay-play-btn i {
+	pointer-events: none; /* Ensure only the button registers clicks */
+}
+
+.overlay-play-btn:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+	transform: translate(-50%, -50%) scale(1.1);
+}
+
+.overlay-play-btn:focus {
+	outline: 2px solid var(--main-text-color);
+}
