@@ -37,4 +37,17 @@ export default {
 	findByName(user_name) {
 		return db("users").where("user_name", "like", `%${user_name}%`);
 	},
+
+	isFollowed(user_id, follow_id) {
+		return db("user_follow_user").where({ user_id: user_id, follow_id: follow_id }).first();
+	},
+
+	follow(user_id, follow_id) {
+		const entity = { user_id: user_id, follow_id: follow_id };
+		return db("user_follow_user").insert(entity);
+	},
+
+	unfollow(user_id, follow_id) {
+		return db("user_follow_user").where({ user_id: user_id, follow_id: follow_id }).del();
+	},
 };
