@@ -1,28 +1,35 @@
-<link rel="stylesheet" href="/css/artist-detail.css">
+<link rel="stylesheet" href="/css/artist_detail.css">
 <div class="artist-page">
     <div class="artist-header">
         <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
-        <h1><%= artist.artist_name %></h1>
-    </div>
-
-    <%- include("../partials/likeBtn", {liked: liked, type: 'artist' , id: artist.artist_id}) %>
-    
-    <div class="albums-container">
-        <h2>Albums</h2>
-        <div class="albums-scroll">
-            <% albums.forEach(album => { %>
-                <div class="album-item">
-                    <a href="/album/<%= album.album_id %>">      
-                        <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
-                        <div class="album-name"><%= album.album_name %></div>
-                    </a>
-                </div>
-            <% }); %>
+        <div class="artist-info">
+            <h1>
+                <%= artist.artist_name %>
+            </h1>
+            <%- include("../partials/likeBtn", {liked: liked, type: 'artist' , id: artist.artist_id}) %>
         </div>
     </div>
 
-    <div class="songs-list">
-        <h2>Songs</h2>
-        <%- include('../partials/track_list', {tracks: tracks}) %>
-    </div>
+
+        <div class="albums-container">
+            <h2>Albums</h2>
+            <div class="albums-scroll">
+                <% albums.forEach(album=> { %>
+                    <div class="album-item">
+                        <a href="/album/<%= album.album_id %>">
+                            <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
+                            <div class="album-name">
+                                <%= album.album_name %>
+                            </div>
+                        </a>
+                    </div>
+                    <% }); %>
+            </div>
+        </div>
+
+        <div class="songs-list">
+            <h2>Songs</h2>
+            <!-- Include the existing track_list partial without changing its style -->
+            <%- include('../partials/track_list', {tracks: tracks}) %>
+        </div>
 </div>

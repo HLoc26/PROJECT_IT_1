@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	const body = document.getElementsByTagName("body")[0];
 	body.addEventListener("scroll", () => {
-		console.log("Scrolling");
+		// console.log("Scrolling");
 		const profileDrop = document.getElementById("dropdown-profile");
 		if (profileDrop.classList.contains("show")) {
 			profileDrop.classList.remove("show");
@@ -235,6 +235,22 @@ document.addEventListener("DOMContentLoaded", () => {
 			} catch (error) {
 				console.error(error);
 			}
+		}
+	});
+
+	document.querySelector("#content").addEventListener("click", async (e) => {
+		if (e.target.closest(".change-visibility")) {
+			const visibility = document.querySelector("#visibility").value;
+			const playlist_id = document.querySelector(".playlist-info").dataset.id;
+			// console.log(visibility, playlist_id);
+
+			const response = await fetch(`/api/playlists/update-visibility`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ playlist_id: playlist_id, visibility: visibility }),
+			});
+			const result = await response.json();
+			// console.log(result);
 		}
 	});
 });

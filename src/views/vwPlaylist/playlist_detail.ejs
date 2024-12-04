@@ -1,9 +1,34 @@
 <link rel="stylesheet" href="/css/playlist-detail.css">
-<p>Playlist name: <%= playlist.playlist_name %></p>
-<p>Playlist visibility mode: <%= playlist.playlist_visibility_mode %></p>
-<p>Owner ID: <%= owner.user_id %></p>
-<p>Owner: <%= owner.user_name %></p>
+<div class="playlist-detail-page">
+    <div class="playlist-header">
+        <h1><%= playlist.playlist_name %></h1>
+        <div class="playlist-info"  data-id="<%=playlist.playlist_id%>">
+            <div class="visibility-change-form">
+                <label for="visibility">
+                    <p>
+                        <strong>Visibility Mode:</strong>
+                    </p>
+                </label>
+                <select name="visibility" id="visibility">
+                    <option value="public" <%=playlist.playlist_visibility_mode==='public' ? 'selected' : '' %>>Public
+                    </option>
+                    <option value="private" <%=playlist.playlist_visibility_mode==='private' ? 'selected' : '' %>>Private
+                    </option>
+                </select>
+                <button class="change-visibility">Update Visibility</button>
+            </div>
+            <p>
+                <strong>Owner:</strong>
+                <%= owner.user_name %> #<%= owner.user_id %>
+            </p>
+        </div>
+    </div>
 
-<p>Tracks: </p>
-
-<%- include('../partials/track_list', {tracks: tracks}) %>
+    <div class="tracks-section">
+        <% if (tracks.length > 0) { %>
+        <%- include('../partials/track_list', {tracks: tracks}) %>
+        <% } else {%>
+            <h4>This playlist have no tracks</h4>
+        <% } %>
+    </div>
+</div>

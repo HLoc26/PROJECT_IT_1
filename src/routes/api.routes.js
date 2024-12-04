@@ -19,6 +19,8 @@ router.post("/queue", apiController.getNewQueue);
 
 router.post("/like", apiController.like);
 
+router.post("/playlists/update-visibility", apiController.changeVisibility);
+
 router.delete("/unlike", apiController.unlike);
 
 export default router;

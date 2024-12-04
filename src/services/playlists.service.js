@@ -26,4 +26,8 @@ export default {
 		const entity = { track_id: track_id, playlist_id: playlist_id };
 		return db("track_playlist").insert(entity);
 	},
+
+	updateVisibility(playlist_id, visibility) {
+		return db("playlists").where("playlist_id", playlist_id).update({ playlist_visibility_mode: visibility });
+	},
 };

@@ -13,7 +13,14 @@ export default {
 			const artist = await artistsService.findByAlbumId(album_id);
 			const tracks = await trackService.findByAlbumId(album_id);
 
-			const liked = await likeService.checkLikedAlbum(res.locals.user_id, album_id);
+			const liked = await likeService.checkLikedAlbum(req.session.user_id, album_id);
+
+			await Promise.all(
+				tracks.map(async (track) => {
+					const liked = await likeService.checkLikedTrack(req.session.user_id, track.track_id);
+					track.liked = liked ? true : false;
+				})
+			);
 
 			// console.log(artist);
 			return res.render("vwAlbum/album_detail", {

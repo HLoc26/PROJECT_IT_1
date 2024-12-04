@@ -1,68 +1,53 @@
+<main>
+    <link rel="stylesheet" href="/css/tracks.css">
+    <div class="container">
+        <div class="your-tracks-container">
+            <div class="your-tracks-header">
+                <h1>Your tracks</h1>
+                <a href="/tracks/upload" class="upload-btn">
+                    <i class="bi bi-cloud-upload upload-icon"></i>
+                    Upload
+                </a>
+            </div>
+            <%- include('../partials/track_list', {tracks: tracks}) %>
+        </div>
 
-<link rel="stylesheet" href="/css/tracks.css">
-<div class="container">
-    <div class="header-section">
-        <a href="/tracks/upload" class="upload-btn">
-            <i class="bi bi-cloud-upload upload-icon"></i>
-            Upload Music
-        </a>
-    </div>
+        <div class="fav-tracks">
+            <h1>Liked tracks</h1>
+            <%- include('../partials/track_list', {tracks: liked_tracks}) %>
+        </div>
 
-    <!-- Liked Tracks Section -->
-    <div class="tracks-section">
-        <h2>Liked Tracks</h2>
-        <ul class="tracks-grid">
-            <% tracks.forEach(track => { %>
-                <li class="track-item">
-                    <a href="#" onclick="playTrack('<%= track.track_mp3_path %>', '<%= track.track_title %>', '<%= track.artist_name %>')" class="track-link">
-                        <div class="track-image-container">
-                            <!-- Default image that will be replaced by JavaScript -->
-                            <img 
-                                src="<%= track.artist_pic %>"
-                                alt="<%= track.track_title %>"
-                                class="track-image"
-                                data-title="<%= track.track_title %>">
-                            <div class="track-overlay">
-                                <i class="bi bi-play-circle play-icon"></i>
-                            </div>
-                        </div>
-                        <div class="track-info">
-                            <h3 class="track-title"><%= track.track_title %></h3>
-                            <p class="artist-name"><%= track.artist_name %></p>
-                        </div>
-                    </a>
-                </li>
-                
-                
-            <% }); %>
-        </ul>
-    </div>
-
-    <!-- Top Tracks Section -->
-    <div class="tracks-section">
-        <h2>Top Tracks</h2>
-        <ul class="top-tracks-list">'
-            
-            <% Array(5).fill().forEach((_, i) => { %>
-                <li>
-                    <div class="track-row">
-                        <div class="track-image-container">
-                            <img 
-                                src="/api/placeholder/400/400"
-                                alt="Top Track <%= i + 1 %>"
-                                class="track-image">
-                            <div class="track-overlay">
-                                <i class="bi bi-play-circle play-icon"></i>
-                            </div>
-                        </div>
-                        <div class="track-info">
-                            <h3 class="track-title">Popular Track <%= i + 1 %></h3>
-                            <p class="artist-name">Top Artist <%= i + 1 %></p>
-                        </div>
-                        <span class="track-duration">3:4<%= i %></span>
+        <div class="fav-artists">
+            <h1>Tracks from your favourite artists and users</h1>
+            <% artists.forEach(artist=> { %>
+                <% if (artist.tracks.length > 0) { %>
+                <div class="artist-card">
+                    <div class="card-header">
+                        <img src="<%= artist.artist_pic_path %>" alt="artist profile pic">
+                        <h3>
+                            <%= artist.artist_name %>
+                        </h3>
                     </div>
-                </li>
+                    <div class="card-body">
+                        <%- include('../partials/track_list', {tracks: artist.tracks}) %>
+                    </div>
+                </div>
+                <% } %>
             <% }); %>
-        </ul>
+            <% liked_users.forEach(user => { %>
+                <div class="artist-card">
+                    <div class="card-header">
+                        <img src="<%= user.user_profile_pic %>" alt="user profile pic">
+                        <h3>
+                            <%= user.user_name %>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <%- include('../partials/track_list', {tracks: user.tracks}) %>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+
     </div>
-</div>
+</main>

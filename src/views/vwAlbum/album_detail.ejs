@@ -1,18 +1,26 @@
-<link rel="stylesheet" href="/css/artist-album.css">
-<div class="artist-page">
-    <div class="artist-header">
-        <img src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
-        <h1><%= artist.artist_name %></h1>
+<link rel="stylesheet" href="/css/album_detail.css">
+<div class="album-page">
+    <div class="album-header">
+        <div class="album-header-content">
+            <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>" class="album-cover-image">
+            <div class="album-info">
+                <div class="album-info-text">
+                    <h1>
+                        <%= album.album_name %>
+                    </h1>
+                    <p class="album-artist">
+                        <%= artist.artist_name %>
+                    </p>
+                </div>
+                <%- include("../partials/likeBtn", {liked: liked, type: "album" , id: album.album_id}) %>
+            </div>
+        </div>
     </div>
-    <%- include("../partials/likeBtn", {liked: liked, type: "album", id: album.album_id}) %>
-    <div class="album-info">
-        <h2><%= album.album_name %></h2>
-        <div class="album-cover">
-            <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>">
-        </div>
-        <div class="songs-list">
-            <h2>Songs</h2>
+
+    <div class="songs-section">
+        <h2>Songs</h2>
+        <ul class="track-list">
             <%- include('../partials/track_list', {tracks: tracks}) %>
-        </div>
+        </ul>
     </div>
 </div>
