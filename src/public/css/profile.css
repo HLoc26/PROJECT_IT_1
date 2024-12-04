@@ -201,3 +201,50 @@ main {
 	font-size: medium;
 	color: var(--secondary-text-color);
 }
+
+.user-interact {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+	padding: 10px;
+}
+
+.follow-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	padding: 10px 20px;
+	font-size: 1rem;
+	font-weight: bold;
+	background-color: var(--sidebar-tab-active);
+	color: var(--main-text-color);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.follow-btn i {
+	font-size: 1.2rem;
+}
+
+.follow-btn span {
+	font-size: 1rem;
+}
+
+.follow-btn:hover {
+	background-color: var(--sidebar-tab-hover);
+	transform: scale(1.05);
+}
+
+.follow-btn.followed {
+	background-color: var(--logo-bg);
+	color: var(--main-text-color);
+}
+
+.follow-btn.followed:hover {
+	background-color: var(--sidebar-tab-hover);
+	color: var(--main-text-color);
+}
