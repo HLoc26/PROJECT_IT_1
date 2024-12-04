@@ -19,6 +19,10 @@ router.post("/queue", apiController.getNewQueue);
 
 router.post("/like", apiController.like);
 
+router.post("/follow", apiController.follow);
+
+router.delete("/unfollow", apiController.unfollow);
+
 router.post("/playlists/update-visibility", apiController.changeVisibility);
 
 router.delete("/unlike", apiController.unlike);
