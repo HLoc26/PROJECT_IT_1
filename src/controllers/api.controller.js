@@ -217,4 +217,31 @@ export default {
 			res.status(500).send("Internal Server Error");
 		}
 	},
+
+	async follow(req, res) {
+		try {
+			const user_id = req.session.user_id;
+			const follow_id = req.body.follow_id;
+
+			await userService.follow(user_id, follow_id);
+
+			res.status(200).json({ message: "OK" });
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ message: error });
+		}
+	},
+	async unfollow(req, res) {
+		try {
+			const user_id = req.session.user_id;
+			const follow_id = req.body.follow_id;
+
+			await userService.unfollow(user_id, follow_id);
+
+			res.status(200).json({ message: "OK" });
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ message: error });
+		}
+	},
 };
