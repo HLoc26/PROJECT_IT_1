@@ -10,6 +10,7 @@ import playlistRoutes from "./routes/playlist.routes.js";
 import albumRoutes from "./routes/albums.routes.js";
 import artistRoutes from "./routes/artists.routes.js";
 import apiRoutes from "./routes/api.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import { connectWithRetry } from "./config/database.js";
 
 const app = express();
@@ -60,6 +61,8 @@ app.use("/tracks", trackRoutes);
 app.use("/playlists", playlistRoutes);
 // .../api/
 app.use("/api", apiRoutes);
+// .../user/
+app.use("/users", userRoutes);
 
 // Kiểm tra kết nối
 const startServer = async () => {
