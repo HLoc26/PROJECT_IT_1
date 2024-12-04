@@ -11,14 +11,73 @@ export default {
 	// Controller or Service function to get tracks with artists
 	async getTracksPage(req, res) {
 		try {
-			const tracks = await trackService.findAll();
+			const user_id = req.session.user_id;
+			const tracks = await trackService.findByUploaderId(user_id);
+
+			await Promise.all(
+				tracks.map(async (track) => {
+					const liked = await likeService.checkLikedTrack(user_id, track.track_id);
+					track.liked = liked ? true : false;
+					return liked;
+				})
+			);
 
 			// Debugging
 			// tracks.forEach((track) => {
 			// 	console.log(track.track_title, track.artist_name);
 			// });
 
-			res.render("vwTracks/tracks", { tracks: tracks });
+			const fav_artist = await likeService.findLikedArtists(user_id);
+
+			await Promise.all(
+				fav_artist.map(async (artist) => {
+					const artist_id = artist.artist_id;
+					const tracks = await trackService.findByArtistId(artist_id);
+					await Promise.all(
+						tracks.map(async (track) => {
+							const liked = await likeService.checkLikedTrack(user_id, track.track_id);
+							track.liked = liked ? true : false;
+							return liked;
+						})
+					);
+					artist.tracks = tracks;
+					return tracks;
+				})
+			);
+
+			const liked_tracks = await likeService.findLikedTracks(user_id);
+			await Promise.all(
+				liked_tracks.map(async (track) => {
+					const liked = await likeService.checkLikedTrack(user_id, track.track_id);
+					track.liked = liked ? true : false;
+					return liked;
+				})
+			);
+
+			const liked_users = await likeService.findLikedUsers(user_id);
+			await Promise.all(
+				liked_users.map(async (user) => {
+					const tracks = await trackService.findByUploaderId(user.user_id);
+					await Promise.all(
+						tracks.map(async (track) => {
+							const liked = await likeService.checkLikedTrack(user_id, track.track_id);
+							track.liked = liked ? true : false;
+							return liked;
+						})
+					);
+					user.tracks = tracks;
+				})
+			);
+
+			// console.log(tracks)
+			// console.log(liked_users);
+
+			res.render("vwTracks/tracks", {
+				tracks: tracks,
+				artists: fav_artist,
+				liked_users: liked_users,
+				liked_tracks: liked_tracks,
+			});
 		} catch (error) {
 			console.error(error);
 			res.status(500).send("An error occurred while retrieving the tracks");
