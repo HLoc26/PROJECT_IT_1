@@ -111,7 +111,12 @@ export default {
 			})
 		);
 
-		res.render("vwPlaylist/playlist_detail", { playlist: playlist_info, owner: owner_info, tracks: tracks });
+		res.render("vwPlaylist/playlist_detail", {
+			playlist: playlist_info,
+			owner: owner_info,
+			tracks: tracks,
+			isOwner: req.session.user_id == owner_info.user_id,
+		});
 	},
 
 	async postCreate(req, res) {

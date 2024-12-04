@@ -3,6 +3,7 @@
     <div class="playlist-header">
         <h1><%= playlist.playlist_name %></h1>
         <div class="playlist-info"  data-id="<%=playlist.playlist_id%>">
+            <% if(isOwner) { %> 
             <div class="visibility-change-form">
                 <label for="visibility">
                     <p>
@@ -17,6 +18,7 @@
                 </select>
                 <button class="change-visibility">Update Visibility</button>
             </div>
+            <% } %>
             <p>
                 <strong>Owner:</strong>
                 <%= owner.user_name %> #<%= owner.user_id %>
