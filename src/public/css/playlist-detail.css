@@ -1,68 +1,107 @@
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #2b1b3b 0%, #1a1a1a 100%);
-    color: #ffffff;
-    min-height: 100vh;
-
+.playlist-detail-page {
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	background-color: #121212;
+	color: var(--main-text-color);
+	padding: 20px;
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
 }
 
-p {
-    margin: 8px 0;
-    font-size: 16px;
+.playlist-header {
+	background: var(--card-color-light);
+	background: -moz-linear-gradient(180deg, var(--card-color-light) 30%, rgba(255, 255, 255, 0) 100%);
+	background: -webkit-linear-gradient(180deg, var(--card-color-light) 30%, rgba(255, 255, 255, 0) 100%);
+	background: linear-gradient(180deg, var(--card-color-light) 30%, rgba(255, 255, 255, 0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#252c3a",endColorstr="#ffffff",GradientType=1);
+	padding: 20px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	width: 40%;
+	height: 65vh;
 }
 
-p:first-child {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+.playlist-header h1 {
+	margin: 0;
+	font-size: 2.5em;
 }
 
-ul {
-    list-style: none;
+.playlist-info {
+	margin-top: 15px;
+	font-size: 1.2em;
 }
 
-li {
-    background: rgba(255, 255, 255, 0.05);
-    transition: background 0.2s ease;
+.playlist-info p {
+	margin: 5px 0;
 }
 
-li:hover {
-    background: rgba(255, 255, 255, 0.1);
+.playlist-info strong {
+	font-weight: bold;
 }
 
-.play-track-btn {
-    background: transparent;
-    border: none;
-    color: #9b6dff;
-    cursor: pointer;
-    font-size: 20px;
-    padding: 8px;
-    margin-right: 12px;
-    transition: color 0.2s ease;
+.tracks-section {
+	background-color: var(--secondary-bg-color);
+	padding: 20px;
+	border-radius: 8px;
+	width: 60%;
+	height: 100%;
 }
 
-.play-track-btn:hover {
-    color: #b08fff;
+.tracks-section h2 {
+	margin-bottom: 15px;
+	font-size: 2em;
 }
 
-.song-link {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.2s ease;
+.songs-list {
+	padding: 20px;
+	background-color: var(--secondary-bg-color);
+	margin: 20px;
+	border-radius: 8px;
 }
 
-.song-link:hover {
-    color: #9b6dff;
+.songs-list h2 {
+	margin-bottom: 10px;
+	font-size: 1.5em;
 }
 
-.song-duration {
-    color: #888888;
-    font-size: 14px;
+.visibility-change-form form {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: start;
 }
 
-/* Container for play button and song title */
-li div {
-    display: flex;
-    align-items: center;
-    flex: 1;
+.visibility-change-form p {
+	color: var(--secondary-text-color);
+	font-size: larger;
+}
+
+.visibility-change-form label {
+	margin-right: 10px;
+	color: var(--main-text-color);
+}
+
+.visibility-change-form select {
+	padding: 5px;
+	font-size: large;
+	border-radius: 4px;
+	background-color: var(--secondary-bg-color);
+	color: var(--main-text-color);
+	border: 1px solid var(--card-color-dark);
+}
+
+.visibility-change-form button {
+	background-color: #192635;
+	color: var(--main-text-color);
+	font-size: large;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.visibility-change-form button:hover {
+	background-color: #3a5a7c;
 }

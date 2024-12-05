@@ -53,4 +53,15 @@ export default {
 			.first();
 		return artist;
 	},
+	findByTrackId2(track_id) {
+		const artist = db("tracks as t")
+			.select("a.*")
+			.join("artist_perform as ap", "t.track_id", "ap.track_id") // Join artist_perform
+			.join("artists as a", "a.artist_id", "ap.artist_id")
+			.where("t.track_id", track_id);
+		return artist;
+	},
+	findByName(artist_name) {
+		return db("artists").where("artist_name", "like", `%${artist_name}%`);
+	},
 };

@@ -1,0 +1,108 @@
+main.search {
+	font-family: Arial, sans-serif;
+	background-color: var(--main-bg-color);
+	color: var(--main-text-color);
+	margin: 0;
+	padding: 20px;
+	line-height: 1.6;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	transition: all 0.3s ease;
+}
+
+.search-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	transition: all 0.3s ease;
+}
+
+.search-wrapper.searching {
+	align-self: flex-start;
+}
+
+.search-wrapper.searching h1 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+	align-self: flex-start;
+}
+
+h1 {
+	color: var(--secondary-text-color);
+	margin-bottom: 40px;
+	text-align: center;
+	transition: all 0.3s ease;
+}
+
+.search-container {
+	display: flex;
+	gap: 10px;
+	width: 100%;
+	max-width: 600px;
+	transition: all 0.3s ease;
+}
+
+#search-input {
+	flex-grow: 1;
+	padding: 10px;
+	background-color: var(--secondary-bg-color);
+	border: 1px solid var(--sidebar-tab-hover);
+	color: var(--main-text-color);
+	border-radius: 4px;
+}
+
+#search-category {
+	padding: 10px;
+	background-color: var(--card-color-light);
+	color: var(--main-text-color);
+	border: 1px solid var(--sidebar-tab-hover);
+	border-radius: 4px;
+}
+
+#search-btn {
+	padding: 10px 15px;
+	background-color: var(--sidebar-tab-active);
+	color: var(--main-text-color);
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#search-btn:hover {
+	background-color: var(--sidebar-tab-hover);
+}
+
+#search-results {
+	background-color: var(--secondary-bg-color);
+	border-radius: 4px;
+	padding: 15px;
+	max-width: 600px;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.result-link {
+	color: var(--main-text-color);
+	text-decoration: none;
+	display: block;
+	padding: 10px;
+	border-bottom: 1px solid var(--sidebar-tab-hover);
+	transition: background-color 0.3s ease;
+}
+
+.result-link:hover {
+	background-color: var(--sidebar-tab-hover);
+}
+
+.result-link:last-child {
+	border-bottom: none;
+}
+
+.hidden {
+	display: none;
+}

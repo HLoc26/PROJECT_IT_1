@@ -1,0 +1,49 @@
+/* General Styles for the Like Button */
+.interact-btn {
+	background-color: transparent;
+	border: 2px solid var(--card-color-light); /* Dark navy gray */
+	border-radius: 50%;
+	padding: 5px;
+	font-size: 12px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	position: relative;
+	width: 30px;
+	height: 30px;
+}
+
+/* Like Button State when Liked */
+.like-btn.liked {
+	border-color: #007bff; /* Bright blue border for liked state */
+	background-color: #007bff; /* Bright blue background when liked */
+}
+
+.interact-btn .bi {
+	color: #ffffff; /* White icon color by default */
+	transition: color 0.3s ease-in-out;
+}
+
+/* When Liked, the heart is filled and colored */
+.like-btn.liked .bi {
+	color: white; /* White heart icon when liked */
+}
+
+/* Hover effect */
+.interact-btn:hover {
+	transform: scale(1.1); /* Slightly enlarge the button */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-color: #0056b3; /* Dark blue on hover */
+}
+
+.interact-btn:hover .bi {
+	color: #0056b3; /* Dark blue icon color on hover */
+}
+
+/* Add a subtle click animation */
+.interact-btn:active {
+	transform: scale(0.98); /* Slightly shrink the button on click */
+	transition: transform 0.1s ease-in-out;
+}

@@ -12,4 +12,42 @@ export default {
 	add(entity) {
 		return db("users").insert(entity);
 	},
+
+	countFollower(user_id) {
+		return db("user_follow_user")
+			.count("* as follower_count") // Count follower
+			.where("follow_id", user_id) // By follow_id
+			.first();
+	},
+
+	countFollowing(user_id) {
+		return db("user_follow_user")
+			.count("* as following_count") // Count following
+			.where("user_id", user_id) // by user_id
+			.first();
+	},
+
+	countUploadedTrack(user_id) {
+		return db("tracks")
+			.count("* as tracks_count")
+			.where("uploader_id", user_id) // Count uploaded tracks
+			.first();
+	},
+
+	findByName(user_name) {
+		return db("users").where("user_name", "like", `%${user_name}%`);
+	},
+
+	isFollowed(user_id, follow_id) {
+		return db("user_follow_user").where({ user_id: user_id, follow_id: follow_id }).first();
+	},
+
+	follow(user_id, follow_id) {
+		const entity = { user_id: user_id, follow_id: follow_id };
+		return db("user_follow_user").insert(entity);
+	},
+
+	unfollow(user_id, follow_id) {
+		return db("user_follow_user").where({ user_id: user_id, follow_id: follow_id }).del();
+	},
 };

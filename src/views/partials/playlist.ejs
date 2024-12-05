@@ -1,0 +1,22 @@
+<div class="playlist-container">
+    <link rel="stylesheet" href="/css/playlist.css">
+    <% playlists.forEach( (playlist) => { %>
+        <div class="playlist-card">
+            <a href="/playlists/<%= playlist.playlist_id %>">
+                <img class="playlist-cover" src="<%= playlist.cover %>" alt="">
+            </a>
+            <div class="playlist-title">
+                <a href="/playlists/<%= playlist.playlist_id %>">
+                    <% if (playlist.liked) { %>
+                        <i class="bi bi-heart-fill"></i>
+                    <% } else if (playlist.playlist_visibility_mode=='private' ) { %>
+                        <i class="bi bi-lock-fill"></i>
+                    <% } else { %>
+                        <i></i>
+                    <% } %>
+                    <%= playlist.playlist_name %>
+                </a>
+            </div>
+        </div>
+        <% }); %>
+</div>

@@ -1,0 +1,166 @@
+/* Form Container */
+.playlist-form {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: var(--card-color-dark);
+	border-radius: 10px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	color: var(--main-text-color);
+	font-family: Arial, sans-serif;
+}
+
+/* Form Group */
+.form-group {
+	margin-bottom: 20px;
+}
+
+/* Labels */
+.form-label {
+	font-weight: bold;
+	margin-bottom: 10px;
+	display: block;
+}
+
+/* Input Fields */
+.form-input {
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid var(--sidebar-tab-hover);
+	border-radius: 5px;
+	background-color: var(--card-color-light);
+	color: var(--main-text-color);
+}
+
+/* Placeholder text color */
+.form-input::placeholder {
+	color: var(--secondary-text-color);
+}
+
+/* Track List */
+.track-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.track-item {
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid gray;
+	gap: 10px;
+}
+
+.track-info p {
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.track-info .track-title {
+	color: var(--main-text-color);
+	font-size: large;
+}
+
+.track-info .artist-name {
+	color: gray;
+	font-size: medium;
+}
+
+/* Hide the default checkbox */
+.track-checkbox {
+	display: none;
+}
+
+/* Custom checkbox container */
+.track-item label {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+	gap: 10px;
+}
+
+/* Custom checkbox appearance */
+.track-checkbox + .track-title::before {
+	content: "";
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 2px solid var(--sidebar-tab-hover);
+	border-radius: 4px; /* Rounded corners */
+	background-color: transparent;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* When the checkbox is checked */
+.track-checkbox:checked + .track-title::before {
+	background-color: var(--sidebar-tab-hover);
+	border-color: var(--main-text-color);
+	box-shadow: inset 0 0 0 4px var(--main-bg-color); /* Checkmark effect */
+}
+
+/* Focused state for accessibility */
+.track-checkbox:focus + .track-title::before {
+	outline: 2px solid var(--main-bg-color);
+	outline-offset: 2px;
+}
+
+/* Track title spacing */
+.track-title {
+	font-size: 14px;
+	color: var(--main-text-color);
+}
+
+/* Submit Button */
+.submit-button {
+	width: 100%;
+	padding: 10px 15px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: var(--sidebar-tab-active);
+	color: var(--main-text-color);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+	background-color: var(--sidebar-tab-hover);
+	transform: scale(1.02);
+}
+
+.submit-button:active {
+	transform: scale(0.98);
+}
+
+/* Instructions Text */
+.form-instructions {
+	font-size: 14px;
+	margin-bottom: 10px;
+	color: var(--secondary-text-color);
+}
+
+.add-to-playlist-btn,
+.remove-from-playlist-btn {
+	margin-left: 10px;
+	padding: 5px 10px;
+	background-color: #4caf50;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	height: 30%;
+}
+
+.remove-from-playlist-btn {
+	background-color: #f44336;
+}
+
+.hidden {
+	display: none;
+}

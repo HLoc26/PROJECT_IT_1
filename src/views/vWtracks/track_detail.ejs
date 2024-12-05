@@ -1,8 +1,33 @@
-<h1><%= track.track_title %></h1>
-<% if (artist) { %>
-<h2><%= artist.artist_name %></h2>
-<% } %>
-<% if (album) { %>
-<img src="<%= album.album_cover_image %>" alt="" height="300px">
-<% } %>
-<pre><%= track.lyrics %></pre>
+<link rel="stylesheet" href="/css/track_detail.css">
+<div class="track-details">
+    <div class="track-header">
+        <h1 class="track-title">
+            <%= track.track_title %>
+        </h1>
+        <% if (artist) { %>
+            <h2 class="artist-name">by <%= artist.artist_name %></h2>
+        <% } %>
+    </div>
+
+    <div class="album-info">
+        <div class="album-cover-container">
+            <img src="<%= album ? album.album_cover_image : '/images/albums/album_default.png' %>" alt="<%= album.album_title %> Cover" class="album-cover"
+                height="100px">
+            <button class="overlay-play-btn" id="play-btn" onclick="playTrack('<%= track.track_id %>')">
+                <i class="bi bi-play-fill"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="track-actions">
+        <%- include("../partials/likeBtn", {liked: liked, type: 'track' , id: track.track_id}) %>
+    </div>
+    <div class="track-lyrics">
+        <h3 class="lyrics-header">Lyrics</h3>
+        <% if (track.lyrics) { %>
+        <pre class="lyrics-content"><%= track.lyrics %></pre>
+        <% } else {%>
+        <pre class="lyrics-content">No lyrics provided</pre>
+        <% } %>
+    </div>
+</div>

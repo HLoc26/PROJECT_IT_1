@@ -1,6 +1,23 @@
 const audioPlayer = document.getElementById("audio-player");
 const progressInput = document.getElementById("progress");
 const volumeInput = document.getElementById("volume");
+const currentTime = document.querySelector(".player-current-time");
+const endTime = document.querySelector(".player-end-time");
+
+let trackQueue = [];
+
+let queueIndex = 0;
+let isLoop = false;
+let isShuffling = false;
+let originalQueue = [...trackQueue];
+
+var readyState = audioPlayer.readyState;
+
+if (readyState == 0) {
+	const song_info = document.getElementById("player-song-info");
+	song_info.style.opacity = 0;
+}
+
 function playAudio() {
 	const playbtn = document.getElementsByClassName("play-btn")[0]; // Get the first play button
 	const playIcon = playbtn.querySelector("i"); // Assuming the icon is an <i> element inside the button
@@ -16,17 +33,12 @@ function playAudio() {
 	}
 }
 
-function prevAudio() {
-	/* Add functionality to go to the previous track */
-}
-function nextAudio() {
-	/* Add functionality to go to the next track */
-}
 // Update progress bar as the audio plays
 audioPlayer.addEventListener("timeupdate", () => {
 	if (!isDragging && audioPlayer.duration > 0) {
 		const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
 		progressInput.value = percentage;
+		currentTime.innerHTML = `${String(Math.floor(audioPlayer.currentTime / 60)).padStart(2, "0")}:${String(Math.floor(audioPlayer.currentTime) % 60).padStart(2, "0")}`;
 	}
 });
 
@@ -100,3 +112,183 @@ volumeIcon.addEventListener("click", () => {
 
 // Set initial volume and icon
 setVolume();
+
+// Add this event listener to automatically play next track
+audioPlayer.addEventListener("ended", async () => {
+	if (!isLoop && queueIndex < trackQueue.length - 1) {
+		queueIndex++;
+	}
+	const track_id = trackQueue[queueIndex].track_id;
+	const track = await fetchTrack(track_id);
+	updatePlayerUI(track);
+	play(track.track_mp3_path);
+});
+
+async function prevAudio() {
+	if (queueIndex > 0) {
+		queueIndex--;
+		const track_id = trackQueue[queueIndex].track_id;
+		const track = await fetchTrack(track_id);
+		updatePlayerUI(track);
+		play(track.track_mp3_path);
+		// console.log("Prev: ", queueIndex);
+	}
+}
+
+async function nextAudio() {
+	if (queueIndex < trackQueue.length - 1) {
+		queueIndex++;
+		const track_id = trackQueue[queueIndex].track_id;
+		const track = await fetchTrack(track_id);
+		updatePlayerUI(track);
+		play(track.track_mp3_path);
+		// console.log("Next: ", queueIndex);
+	}
+}
+
+// Update the UI
+function updatePlayerUI(track_data) {
+	// console.log("Update: ", track_data);
+	// Update song information
+	const trackTitle = document.querySelector(".player-track-title a");
+	const trackArtist = document.querySelector(".player-track-artist");
+	const albumImg = document.querySelector(".player-album-img");
+	const likeBtn = document.querySelector(".footer-player .like-btn");
+	const likeIcon = document.querySelector(".footer-player .like-btn i");
+
+	likeBtn.setAttribute("data-id", track_data.track_id);
+	// console.log(likeBtn);
+
+	if (track_data.liked) {
+		likeBtn.classList.add("liked");
+		likeIcon.classList.add("bi-heart-fill");
+		likeIcon.classList.remove("bi-heart");
+	} else {
+		likeIcon.classList.add("bi-heart");
+		likeIcon.classList.remove("bi-heart-fill");
+	}
+
+	if (track_data.album_cover_image) {
+		albumImg.src = track_data.album_cover_image;
+	} else if (track_data.artist_pic_path) {
+		albumImg.src = track_data.artist_pic_path;
+	} else {
+		albumImg.src = "/images/albums/album_default.jpg";
+	}
+	trackTitle.textContent = track_data.track_title;
+	trackTitle.setAttribute("href", `/tracks/${track_data.track_id}`);
+	trackArtist.textContent = track_data.artist_name;
+	endTime.textContent = `${String(Math.floor(track_data.track_duration / 60)).padStart(2, "0")}:${String(Math.floor(track_data.track_duration) % 60).padStart(2, "0")}`;
+}
+
+async function fetchTrack(track_id) {
+	const response = await fetch(`/api/tracks/${+track_id}`);
+	if (!response.ok) {
+		throw new Error("PlayTrack: Error fetching track information");
+	}
+	const track_data = await response.json();
+	// console.log(track_data); // debug
+	return track_data;
+}
+
+async function playTrack(track_id) {
+	const playbtn = document.getElementsByClassName("play-btn")[0];
+	const playIcon = playbtn.querySelector("i");
+	playIcon.classList.remove("bi-play-fill");
+	playIcon.classList.add("bi-pause-fill");
+
+	const song_info = document.getElementById("player-song-info");
+
+	const addBtn = song_info.querySelector(".add-to-playlists-btn");
+
+	addBtn.dataset.trackId = track_id;
+	addBtn.onclick = (track_id) => {
+		openPlaylistPopup(track_id);
+	};
+
+	song_info.style.opacity = 100;
+
+	fetchNewQueue(track_id);
+	queueIndex = 0;
+
+	const track_data = await fetchTrack(track_id);
+
+	updatePlayerUI(track_data);
+	play(track_data.track_mp3_path);
+	addHistory(track_id);
+}
+
+async function addHistory(track_id) {
+	// Add song to history
+
+	try {
+		const response = await fetch("/api/history/", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ track_id }),
+		});
+		const result = await response.json();
+		// console.log(result.message);
+	} catch (error) {
+		console.error("Error saving history:", error);
+	}
+}
+
+async function fetchNewQueue(track_id) {
+	try {
+		const response = await fetch("/api/queue", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ track_id: track_id }),
+		});
+
+		if (!response.ok) {
+			throw new Error("Failed to fetch queue");
+		}
+
+		const { queue } = await response.json();
+		// console.log(queue);
+		// Load the new queue into the player
+		loadQueue(queue);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+function loadQueue(tracks) {
+	trackQueue = tracks; // Replace the queue with new tracks
+	currentIndex = 0; // Reset the current index
+	originalQueue = [...trackQueue];
+}
+
+function play(path) {
+	const audioPlayerSrc = document.getElementById("audio-player-src");
+	// Update the audio source and play
+	audioPlayer.src = `/uploads/music/${path}`;
+	audioPlayerSrc.src = `/uploads/music/${path}`;
+	audioPlayer.play();
+}
+
+document.querySelectorAll(".manip-btn").forEach((btn) => {
+	btn.addEventListener("click", () => {
+		btn.classList.toggle("active");
+	});
+});
+
+function shuffle() {
+	if (isShuffling) {
+		trackQueue = [...originalQueue];
+	} else {
+		for (let i = trackQueue.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[trackQueue[i], trackQueue[j]] = [trackQueue[j], trackQueue[i]];
+		}
+	}
+	queueIndex = 0; // Reset to first track after shuffling
+	isShuffling = !isShuffling;
+	// console.log("shuffle: ", queueIndex);
+}
+
+function loop() {
+	isLoop = !isLoop;
+}

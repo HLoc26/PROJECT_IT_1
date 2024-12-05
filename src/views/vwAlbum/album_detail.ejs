@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/album_detail.css">
+<div class="album-page">
+    <div class="album-header">
+        <div class="album-header-content">
+            <img src="<%= album.album_cover_image %>" alt="<%= album.album_name %>" class="album-cover-image">
+            <div class="album-info">
+                <div class="album-info-text">
+                    <h1>
+                        <%= album.album_name %>
+                    </h1>
+                    <p class="album-artist">
+                        <%= artist.artist_name %>
+                    </p>
+                </div>
+                <%- include("../partials/likeBtn", {liked: liked, type: "album" , id: album.album_id}) %>
+            </div>
+        </div>
+    </div>
+
+    <div class="songs-section">
+        <h2>Songs</h2>
+        <ul class="track-list">
+            <%- include('../partials/track_list', {tracks: tracks}) %>
+        </ul>
+    </div>
+</div>

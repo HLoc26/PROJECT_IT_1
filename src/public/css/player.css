@@ -9,7 +9,22 @@
 	bottom: 0;
 	width: 100%;
 	left: 0;
-	gap: 15%;
+	gap: 15px;
+}
+
+.player-track-title a {
+	color: var(--main-text-color);
+	text-decoration: none;
+	font-size: large;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.player-track-title a:hover {
+	text-decoration: underline;
+}
+.player-track-artist {
+	color: gray;
 }
 
 .control-btn {
@@ -31,7 +46,7 @@
 	background-color: rgb(40, 69, 85);
 }
 
-.player-song-info {
+#player-song-info {
 	display: flex;
 	flex-direction: row;
 	width: 25%;
@@ -48,6 +63,8 @@
 
 .player-album-img {
 	border-radius: 50%;
+	width: 50px;
+	height: 50px;
 }
 
 .player-controls {
@@ -67,10 +84,61 @@
 	margin: auto;
 }
 
-.player-volume input{
+.player-volume input {
 	cursor: pointer;
 }
+
+.progress-bar {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	gap: 5px;
+	justify-content: space-between;
+}
+
 .progress-bar input {
-	width: 100%;
+	width: 85%;
 	cursor: pointer;
+}
+
+.queue-manip {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.manip-btn {
+	position: relative;
+	cursor: pointer;
+	background: transparent;
+}
+
+.manip-btn::after {
+	content: "";
+	position: absolute;
+	bottom: 3px;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 6px;
+	width: 6px;
+	background-color: green;
+	border-radius: 50%;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.manip-btn.active::after {
+	opacity: 1;
+}
+
+.manip-btn.active {
+	color: green;
+}
+
+.interact {
+	display: flex;
+	flex-direction: row;
+	width: 25%;
+	align-items: center;
+	gap: 20px;
 }

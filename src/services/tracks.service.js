@@ -42,9 +42,23 @@ export default {
 		return tracks;
 	},
 
+	findByUploaderId(uploader_id) {
+		const tracks = db("tracks as t").select("*").where("t.uploader_id", uploader_id);
+		return tracks;
+	},
+
+	findByMp3Path(path) {
+		const track = db("tracks as t").select("t.*").where("t.track_mp3_path", path).first();
+		return track;
+	},
+
 	add(entity) {
 		// TODO: Insert to user_upload
 		const ret = db("tracks").insert(entity);
 		return ret;
+	},
+
+	findByTitle(track_title) {
+		return db("tracks").where("track_title", "like", `%${track_title}%`);
 	},
 };

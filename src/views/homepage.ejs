@@ -1,41 +1,100 @@
-<link rel="stylesheet" href="/css/homepage.css">
-
-<div class="homepage-container">
-
-    <!-- Main Content Section -->
-    <div class="main-content">
-        <div class="top-header">
-            <div class="header-left">
-                
-                <h1>Welcome, <%= username %></h1>
+<main>
+    <link rel="stylesheet" href="/css/homepage.css">
+    
+    <div class="row-container">
+        <div class="full-container">
+            <h1>Recommened artists</h1>
+            <div class="gallery-container">
+                <div class="gallery-overlay overlay-left">
+                    <button class="scroll-btn" id="scroll-prev"><i class="bi bi-arrow-left-circle-fill"></i></button>
+                </div>
+                <div class="gallery">
+                    <% artists.forEach(artist=> { %>
+                        <div class="artist-card">
+                            <a href="/artists/<%= artist.artist_id %>" class="home-artist-name">
+                                <img class="card-img" src="<%= artist.artist_pic_path %>" alt="<%= artist.artist_name %>">
+                                <p>
+                                    <%= artist.artist_name %>
+                                </p>
+                            </a>
+                        </div>
+                        <% }); %>
+                </div>
+                <div class="gallery-overlay overlay-right">
+                    <button class="scroll-btn" id="scroll-next"><i class="bi bi-arrow-right-circle-fill"></i></button>
+                </div>
             </div>
         </div>
-
-        <div class="middle-header">
-            <h1>Playlist Recommendation</h1>
-            <div class="playlist-display" id="playlistDisplay">
-                <!-- Playlist cards will be generated here -->
-            </div>
-        </div>
-
-
-        <div class="middle-header">
-            <h1>Artists You May Like</h1>
-            <div class="artist-display" id="artistDisplay">
-                <!-- Artist cards will be generated here -->
-                <% for(let i=0; i < 10; i++){ %>
-                    <div class="artist-card">
-                        <a href="/api/artist/<%= artists[i].artist_id %>"> 
-                            <img src="<%= artists[i].artist_pic_path %>" alt="<%= artists[i].artist_name %>">
-                            <p>
-                                <%= artists[i].artist_name %>
-                            </p>
-                        </a>
+    
+    </div>
+    
+    <div class="row-container">
+        <div class="left-container">
+            <h1>Top albums</h1>
+            <div class="album-container">
+                <% top_albums.forEach(album=> { %>
+                    <div class="album-card">
+                        <div class="album-card-header">
+                            <img class="card-img-sm" src="<%= album.album_cover_image %>" alt="">
+                            <div class="card-description">
+                                <a href="/album/<%= album.album_id[0] %>" class="home-album-name">
+                                    <p>
+                                        <%= album.album_name %>
+                                    </p>
+                                </a>
+                                <a href="/artists/<%= album.artist_id[0] %>" class="home-album-artist">
+                                    <p>
+                                        <%= album.artist_name %>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="album-card-body">
+                            <%- include("./partials/track_list", {tracks: album.tracks}) %>
+                        </div>
                     </div>
-                <% } %>
+                    <% }); %>
             </div>
+        </div>
+        <div class="right-container">
+            <h1>Recent tracks</h1>
+            <ul class="track-list">
+                <% track_history.forEach((track)=> { %>
+                    <li>
+                        <div class="track-item-left">
+                            <button class="play-track-btn" onclick="playTrack('<%= track.track_id %>')">
+                                <i class="bi bi-play-fill"></i>
+                            </button>
+                            <div class="track-info">
+                                <a href="/tracks/<%= track.track_id %>" class="song-link">
+                                    <p class="home-track-name">
+                                        <%= track.track_title %>
+                                    </p>
+                                </a>
+                                <p class="home-track-artist">
+                                    <% if (track.artist.length> 0) { %>
+                                        <% track.artist.forEach((artist, index)=> { %>
+                                            <a href="/artists/<%= artist.artist_id %>">
+                                                <%= artist.artist_name %>
+                                            </a>
+                                            <%= index !==track.artist.length - 1 ? ', ' : '' %>
+                                                <% }); %>
+                                                    <% } else { %>
+                                                        <a href="/user/<%= track.uploader_id %>">
+                                                            <%= track.user_name %>
+                                                        </a>
+                                                        <% } %>
+                                </p>
+                            </div>
+                        </div>
+                        <% const track_duration_minute=Math.floor(+track.track_duration / 60) %>
+                            <% const track_duration_second=+track.track_duration % 60 %>
+                                <span class="track-item-duration">
+                                    <%= track_duration_minute %>:<%= track_duration_second %>
+                                </span>
+                    </li>
+                    <% }); %>
+            </ul>
         </div>
     </div>
-</div>
-
-<script src="/js/script.js"></script>
+</main>

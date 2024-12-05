@@ -41,7 +41,7 @@ document.querySelector(".sign-in form").addEventListener("submit", async functio
 	const formData = new FormData(this);
 	const data = Object.fromEntries(formData.entries()); // Chuyển đổi FormData thành đối tượng
 
-	console.log("Data: ", data);
+	// console.log("Data: ", data);
 
 	const response = await fetch("/login", {
 		method: "POST",

@@ -1,6 +1,40 @@
-<form method="post">
-    <label for="">Playlist name:</label>
-    <input type="text" name="new_playlist_name" id="create-playlist-name">
+<link rel="stylesheet" href="/css/create-playlist.css">
+<form method="post" class="playlist-form">
+    <div class="form-group">
+        <label for="create-playlist-name" class="form-label">Playlist Name:</label>
+        <input type="text" name="new_playlist_name" id="create-playlist-name" class="form-input"
+            placeholder="Enter playlist name">
+    </div>
+    <div class="form-group">
+        <input type="radio" name="visibility" id="vis_private" value="private" required>
+        <label for="vis_private">Private</label>
 
-    <button type="submit">Create</button>
+        <input type="radio" name="visibility" id="vis_public" value="public" required>
+        <label for="vis_public">Public</label>
+    </div>
+
+    <div class="form-group track-list" id="playlist-tracks">
+        <!-- Selected tracks will be added here dynamically -->
+    </div>
+    <div class="form-group">
+        <p class="form-instructions">Looking for more tracks? Add some from your recents.</p>
+        <ul class="track-list" id="recent-tracks">
+            <% history.forEach(track=> { %>
+                <li class="track-item" data-track-id="<%= track.track_id %>">
+                    <span class="track-info">
+                        <p class="track-title">
+                            <%= track.track_title %>
+                        </p>
+                        <% if (track.artist.artist_name !==undefined) { %>
+                            <p class="artist-name">
+                                <%= track.artist.artist_name %>
+                            </p>
+                        <% } %>
+                    </span>
+                    <button type="button" class="add-to-playlist-btn">Add to Playlist</button>
+                </li>
+                <% }); %>
+        </ul>
+    </div>
+    <button type="submit" class="submit-button">Create</button>
 </form>

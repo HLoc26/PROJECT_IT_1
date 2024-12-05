@@ -1,21 +1,33 @@
 <link rel="stylesheet" href="/css/player.css">
 <div class="footer-player">
-    <div class="player-song-info">
-        <img class="player-album-img" src="/images/albums/default.jpg" alt="Album Cover">
+    <div id="player-song-info">
+        <img class="player-album-img" src="/images/albums/album_default.png" alt="Album Cover">
         <div class="player-song-details">
-            <span class="player-track-title">Track Title</span>
+            <span class="player-track-title"><a href="">Track Title</a></span>
             <span class="player-track-artist">Track Artist</span>
+        </div>
+        <div class="interact">
+            <button class="like-btn interact-btn" data-type="track" data-id="">
+                <i class="bi"></i>
+            </button>
+            <button class="add-to-playlists-btn interact-btn">
+                <i class="bi bi-plus"></i>
+            </button>
         </div>
     </div>
     <div class="player-controls">
         <div class="player-control-btn">
-            <button onclick="prevAudio()" class="control-btn prev-btn"><i class="bi bi-skip-backward-fill"></i></button>
-            <button onclick="playAudio()" class="control-btn play-btn"><i class="bi bi-play-fill"></i></button>
-            <button onclick="nextAudio()" class="control-btn next-btn"><i class="bi bi-skip-forward-fill"></i></button>
+            <button onclick="shuffle()" class="manip-btn control-btn"><i class="bi bi-shuffle" title="shuffle"></i></button>
+            <button onclick="prevAudio()" class="control-btn prev-btn"><i class="bi bi-skip-backward-fill"title="back to previous song"></i></button>
+            <button onclick="playAudio()" class="control-btn play-btn"><i class="bi bi-play-fill"title="play/pause music"></i></button>
+            <button onclick="nextAudio()" class="control-btn next-btn"><i class="bi bi-skip-forward-fill"title="go to next song"></i></button>
+            <button onclick="loop()" class="manip-btn control-btn"><i class="bi bi-arrow-repeat"title="turn on song loops"></i></button>
         </div>
         <div class="progress-bar">
+            <span class="player-current-time">--:--</span>
             <input type="range" id="progress" value="0" min="0" max="100" step="1" class="progress-input"
                 onchange="setProgress()">
+            <span class="player-end-time">--:--</span>
         </div>
     </div>
     <div class="player-volume">
