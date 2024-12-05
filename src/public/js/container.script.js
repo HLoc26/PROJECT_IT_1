@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	// Lắng nghe sự kiện click trên toàn bộ document
-	document.addEventListener("click", (e) => {
+	document.addEventListener("click", async (e) => {
 		const target = e.target;
 
 		if (!e.target.closest(".dropbtn")) {
@@ -36,33 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			const url = linkElement.href;
 			history.pushState(null, "", url);
 			// Fetch nội dung của trang mới mà không làm mới trang
-			// Fetch content of the new page without refreshing
-			fetch(url, {
-				headers: {
-					"X-Requested-With": "XMLHttpRequest",
-				},
-			})
-				.then((response) => {
-					if (response.status === 303) {
-						// alert("303 See other");
-						// Redirect by manually setting the window location to "/login"
-						loginRedirect();
-						return;
-					}
-					return response.text();
-				})
-				.then((html) => {
-					const newContent = new DOMParser().parseFromString(html, "text/html").querySelector("#content").innerHTML;
-					content.innerHTML = newContent;
 
-					const scrollPrev = document.getElementById("scroll-prev");
-					if (scrollPrev) {
-						scrollPrev.disabled = true;
-					}
-				})
-				.catch((err) => {
-					console.error("Error:", err);
-				});
+			await fetchContent(url);
 		}
 	});
 
@@ -480,5 +455,36 @@ async function savePlaylist() {
 		}
 	} catch (error) {
 		console.error("Error saving playlists:", error);
+	}
+}
+
+async function fetchContent(url) {
+	const content = document.getElementById("content");
+	try {
+		const response = await fetch(url, {
+			headers: {
+				"X-Requested-With": "XMLHttpRequest",
+			},
+		});
+
+		if (response === 303) {
+			// alert("303 See other");
+			// Redirect by manually setting the window location to "/login"
+			loginRedirect();
+			return;
+		}
+
+		const html = await response.text();
+		console.log(html);
+		const newContent = new DOMParser().parseFromString(html, "text/html").querySelector("#content").innerHTML;
+		console.log("newContent:", newContent);
+		content.innerHTML = newContent;
+
+		const scrollPrev = document.getElementById("scroll-prev");
+		if (scrollPrev) {
+			scrollPrev.disabled = true;
+		}
+	} catch (error) {
+		console.error("Error:", error);
 	}
 }
