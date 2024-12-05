@@ -458,6 +458,12 @@ async function savePlaylist() {
 	}
 }
 
+window.addEventListener("popstate", async () => {
+	const currentURL = window.location.pathname;
+
+	await fetchContent(currentURL);
+});
+
 async function fetchContent(url) {
 	const content = document.getElementById("content");
 	try {
@@ -475,9 +481,7 @@ async function fetchContent(url) {
 		}
 
 		const html = await response.text();
-		console.log(html);
 		const newContent = new DOMParser().parseFromString(html, "text/html").querySelector("#content").innerHTML;
-		console.log("newContent:", newContent);
 		content.innerHTML = newContent;
 
 		const scrollPrev = document.getElementById("scroll-prev");
