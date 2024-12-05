@@ -1,4 +1,4 @@
-#content {
+main {
 	padding: 30px;
 }
 
@@ -91,7 +91,7 @@ p {
 	display: none; /* Hide scrollbar for a cleaner look */
 }
 
-.artist-card {
+.gallery .artist-card {
 	flex: 0 0 auto;
 	width: 200px;
 	align-items: center;
@@ -99,14 +99,14 @@ p {
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.artist-card .card-img {
+.gallery .artist-card .card-img {
 	width: 200px;
 	height: 200px;
 	object-fit: cover;
 	border-radius: 4px;
 }
 
-.artist-card .home-track-name,
+.gallery .artist-card .home-track-name,
 .home-album-name {
 	color: var(--main-text-color);
 	white-space: nowrap;
@@ -186,4 +186,8 @@ p {
 .card-img-sm {
 	height: 100px;
 	margin-right: 10px;
+}
+
+.track-list {
+	max-height: 600px !important;
 }
