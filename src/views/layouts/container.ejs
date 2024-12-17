@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musica</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="/images/icon.png">
-    <link rel="stylesheet" href="/css/container.css">
-    <link rel="stylesheet" href="/css/homepage.css">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Musica</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+		<link rel="icon" type="image/x-icon" href="/images/icon.png" />
+		<link rel="stylesheet" href="/css/container.css" />
+		<!-- <link rel="stylesheet" href="/css/homepage.css">
     <link rel="stylesheet" href="/css/album_detail.css">
     <link rel="stylesheet" href="/css/artist_detail.css">
     <link rel="stylesheet" href="/scs/playlist.css">
@@ -15,37 +15,31 @@
     <link rel="stylesheet" href="/css/search.css">
     <link rel="stylesheet" href="/css/track_detail.css">
     <link rel="stylesheet" href="/css/tracks.css">
-    <link rel="stylesheet" href="/css/upload.css">
-    <link rel="stylesheet" href="/css/interactBtn.css">
-</head>
-<body>
-    <div id="overlay" style="display: none;"></div>
-    <%- include("../partials/playlistPopup") %>
-    <div id="container">
-        <div id="left-container">
-            <%- include('../partials/sidebar') %>
-        </div>
-        <!-- Nội dung gồm sidebar và content để load -->
-        <div id="right-container">
-            <!-- Thanh điều hướng (navbar) -->
-            <nav>
-                <%- include('../partials/navbar') %>
-            </nav>
-            <div id="main-page">
-                <div id="content">
-                    <%- body %> <!-- Nội dung thay đổi trong đây -->
-                </div>
-            </div>
-            <div id="blank"></div>
-        </div>
-        
-        <!-- Phần thanh progres nhạc -->
-        <div id="music-player">
-            <%- include('../partials/player') %>
-        </div>
-        
-    </div>
-</body>
-<script src="/js/container.script.js"></script>
-<script src="/js/tracks.js"></script>
+    <link rel="stylesheet" href="/css/upload.css"> -->
+		<link rel="stylesheet" href="/css/interactBtn.css" />
+	</head>
+	<body>
+		<div id="overlay" style="display: none"></div>
+		<%- include("../partials/playlistPopup") %>
+		<div id="container">
+			<div id="left-container"><%- include('../partials/sidebar') %></div>
+			<!-- Nội dung gồm sidebar và content để load -->
+			<div id="right-container">
+				<!-- Thanh điều hướng (navbar) -->
+				<nav><%- include('../partials/navbar') %></nav>
+				<div id="main-page">
+					<div id="content">
+						<%- body %>
+						<!-- Nội dung thay đổi trong đây -->
+					</div>
+				</div>
+				<div id="blank"></div>
+			</div>
+
+			<!-- Phần thanh progres nhạc -->
+			<div id="music-player"><%- include('../partials/player') %></div>
+		</div>
+	</body>
+	<script src="/js/container.script.js"></script>
+	<script src="/js/tracks.js"></script>
 </html>

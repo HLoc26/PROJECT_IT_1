@@ -4,11 +4,11 @@ import knex from "knex";
 const knexInstance = knex({
 	client: "mssql",
 	connection: {
-		host: process.env.AZURE_SQL_SERVER,
-		user: process.env.AZURE_SQL_USER,
-		password: process.env.AZURE_SQL_PASSWORD,
-		database: process.env.AZURE_SQL_DATABASE,
-		port: +process.env.AZURE_SQL_PORT,
+		host: process.env.DB_SERVER,
+		user: process.env.DB_USER,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_DATABASE,
+		port: +process.env.DB_PORT,
 		options: {
 			encrypt: true,
 			trustServerCertificate: true,
